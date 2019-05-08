@@ -1,0 +1,13 @@
+@import '../../assets/stylesheet/default.scss';
+
+.header{
+    height: 54px;
+    background-image: $background-image;
+    color: $main-color;
+    .navbar{
+        a{
+            color: #ffffff;
+        }
+    }
+}
+  
