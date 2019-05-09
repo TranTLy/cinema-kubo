@@ -1,0 +1,21 @@
+@import "../../assets/stylesheet/default.scss";
+
+.card {
+    .card-header{
+        font-size: 1.5rem;
+        color: #C20A0A;;
+        padding-left: 30px;
+        font-weight: 450;
+        background-color: transparent;
+    }
+  .card-body {
+    display: flex !important;
+
+    .card {
+      margin-left: 15px !important;
+      margin-right: 15px !important;
+      box-shadow: 0 1px 15px 1px rgba(39, 39, 39, 0.1);
+      border-radius: 0.1875rem;
+    }
+  }
+}

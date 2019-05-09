@@ -62,7 +62,7 @@ export default class Header extends Component {
                                         <NavLink href="#">Giới thiệu</NavLink>
                                     </NavItem>
                                 </Nav>
-                                <Form className="navbar-search d-none d-md-flex d-lg-flex ml-auto">
+                                <Form className="navbar-search d-none d-md-flex d-lg-flex ml-auto mr-4">
                                     <InputGroup className="ml-0">
                                         <Input placeholder="Tìm kiếm..." type="text" className="form-control" />
                                         <InputGroupAddon addonType="append" className="pt-1 pr-1">
