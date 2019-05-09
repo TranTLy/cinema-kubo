@@ -10,7 +10,7 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem, Container, Row
+    DropdownItem, Container, Row, Form, Input, Button, InputGroup, InputGroupAddon
 } from 'reactstrap';
 import './header.scss'
 export default class Header extends Component {
@@ -29,10 +29,10 @@ export default class Header extends Component {
     }
     render() {
         return (
-            <div className="header">
+            <div className="header sticky-top">
                 <Container>
                     <Row>
-                        <Navbar expand="md">
+                        <Navbar expand="md" className="w-100">
                             <NavbarBrand href="/">Kubo</NavbarBrand>
                             <NavbarToggler onClick={this.toggle} />
                             <Collapse isOpen={this.state.isOpen} navbar>
@@ -40,7 +40,7 @@ export default class Header extends Component {
                                     <NavItem>
                                         <NavLink href="#">Trang chủ</NavLink>
                                     </NavItem>
-                                    
+
                                     <UncontrolledDropdown nav inNavbar>
                                         <DropdownToggle nav caret>
                                             Thể loại
@@ -52,7 +52,7 @@ export default class Header extends Component {
                                             <DropdownItem>
                                                 Kinh dị
                                             </DropdownItem>
-                                            <DropdownItem divider />
+                                            <DropdownItem />
                                             <DropdownItem>
                                                 Hài
                                             </DropdownItem>
@@ -62,6 +62,17 @@ export default class Header extends Component {
                                         <NavLink href="#">Giới thiệu</NavLink>
                                     </NavItem>
                                 </Nav>
+                                <Form className="navbar-search d-none d-md-flex d-lg-flex ml-auto">
+                                    <InputGroup className="ml-0">
+                                        <Input placeholder="Tìm kiếm..." type="text" className="form-control" />
+                                        <InputGroupAddon addonType="append" className="pt-1 pr-1">
+                                        <a href="#">
+                                        <i class="material-icons">
+                                            search
+                                    </i></a></InputGroupAddon>
+
+                                    </InputGroup>
+                                </Form>
                             </Collapse>
                         </Navbar>
                     </Row>

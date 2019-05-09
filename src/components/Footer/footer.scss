@@ -2,10 +2,8 @@
 
 .footer {
     margin-top: 47px;
-    bottom: 0;
-    position:absolute;
-    width: 100%;
     background-image:  $background-image;
+  
     .content-footer {
       padding-right: 0;
       margin-right: 0;
@@ -36,18 +34,14 @@
           padding-top: 20px;
   
           a {
-            color: #88969d;
+            color: #8d8f91;
           }
   
           a:hover {
             color: #ffffff;
             text-decoration: none;
           }
-  
-          .Ho-Tro {
-            color: #ffffff;
-          }
-  
+         
           .footer-social {
             width: 50%;
             display: flex;
@@ -71,31 +65,11 @@
           font-weight: 500;
           color: #ffffff;
         }
-  
-        .footer-item {
-          font-size: 0.8rem;
-          line-height: 2.4;
-          mix-blend-mode: lighten;
-          padding-top: 20px;
-  
-          a {
-            color: #88969d;
-          }
-  
-          a:hover {
-            color: #ffffff;
-            text-decoration: none;
-          }
-  
-          .Ho-Tro {
-            color: #ffffff;
-          }
-  
           .footer-social {
             width: 50%;
             display: flex;
             justify-content: space-between;
-            padding-top: 5px;
+            padding-top:  20px;
   
             i {
               color: #ffffff;
@@ -119,13 +93,12 @@
             margin-right: 10px;
           }
         }
-  
-        .footer-rapbank-VN {
-          padding-top: 45px;
-          font-size: 0.9rem;
-          line-height: 2.4;
-          color: #88969d;
-        }
       }
-    }
+  }
+  
+  .footer-kubo-VN {
+    padding-left: 15px;
+    font-size: 0.9rem;
+    line-height: 2.4;
+    color: #ccd4d8;
   }

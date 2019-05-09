@@ -51,7 +51,7 @@ export default class Footer extends Component {
                         </Col>
                         <Col xl={4} lg={4} className="section-footer-social">
                             <div className="footer-title">
-                                <span>Kubo</span>
+                                <span>KUBO</span>
                             </div>
                             <div className="logo-CHPlay">
                                 <img src={ImgCHPlay} alt="Lo go CH play"/>
@@ -61,7 +61,7 @@ export default class Footer extends Component {
 
                            
                         </Col>
-                        <div className="footer-rapbank-VN font-weight-normal">
+                        <div className="footer-kubo-VN">
                                 <span>©  2019 Kubo Viet Nam, All right reserved</span>
                             </div>
                     </Row>
