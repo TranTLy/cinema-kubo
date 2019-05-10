@@ -5,7 +5,7 @@ import {
     CardTitle, CardFooter, CardHeader, Container, Row, Button
 } from 'reactstrap';
 import imgMovie from '../../assets/img/2.jpg';
-import './MovieMostFamous.scss'
+import './MostFamousMovie.scss'
 import CardItem from  "../CardItem/CardItem"
 
 const listItem = [{img: imgMovie},{img: imgMovie},{img: imgMovie},{img: imgMovie}];
@@ -13,7 +13,7 @@ const listItem = [{img: imgMovie},{img: imgMovie},{img: imgMovie},{img: imgMovie
 export default class MovieMostFamous extends Component {
     render() {
         return (
-            <div className="pt-3">
+            <div>
                 <Container>
                     <Row>
                         <Card>
