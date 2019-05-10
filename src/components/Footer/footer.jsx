@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Row, Col,NavLink} from 'reactstrap';
-import './footer.scss';
+import './Footer.scss';
 import ImgCHPlay from '../../assets/img/logoCHPlay.png'
 import ImgGooglePlay from '../../assets/img/logoAppstore.png';
 export default class Footer extends Component {

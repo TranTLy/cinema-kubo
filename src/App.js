@@ -1,8 +1,7 @@
 import React from "react";
-import Header from "./components/Header/header";
-import Footer from "./components/Footer/footer";
-import Poster from "./components/Poster/poster";
-import CardItem from "./components/CardItem/cardItem";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import MovieMostFamous from './components/MovieMostFamous/MovieMostFamous'
 import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "reactstrap";
@@ -11,7 +10,7 @@ function App() {
     <div className="App">
       <Header />
       <Container>
-        <CardItem />
+        <MovieMostFamous />
       </Container>
 
       <Footer />
