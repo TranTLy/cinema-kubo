@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './poster.scss'
+import './Poster.scss'
 import {
     Carousel,
     CarouselItem,

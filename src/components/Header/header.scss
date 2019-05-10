@@ -1,11 +1,13 @@
 @import "../../assets/stylesheet/default.scss";
 
 .header {
-  height: 54px;
+  height: 60px;
+  box-shadow: 0 1px 15px 1px rgba(39, 39, 39, 0.1);
+  border-radius: 0.1875rem;
   background-image: $background-image;
   color: $main-color;
   .navbar-brand {
-    font-size: 1.5rem !important;
+    font-size: 1.7rem !important;
   }
   .navbar {
     a {
@@ -16,7 +18,7 @@
   }
   .navbar-search {
     padding-left: 10px;
-    
+
     border: 0 !important;
     .input-group {
       box-shadow: 0 1px 15px 1px rgba(39, 39, 39, 0.1);
@@ -33,15 +35,15 @@
       input:focus {
         box-shadow: none;
       }
-      .input-group-append{
+      .input-group-append {
         background-color: #ffffff !important;
         border-top-right-radius: 2rem !important;
         border-bottom-right-radius: 2rem !important;
         display: flex;
         align-items: center;
-        a{
-            color: #6b6b6b;
-            padding-right: 2px;
+        a {
+          color: #6b6b6b;
+          padding-right: 2px;
         }
       }
     }

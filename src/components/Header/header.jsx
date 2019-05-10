@@ -12,7 +12,7 @@ import {
     DropdownMenu,
     DropdownItem, Container, Row, Form, Input, Button, InputGroup, InputGroupAddon
 } from 'reactstrap';
-import './header.scss'
+import './Header.scss'
 export default class Header extends Component {
     constructor(props) {
         super(props);
