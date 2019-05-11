@@ -18,7 +18,9 @@ export default class Header extends Component {
                                 <Link to="/LogIn">
                                     <Button outline color="danger" s>Đăng nhập</Button>
                                 </Link>
-                                <Button outline color="danger">Đăng ký</Button>
+                                <Link to="/LogIn">
+                                    <Button outline color="danger">Đăng ký</Button>
+                                </Link>
                             </Nav>
                         </Navbar>
                     </Row>
