@@ -35,7 +35,7 @@ export default class LogIn extends Component {
                 <FormGroup row>
                     <Col className=" text-center">
                             <Button color="danger">
-                                Đăng nhập
+                                Đăng Ký
                         </Button>
                     </Col>
                 </FormGroup>

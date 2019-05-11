@@ -3,7 +3,6 @@ import {
     Collapse,
     Navbar,
     NavbarToggler,
-    NavbarBrand,
     Nav,
     NavItem,
     NavLink,
@@ -13,7 +12,6 @@ import {
     DropdownItem, Container, Row, Form, Input, InputGroup, InputGroupAddon
 } from 'reactstrap';
 import './Menu.scss'
-
 export default class Menu extends Component {
     constructor(props) {
         super(props);
