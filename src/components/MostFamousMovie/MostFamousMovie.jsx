@@ -1,8 +1,7 @@
 
 import React, { Component } from 'react';
 import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardFooter, CardHeader, Container, Row, Button
+    Card, CardBody,CardHeader, Container, Row
 } from 'reactstrap';
 import imgMovie from '../../assets/img/2.jpg';
 import './MostFamousMovie.scss'
