@@ -5,7 +5,7 @@ import MostFamousMovie from "./components/MostFamousMovie/MostFamousMovie";
 import ComedyMovie from "./components/ComedyMovie/ComedyMovie";
 import RomanticMovie from "./components/RomanticMovie/RomanticMovie";
 import Poster from "./components/Poster/Poster";
-import Header from "./components/Header/header";
+import Header from "./components/Header/Header";
 import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "reactstrap";

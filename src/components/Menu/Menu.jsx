@@ -36,7 +36,7 @@ export default class Menu extends Component {
                             <Collapse isOpen={this.state.isOpen} navbar>
                                 <Nav navbar>
                                     <NavItem>
-                                        <NavLink href="#">Trang chủ</NavLink>
+                                        <NavLink href="/">Trang chủ</NavLink>
                                     </NavItem>
 
                                     <UncontrolledDropdown nav inNavbar>
@@ -57,18 +57,17 @@ export default class Menu extends Component {
                                         </DropdownMenu>
                                     </UncontrolledDropdown>
                                     <NavItem>
-                                        <NavLink href="#">Giới thiệu</NavLink>
+                                        <NavLink href="about">Giới thiệu</NavLink>
                                     </NavItem>
                                 </Nav>
                                 <Form className="navbar-search d-none d-md-flex d-lg-flex ml-auto mr-4">
                                     <InputGroup className="ml-0">
                                         <Input placeholder="Tìm kiếm..." type="text" className="form-control" />
                                         <InputGroupAddon addonType="append" className="pt-1 pr-1">
-                                        <a href="#">
-                                        <i class="material-icons">
-                                            search
+                                            <a href="#">
+                                                <i class="material-icons">
+                                                    search
                                     </i></a></InputGroupAddon>
-
                                     </InputGroup>
                                 </Form>
                             </Collapse>

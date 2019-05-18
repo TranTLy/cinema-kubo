@@ -85,10 +85,12 @@ export default class LogIn extends Component {
                 </FormGroup>
                 <FormGroup row>
                     <Col className=" text-center">
-                        <Button outline color="light" className="font-weight-bold mb-1">
-                            <i class="fas fa-user-alt pr-2"></i>
-                            Đăng nhập
+                        <Link to="profile">
+                            <Button outline color="light" className="font-weight-bold mb-1">
+                                <i class="fas fa-user-alt pr-2"></i>
+                                Đăng nhập
                         </Button>
+                        </Link>
                     </Col>
                 </FormGroup>
 
