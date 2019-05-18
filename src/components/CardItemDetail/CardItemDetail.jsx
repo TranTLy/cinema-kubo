@@ -11,7 +11,7 @@ class CardItemDetail extends Component {
         return (
             <div className="card-item-detail-wrap">
                 <div className="img">
-                    <img src={movie.img} alt="" />
+                    <a href="#"> <img src={movie.img} alt="" /></a>
                     <span className="rate">{movie.rate} <i class="fas fa-star"></i></span>
                 </div>
                 <div className="movie-infor">

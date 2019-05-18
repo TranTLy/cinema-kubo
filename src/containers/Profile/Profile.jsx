@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Menu from '../../components/Menu/Menu';
-import CardItemDetai from '../../components/CardItemDetail/CardItemDetail'
 import CardItemDetail from '../../components/CardItemDetail/CardItemDetail'
 import { Container, Table, Button } from 'reactstrap';
 import './Profile.scss';

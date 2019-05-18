@@ -9,6 +9,7 @@ import './About.scss'
 class About extends Component {
     constructor(props) {
         super(props);
+        //TODO: get branchs infor from database
         this.state = {
             branchs: [
                 {
