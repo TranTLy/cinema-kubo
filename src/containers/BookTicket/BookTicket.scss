@@ -1,0 +1,88 @@
+@import "../../assets/stylesheet/default.scss";
+
+.book-ticket-wrap {
+	margin-top: 10px;
+	display: flex;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+	.schedule {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 10px;
+		.detail-schedule {
+			padding-bottom: 20px;
+			.title {
+				text-align: right;
+				z-index: -1;
+				display: flex;
+				align-items: center;
+				div {
+					text-align: center;
+					margin: 10px;
+					padding: 10px 20px;
+					font-weight: bold;
+					width: 200px;
+					box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+					// transform: rotate(-30deg);
+
+					i {
+						color: $sub-main-color;
+						font-size: 1.6em;
+					}
+				}
+			}
+			div {
+				margin-left: 20%;
+				.lable {
+					font-weight: bold;
+				}
+			}
+			.btn-book-ticket {
+				text-align: center;
+				margin-top: 40px;
+				.btn {
+					background-color: $sub-main-color;
+					border: none;
+					box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+					&:hover {
+						box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+					}
+					a {
+						padding: 10px 20px;
+						text-decoration: none;
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+	.book-ticket-option {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		.title {
+			text-align: center;
+			margin: 20px;
+			span {
+				font-weight: bold;
+				font-size: 1.5em;
+				text-transform: uppercase;
+			}
+		}
+		.options {
+			// text-align: center;
+			margin-left: 20%;
+			.option {
+				margin-bottom: 20px;
+				.lable {
+					font-weight: bold;
+				}
+				#number-ticket {
+					text-align: center;
+					margin-left: 50px;
+					width: 100px;
+				}
+			}
+		}
+	}
+}

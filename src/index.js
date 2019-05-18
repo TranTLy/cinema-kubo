@@ -9,6 +9,7 @@ import Home from './containers/Home/Home';
 import Profile from './containers/Profile/Profile';
 import About from './containers/About/About';
 import Schedule from './containers/Schedule/Schedule';
+import BookTicket from './containers/BookTicket/BookTicket';
 const routing = (
 	<Router>
 		<div>
@@ -18,6 +19,7 @@ const routing = (
 			<Route path="/profile" component={Profile} />
 			<Route path="/about" component={About} />
 			<Route path="/schedule" component={Schedule} />
+			<Route path="/book-ticket" component={BookTicket} />
 		</div>
 	</Router>
 );
