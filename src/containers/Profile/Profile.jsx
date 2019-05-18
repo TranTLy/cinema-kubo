@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Menu from '../../components/Menu/Menu';
+import CardItemDetai from '../../components/CardItemDetail/CardItemDetail'
+import CardItemDetail from '../../components/CardItemDetail/CardItemDetail'
 import { Container, Table, Button } from 'reactstrap';
 import './Profile.scss';
 class Profile extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			currentTab: 1,
+			currentTab: 0,
 			tabInformation: 0,
 			tabFavourite: 1,
 			tab: [
@@ -90,7 +92,56 @@ class Profile extends Component {
 			dienThoai: "0909 009 999",
 			loaiKhachHang: "Bạch kim",
 			diemTichLuy: 103
-		}
+		};
+
+		const moviesSample = [{
+			name: "Game Of Thrones",
+			description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+			type: "Cuộc sống",
+			releaseDate: "April 1, 2019",
+			duration: "02 giờ 50 phút",
+			director: "Grace Belly",
+			actors: " Alexander Cattly, Greta Garbo",
+			language: "Tiếng Anh",
+			age: "",
+			price: 80000,
+			isActive: true,
+			rate: 4.5,
+			point: 2,
+			img: "http://demo.amytheme.com/movie/demo/movie-news/wp-content/uploads/2019/04/img_8-1-196x336.jpg"
+		},
+		{
+			name: "Game Of Thrones",
+			description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+			type: "Cuộc sống",
+			releaseDate: "April 1, 2019",
+			duration: "02 giờ 50 phút",
+			director: "Grace Belly",
+			actors: " Alexander Cattly, Greta Garbo",
+			language: "Tiếng Anh",
+			age: "",
+			price: 80000,
+			isActive: true,
+			rate: 4.5,
+			point: 2,
+			img: "http://demo.amytheme.com/movie/demo/movie-news/wp-content/uploads/2019/04/img_9-1-196x336.jpg"
+		},
+		{
+			name: "Game Of Thrones",
+			description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+			type: "Cuộc sống",
+			releaseDate: "April 1, 2019",
+			duration: "02 giờ 50 phút",
+			director: "Grace Belly",
+			actors: " Alexander Cattly, Greta Garbo",
+			language: "Tiếng Anh",
+			age: "",
+			price: 80000,
+			isActive: true,
+			rate: 4.5,
+			point: 2,
+			img: "http://demo.amytheme.com/movie/demo/movie-news/wp-content/uploads/2019/04/img_7-1-196x336.jpg"
+		}]
 
 		if (this.state.currentTab === this.state.tabInformation) {
 			return (
@@ -134,7 +185,34 @@ class Profile extends Component {
 				</div>);
 		} else if (this.state.currentTab == this.state.tabFavourite) {
 			return (
-				<div className="favourite-wrap">Favo</div>
+				<div className="favourite-wrap">
+					<div id="sum-favoutire-movie">Tổng cộng: 12 bộ phim</div>
+					<div className="favourite-content-wrap">
+						<div className="favourite-movie-left-column">
+							{
+								moviesSample.map((item, index) => {
+									if (index % 2 == 0) {
+										return (
+											<CardItemDetail movie={item} />
+										)
+									}
+								})
+							}
+						</div>
+						<div className="favourite-movie-right-column">
+
+							{
+								moviesSample.map((item, index) => {
+									if (index % 2 == 1) {
+										return (
+											<CardItemDetail movie={item} />
+										)
+									}
+								})
+							}
+						</div>
+					</div>
+				</div>
 			)
 		}
 	};
@@ -154,7 +232,7 @@ class Profile extends Component {
 						<div className="tab-wrap">
 							{this.state.tab.map((item) => {
 								return (
-									<div className="tab" onClick={() => this.setCurrentTab(item.id)}>
+									<div className={item.id == this.state.currentTab ? "tab tab-active" : "tab"} onClick={() => this.setCurrentTab(item.id)}>
 										{item.name}
 									</div>
 								);

@@ -7,6 +7,7 @@ import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import PageLogIn_SignIn_Intro from './components/PageLogIn_SignIn_Intro/Page_LogIn_SignIn_Intro';
 import Home from './containers/Home/Home';
 import Profile from './containers/Profile/Profile';
+import About from './containers/About/About';
 const routing = (
 	<Router>
 		<div>
@@ -14,6 +15,7 @@ const routing = (
 			<Route path="/Login" component={PageLogIn_SignIn_Intro} />
 			<Route path="/home" component={Home} />
 			<Route path="/profile" component={Profile} />
+			<Route path="/about" component={About} />
 		</div>
 	</Router>
 );

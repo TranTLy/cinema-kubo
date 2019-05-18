@@ -69,5 +69,27 @@
 				}
 			}
 		}
+		.favourite-wrap {
+			#sum-favoutire-movie {
+				text-align: right;
+				margin-right: 10%;
+				margin-bottom: 20px;
+			}
+			.favourite-content-wrap {
+				display: flex;
+				flex-direction: row;
+				.favourite-movie-left-column,
+				favourite-movie-right-column {
+					display: flex;
+					flex-direction: column;
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.favourite-content-wrap {
+		flex-direction: column !important;
 	}
 }
