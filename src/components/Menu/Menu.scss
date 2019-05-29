@@ -5,17 +5,20 @@
   box-shadow: 0 1px 15px 1px rgba(39, 39, 39, 0.1);
   background-image: $background-image;
   color: $main-color;
-  
-  .navbar {
-    a {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: #ffffff;
+  .content-breadcrumb {
+    color: #ffffff !important;
+    .breadcrumb,
+    .breadcrumb-item,
+    .breadcrumb-item.active {
+      background-color: transparent;
+      color: #ffffff !important;
+      text-decoration: none;
     }
-    .dropdown-item:active{
-        background-color: #C20A0A;
+    .itembread {
+      display: none;
     }
   }
+
   .navbar-search {
     padding-left: 10px;
 

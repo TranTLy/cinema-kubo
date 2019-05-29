@@ -8,7 +8,7 @@ export default class LogIn extends Component {
             <Form className="mt-2 w-50 f-login">
                 <FormGroup className="d-flex flexDirection: 'row',justifyContent: 'space-between', title-login-signin">
                     <Col sm={5}>
-                        <Link to="/Login">
+                        <Link to="/login">
                             <h4 className="font-weight-bold ">Đăng nhập</h4>
                         </Link>
                     </Col>
@@ -16,7 +16,7 @@ export default class LogIn extends Component {
                         <hr className="mt-3"></hr>
                     </Col>
                     <Col sm={5}>
-                        <Link to="/SignIn">
+                        <Link to="/signin">
                             <h4 className="font-weight-bold ">Đăng Ký</h4>
                         </Link>
                     </Col>
@@ -45,7 +45,7 @@ export default class LogIn extends Component {
                 </FormGroup>
                 <FormGroup row>
                     <Col className="text-right" sm={10}>
-                        <Link className="text-white" to="/ForgotPassword">
+                        <Link className="text-white" to="/forgotpassword">
                             <h6>Quên mật khẩu ?</h6>
                         </Link>
                     </Col>
@@ -65,7 +65,7 @@ export default class LogIn extends Component {
                     <Col className="d-flex flexDirection: 'row',">
                         <Col sm={{ size: 2, offset: 3 }}>
                             <Button color="primary" className="d-flex flexDirection: 'row',">
-                                <i class="fab fa-facebook-square pt-1 pr-1"></i>
+                                <i class="fab fa-facebook-f pt-1 pr-1"></i>
                                 Facebook</Button>
                         </Col>
                         <Col sm={{ size: 2, offset: 1 }}>
@@ -77,9 +77,9 @@ export default class LogIn extends Component {
                 </FormGroup>
                 <FormGroup row>
                     <Col sm={{ offset: 3 }} className="d-flex flexDirection: 'row',">
-                        <h6>Bạn chưa có tài khoản</h6>
-                        <Link to="/SignIn">
-                            <h6 className="pl-1 ">Đăng ký ngay</h6>
+                        <h6>Bạn chưa có tài khoản? </h6>
+                        <Link to="/signin">
+                            <h6 className="pl-1 font-weight-light">Đăng ký ngay</h6>
                         </Link>
                     </Col>
                 </FormGroup>

@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
 import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    Nav,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem, Container, Row, Card, Input, InputGroup, InputGroupAddon, Col, Button
+    Container, Row, Card, Col, Button
 } from 'reactstrap';
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'

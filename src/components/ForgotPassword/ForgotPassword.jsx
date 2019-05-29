@@ -56,7 +56,7 @@ export default class LogIn extends Component {
                     </FormGroup>
                     <FormGroup row className="pt-5">
                         <Col className=" text-center">
-                            <Link to="RePassword">
+                            <Link to="repassword">
                                 <Button outline color="light" className="font-weight-bold mb-1">
                                     <i class="fas fa-clipboard-check pr-2"></i>
                                     Xác nhận

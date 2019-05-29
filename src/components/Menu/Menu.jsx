@@ -1,76 +1,84 @@
 import React, { Component } from 'react';
 import {
-    Collapse,
+    Breadcrumb, BreadcrumbItem,
     Navbar,
-    NavbarToggler,
-    Nav,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem, Container, Row, Form, Input, InputGroup, InputGroupAddon
+    Container, Row, Form, Input, InputGroup, InputGroupAddon
 } from 'reactstrap';
 import './Menu.scss'
 export default class Menu extends Component {
     constructor(props) {
         super(props);
-
+        this.addStickyTop = this.addStickyTop.bind(this);
         this.toggle = this.toggle.bind(this);
         this.state = {
-            isOpen: false
+            isOpen: false,
+            menu: 'menu'
         };
     }
+    componentDidMount() {
+        window.addEventListener('scroll', this.addStickyTop, false);
+        if (window.location.href.includes("/about")) {
+            console.log("href fs", window.location.href);
+            document.getElementsByClassName('home')[0].style.display = "none";
+            document.getElementsByClassName('detail-film')[0].style.display = "none";
+            document.getElementsByClassName('about')[0].style.display = "block";
+        }
+    }
+    addStickyTop() {
+        if (window.pageYOffset > 60) {
+            this.setState({ menu: this.state.menu + ' sticky-top' })
+        }
+        else {
+            this.setState({ menu: 'menu' })
+        }
+        // console.log(window.pageYOffset);
+        // else {
+        //     document.getElementsByClassName('menu').
+        // }
+    }
+    // addBreadCrumb() {
+    //     console.log("href", window.location.href);
+    //     const link = window.location.href;
+    //     if (link.includes("/about")) {
+    //         console.log("href fs", window.location.href);
+    //         document.getElementsByClassName('home')[0].style.display = "none";
+    //         document.getElementsByClassName('detail-film')[0].style.display = "none";
+    //         document.getElementsByClassName('about')[0].style.display = "block";
+    //     }
+    // }
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
     render() {
+
         return (
-            <div className="menu sticky-top">
+            <div className={this.state.menu}>
                 <Container>
                     <Row>
-                        <Navbar expand="md" className="w-100">
-                            <NavbarToggler onClick={this.toggle} />
-                            <Collapse isOpen={this.state.isOpen} navbar>
-                                <Nav navbar>
-                                    <NavItem>
-                                        <NavLink href="/">Trang chủ</NavLink>
-                                    </NavItem>
-
-                                    <UncontrolledDropdown nav inNavbar>
-                                        <DropdownToggle nav caret>
-                                            Thể loại
-                                        </DropdownToggle>
-                                        <DropdownMenu right>
-                                            <DropdownItem>
-                                                Tâm lý - tình cảm
-                                            </DropdownItem>
-                                            <DropdownItem>
-                                                Kinh dị
-                                            </DropdownItem>
-                                            <DropdownItem />
-                                            <DropdownItem>
-                                                Hài
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
-                                    <NavItem>
-                                        <NavLink href="about">Giới thiệu</NavLink>
-                                    </NavItem>
-                                </Nav>
-                                <Form className="navbar-search d-none d-md-flex d-lg-flex ml-auto mr-4">
-                                    <InputGroup className="ml-0">
-                                        <Input placeholder="Tìm kiếm..." type="text" className="form-control" />
-                                        <InputGroupAddon addonType="append" className="pt-1 pr-1">
-                                            <a href="#">
-                                                <i class="material-icons">
-                                                    search
-                                    </i></a></InputGroupAddon>
-                                    </InputGroup>
-                                </Form>
-                            </Collapse>
+                        <Navbar expand="md" className="w-100 pt-0">
+                            <div className="pt-1 content-breadcrumb">
+                                <Breadcrumb className="text-white home">
+                                    <BreadcrumbItem active>Trang chủ</BreadcrumbItem>
+                                </Breadcrumb>
+                                <Breadcrumb className="text-white detail-film  itembread">
+                                    <BreadcrumbItem className="text-white"><a href="/">Trang chủ</a></BreadcrumbItem>
+                                    <BreadcrumbItem className="text-white" active><a href="/">Chi tiết phim</a></BreadcrumbItem>
+                                </Breadcrumb>
+                                <Breadcrumb className="text-white about itembread">
+                                    <BreadcrumbItem className="text-white"><a href="/">Trang chủ</a></BreadcrumbItem>
+                                    <BreadcrumbItem className="text-white">Giới thiệu</BreadcrumbItem>
+                                </Breadcrumb>
+                            </div>
+                            <Form className="navbar-search d-none d-md-flex d-lg-flex ml-auto">
+                                <InputGroup className="ml-0">
+                                    <Input placeholder="Tìm kiếm..." type="text" className="form-control" />
+                                    <InputGroupAddon addonType="append" className=" pr-1 pl-1">
+                                        <i class="fas fa-search"></i>
+                                    </InputGroupAddon>
+                                </InputGroup>
+                            </Form>
                         </Navbar>
                     </Row>
                 </Container>

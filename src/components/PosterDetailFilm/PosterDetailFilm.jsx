@@ -20,7 +20,7 @@ const items = [
 export default class Poster extends Component {
     render() {
         return (
-            <div className="poster">
+            <div className="poster-detail">
                 <Container className="content-poster">
                     <Row className="_carousel">
                         <UncontrolledCarousel items={items} indicators={false} ></UncontrolledCarousel>

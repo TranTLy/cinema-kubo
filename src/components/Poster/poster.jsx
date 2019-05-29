@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row } from 'reactstrap'
+import { Container } from 'reactstrap'
 import './Poster.scss'
 import { UncontrolledCarousel } from 'reactstrap';
 import { Link } from "react-router-dom"
@@ -26,7 +26,7 @@ export default class Poster extends Component {
         return (
             <div className="poster">
                 <Container className="content-poster">
-                    <Link to="DetailFilm">
+                    <Link to="detailfilm">
                         <UncontrolledCarousel items={items} autoPlay={false} indicators={false} interval={false}>
 
                         </UncontrolledCarousel>

@@ -18,10 +18,10 @@ const routing = (
   <Router>
     <div>
       <Route exact path="/" component={App} />
-      <Route path="/Login" component={PageLogIn} />
-      <Route path="/SignIn" component={PageSignIn} />
-      <Route path="/ForgotPassword" component={PageForgotPassword} />
-      <Route path="/RePassword" component={PageRePassword} />
+      <Route path="/login" component={PageLogIn} />
+      <Route path="/signin" component={PageSignIn} />
+      <Route path="/forgotpassword" component={PageForgotPassword} />
+      <Route path="/repassword" component={PageRePassword} />
       <Route path="/home" component={Home} />
       <Route path="/profile" component={Profile} />
       <Route path="/about" component={About} />

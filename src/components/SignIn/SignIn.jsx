@@ -8,7 +8,7 @@ export default class LogIn extends Component {
             <Form className="mt-5 w-50 f-signin">
                 <FormGroup className="d-flex flexDirection: 'row',justifyContent: 'space-between', title-login-signin">
                     <Col sm={5}>
-                        <Link to="/Login">
+                        <Link to="/login">
                             <h4 className="font-weight-bold ">Đăng nhập</h4>
                         </Link>
                     </Col>
@@ -16,7 +16,7 @@ export default class LogIn extends Component {
                         <hr className="mt-3"></hr>
                     </Col>
                     <Col sm={5}>
-                        <Link to="/SignIn">
+                        <Link to="/signin">
                             <h4 className="font-weight-bold ">Đăng Ký</h4>
                         </Link>
                     </Col>
