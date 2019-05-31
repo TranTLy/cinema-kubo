@@ -22,7 +22,7 @@ class CardItemDetail extends Component {
                     <div className="director"><span className="lable">Đạo diễn: </span>   <a href="#">{movie.director}</a></div>
                     <div className="actors"><span className="lable">Diễn viên: </span>{movie.actors.substring(0, 50)}...</div>
                     <div className="language"><span className="lable">Ngôn ngữ: </span>{movie.language}</div>
-                    <div className="price"><span className="lable">Giá: </span>{movie.price}</div>
+                    <div className="price"><span className="lable">Giá: </span><span className="price__detail">{movie.price}</span></div>
                 </div>
             </div>
         );
