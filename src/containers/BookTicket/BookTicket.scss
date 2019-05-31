@@ -69,20 +69,57 @@
 				text-transform: uppercase;
 			}
 		}
-		.options {
-			// text-align: center;
-			margin-left: 20%;
-			.option {
-				margin-bottom: 20px;
-				.lable {
-					font-weight: bold;
+		.option {
+			.option__detail {
+				.detail {
+					&__lable {
+						color: rgb(250, 179, 26);
+						font-style: italic;
+						font-size: 0.8em;
+						margin: 10px 10px;
+						text-align: center;
+					}
+					&__payment {
+						margin: 10px 20px;
+						input {
+							margin: 5px 10px;
+						}
+					}
 				}
-				#number-ticket {
+				&.-number-ticket {
 					text-align: center;
-					margin-left: 50px;
-					width: 100px;
+					margin-top: 20px;
 				}
 			}
+		}
+		.btns {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 20px;
+			button {
+				font-weight: bold;
+				border-radius: 10px;
+				border: none;
+				padding: 5px 20px;
+				margin: 10px;
+				border: 2px solid $sub-main-color;
+				background-color: $sub-main-color;
+				color: #fff;
+				width: 150px;
+				outline: none;
+				&:hover {
+					box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.171);
+				}
+				#btn--back {
+					margin-left: 5%;
+				}
+				#btn--next {
+					margin-right: 5%;
+				}
+			}
+		}
+		.bill {
+			margin: auto;
 		}
 	}
 }
