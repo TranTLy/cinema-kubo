@@ -18,13 +18,13 @@ export default class RomanticMovie extends Component {
             <div className="pt-3">
                 <Container>
                     <Row>
-                        <Card>
-                            <CardHeader><a href="#">Phim tâm lý-tình cảm</a></CardHeader>
-                            <hr className="mt-0"></hr>
+                        <div className="home-film">
+                            {/* <CardHeader >Nổi bậc nhất</CardHeader> */}
+                            {/* <hr className="mt-0"></hr> */}
                             <CardBody className="flexDirection: 'row, w-100">
                                 <CardItem listItem={listItem}></CardItem>
                             </CardBody>
-                        </Card>
+                        </div>
                     </Row>
                 </Container>
 

@@ -19,13 +19,13 @@ export default class ComedyMovie extends Component {
             <div className="pt-3">
                 <Container>
                     <Row>
-                        <Card>
-                            <CardHeader><a href="#">Phim hài</a></CardHeader>
-                            <hr className="mt-0"></hr>
+                        <div className="home-film">
+                            {/* <CardHeader >Nổi bậc nhất</CardHeader> */}
+                            {/* <hr className="mt-0"></hr> */}
                             <CardBody className="flexDirection: 'row, w-100">
                                 <CardItem listItem={listItem}></CardItem>
                             </CardBody>
-                        </Card>
+                        </div>
                     </Row>
                 </Container>
 

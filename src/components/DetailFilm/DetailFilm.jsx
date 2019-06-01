@@ -11,7 +11,7 @@ import './DetailFilm.scss'
 export default class DetailFilm extends Component {
     render() {
         return (
-            <div className="App">
+            <div className="detail-film">
                 <Header />
                 <Menu />
                 <PosterDetailFilm />

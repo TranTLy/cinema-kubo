@@ -26,7 +26,7 @@ export default class Menu extends Component {
     }
     addStickyTop() {
         if (window.pageYOffset > 60) {
-            this.setState({ menu: this.state.menu + ' sticky-top' })
+            this.setState({ menu: 'menu sticky-top' })
         }
         else {
             this.setState({ menu: 'menu' })
@@ -74,7 +74,7 @@ export default class Menu extends Component {
                             <Form className="navbar-search d-none d-md-flex d-lg-flex ml-auto">
                                 <InputGroup className="ml-0">
                                     <Input placeholder="Tìm kiếm..." type="text" className="form-control" />
-                                    <InputGroupAddon addonType="append" className=" pr-1 pl-1">
+                                    <InputGroupAddon addonType="append" className=" pr-2 pl-1">
                                         <i class="fas fa-search"></i>
                                     </InputGroupAddon>
                                 </InputGroup>

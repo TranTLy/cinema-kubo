@@ -1,1 +1,26 @@
-
+// @import "./assets/stylesheet/default.scss";
+.App {
+  overflow-x: hidden;
+  background: #eaeaea url(./assets/img/backgound.png) fixed top center;
+  background-size: cover;
+  color: #fff;
+  padding-bottom: 0;
+  .content {
+    .most-famous {
+      display: flex;
+      flex-direction: column;
+      .title {
+        height: 54px;
+        color: aliceblue;
+        text-align: center;
+      }
+    }
+  }
+  .feedback {
+    height: 200px;
+    // background: url(./assets/img/backgound.png) fixed top center;
+    background-size: cover;
+    color: #fff;
+    padding-bottom: 0;
+  }
+}

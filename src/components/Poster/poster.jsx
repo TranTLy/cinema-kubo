@@ -9,15 +9,12 @@ import imgMovie_3 from '../../assets/img/poster_3.jpg';
 const items = [
     {
         src: imgMovie_2,
-        header: 'Phim Thằng em lý tưởng'
     },
     {
         src: imgMovie_1,
-        header: 'End game',
     },
     {
         src: imgMovie_3,
-        header: 'Chú gà không chân '
     }
 ];
 
