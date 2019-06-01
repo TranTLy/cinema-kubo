@@ -14,6 +14,7 @@ import Profile from "./containers/Profile/Profile";
 import About from "./containers/About/About";
 import Schedule from "./containers/Schedule/Schedule";
 import BookTicket from "./containers/BookTicket/BookTicket";
+import CategoryFilm from "./components/CategoryFilm/CategoryFilm";
 const routing = (
   <Router>
     <div>
@@ -28,6 +29,7 @@ const routing = (
       <Route path="/schedule" component={Schedule} />
       <Route path="/book-ticket" component={BookTicket} />
       <Route path="/detailfilm" component={DetailFilm} />
+      <Route path="/categoryfilm" component={CategoryFilm} />
     </div>
   </Router>
 );

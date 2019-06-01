@@ -1,9 +1,20 @@
 @import "../../assets/stylesheet/default.scss";
 
-
 .card {
-    margin-left: 15px !important;
-    margin-right: 15px !important;
-    box-shadow: 0 1px 15px 1px rgba(39, 39, 39, 0.1);
-    border-radius: 0.1875rem;
+  margin-left: 15px !important;
+  margin-right: 15px !important;
+  border-radius: 5px;
+  .bordered {
+    box-shadow: none;
+    border: 1px solid #e0e1e1;
+    transition: transform 2s ease-out;
+    h6 {
+      color: black;
+    }
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 15px 1px rgba(39, 39, 39, 0.1);
+      border-radius: 0.1875rem;
+    }
   }
+}
