@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 
-const MenuPanel = React.lazy(() => import('../../../components/Admin/MenuPanel/MenuPanel'));
-
+import { MenuPanel } from '../../../components';
 class HomeAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
     render() {
+        console.log("home component: ", MenuPanel);
         return (
-            <div className="home-admin">
-                <MenuPanel />
+            <div className="admin home-admin">
+                <MenuPanel currentTab={1} />
+
             </div>
         );
     }
