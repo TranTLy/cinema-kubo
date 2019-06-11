@@ -1,0 +1,25 @@
+@import '../../../assets/stylesheet/default.scss';
+
+.menu-panel-admin {
+	height: 100vh;
+	bottom: 0;
+	width: 100px;
+	box-shadow: 2px 0px 6px rgba(0, 0, 0, 0.281);
+	&__menu {
+		&--tab {
+			font-weight: 500;
+			margin: 10px;
+			clear: both;
+			&:hover {
+				color: $sub-main-color;
+			}
+		}
+		// &::after {
+		// 	content: ".";
+		// 	bottom: 0;
+		// 	visibility: hidden;
+		// 	height: 50px;
+		// 	background-color: $sub-main-color;
+		// }
+	}
+}
