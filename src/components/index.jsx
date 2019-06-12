@@ -9,4 +9,5 @@ export { BranchModal } from './Admin/BranchModal/BranchModal';
 export { ConfirmModal } from './Admin/ConfirmModal/ConfirmModal';
 export { CinemaModal } from './Admin/CinemaModal/CinemaModal';
 export { ScheduleModal } from './Admin/ScheduleModal/ScheduleModal';
+// export  from './Admin/'
 // export { }

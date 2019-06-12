@@ -9,7 +9,7 @@ export class ScheduleModal extends Component {
     render() {
         const { visible, schedule, mode } = this.props;
         return (
-            <Modal visible={visible} width="600" height="500" effect="fadeInUp" onClickAway={() => this.props.CloseAddModel()}>
+            <Modal visible={visible} width="600" height="520" effect="fadeInUp" onClickAway={() => this.props.CloseAddModel()}>
                 <div className="schedule-modal">
                     <div className="schedule-modal__title">
                         {mode === ADD_MODE && (<h4>Thêm lịch chiếu</h4>)}

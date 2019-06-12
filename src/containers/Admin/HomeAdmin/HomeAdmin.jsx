@@ -5,6 +5,7 @@ import { MenuPanel } from '../../../components';
 import Branch from '../Branch/Branch';
 import CinemaAdmin from '../CinemaAdmin/CinemaAdmin';
 import ScheduleAdmin from '../ScheduleAdmin/ScheduleAdmin';
+import PromotionAdmin from '../PromotionAdmin/PromotionAdmin';
 
 class HomeAdmin extends Component {
     constructor(props) {
@@ -40,6 +41,8 @@ class HomeAdmin extends Component {
                 return <CinemaAdmin />;
             case 3: //schedule
                 return (<ScheduleAdmin />);
+            case 4:
+                return (<PromotionAdmin />)
             default:
                 return ("");
         }
