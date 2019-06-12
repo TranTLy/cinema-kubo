@@ -5,6 +5,7 @@
 		height: 100vh;
 		width: $width-menu-admin;
 		box-shadow: 2px 0px 6px rgba(0, 0, 0, 0.281);
+		position: fixed;
 		&__space {
 			height: 70px;
 			width: $width-menu-admin;

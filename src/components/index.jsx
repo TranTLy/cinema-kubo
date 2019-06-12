@@ -9,5 +9,7 @@ export { BranchModal } from './Admin/BranchModal/BranchModal';
 export { ConfirmModal } from './Admin/ConfirmModal/ConfirmModal';
 export { CinemaModal } from './Admin/CinemaModal/CinemaModal';
 export { ScheduleModal } from './Admin/ScheduleModal/ScheduleModal';
+export { PromotionModal } from './Admin/PromotionModal/PromotionModal';
+export { BarChartStatistcic } from './Admin/BarChartStatistcic/BarChartStatistcic';
 // export  from './Admin/'
 // export { }

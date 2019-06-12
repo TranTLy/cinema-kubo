@@ -6,43 +6,44 @@ import Branch from '../Branch/Branch';
 import CinemaAdmin from '../CinemaAdmin/CinemaAdmin';
 import ScheduleAdmin from '../ScheduleAdmin/ScheduleAdmin';
 import PromotionAdmin from '../PromotionAdmin/PromotionAdmin';
+import StatisticAdmin from '../StatisticAdmin/StatisticAdmin';
 
 class HomeAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentTab: 3,
+            currentTab: 0,
             tabs: [
                 {
-                    name: "Thống kê"
-                },
-                {
-                    name: "Chi nhánh"
+                    name: "Lịch chiếu"
                 },
                 {
                     name: "Phim"
                 },
                 {
-                    name: "Lịch chiếu"
+                    name: "Ưu đãi"
                 },
                 {
-                    name: "Ưu đãi"
-                }
+                    name: "Chi nhánh"
+                },
+                {
+                    name: "Thống kê"
+                },
             ]
         }
     }
     getTabContent = () => {
         switch (this.state.currentTab) {
-            case 0: //statistic
-                break;
-            case 1: //branch
-                return (<Branch />);
-            case 2: //cinema
-                return <CinemaAdmin />;
-            case 3: //schedule
+            case 0: //schedule
                 return (<ScheduleAdmin />);
-            case 4:
+            case 1: //cinema
+                return <CinemaAdmin />;
+            case 2:
                 return (<PromotionAdmin />)
+            case 3: //branch
+                return (<Branch />);
+            case 4: //statistic
+                return (<StatisticAdmin />);
             default:
                 return ("");
         }

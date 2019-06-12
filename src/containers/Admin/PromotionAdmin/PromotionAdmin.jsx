@@ -52,7 +52,6 @@ class PromotionAdmin extends Component {
         console.log("add new promotion ... ");
         this.CloseAddModal();
     }
-
     render() {
         // const {promotions} = this.props;
         //TODO: join tables: Promotion_Cinema, Promotion, TypeUser
@@ -114,11 +113,11 @@ class PromotionAdmin extends Component {
                     </div>
 
 
-                    {/* <PromotionModal mode={ADD_MODE} visible={this.state.addPromotionModalVisible} CloseAddModel={this.CloseAddModal} promotion={null}
+                    <PromotionModal mode={ADD_MODE} visible={this.state.addPromotionModalVisible} CloseAddModel={this.CloseAddModal} promotion={null}
                         AddNewPromotion={this.AddNewPromotion} />
 
                     <PromotionModal mode={EDIT_MODE} visible={this.state.editPromotionModalVisible} CloseAddModel={this.CloseEditModal} promotion={this.state.promotionEdit}
-                        SaveEditPromotion={this.SaveEditPromotion} /> */}
+                        SaveEditPromotion={this.SaveEditPromotion} />
 
                     <ConfirmModal visible={this.state.deletePromotionModalVisible} confirmBtn="Xóa" content={this.state.promotionDelete != null ? `Bạn có chắc chắn muốn xóa ưu đãi ${this.state.promotionDelete.namePromotion}?` : ""}
                         action={this.DeletePromotion} CloseModal={this.CloseDeleteModal} />
