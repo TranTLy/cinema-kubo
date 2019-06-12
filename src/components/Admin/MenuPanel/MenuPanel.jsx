@@ -8,23 +8,19 @@ export class MenuPanel extends Component {
     }
 
     componentDidMount() {
-        let tabs = document.getElementsByClassName("menu-panel-admin-left__menu--tab");
-        if (tabs != null) {
-            tabs[this.props.currentTab].classList.add("-active");
-        }
     }
     render() {
-
+        const { tabs, currentTab } = this.props;
+        console.log("tabs: ", tabs, "props: ", this.props);
         return (
             <div className="menu-panel-admin">
                 <div className="menu-panel-admin-left">
                     <div className="menu-panel-admin-left__space"></div>
                     <div className="menu-panel-admin-left__menu">
-                        <div className="menu-panel-admin-left__menu--tab -statistic"><a href="admin/statistic">Thống Kê</a></div>
-                        <div className="menu-panel-admin-left__menu--tab -branch"><a href="admin/branch">Chi Nhánh</a></div>
-                        <div className="menu-panel-admin-left__menu--tab -movie"><a href="admin/movie">Phim</a></div>
-                        <div className="menu-panel-admin-left__menu--tab -schedule"><a href="admin/schedule">Lịch Chiếu</a></div>
-                        <div className="menu-panel-admin-left__menu--tab -promotion"><a href="admin/promotion">Ưu đãi</a></div>
+                        {tabs.map((item, index) => {
+                            return (
+                                <div onClick={() => this.props.changeCurrentTab(index)} className={index === currentTab ? "menu-panel-admin-left__menu--tab -active" : "menu-panel-admin-left__menu--tab"}>{item.name}</div>)
+                        })}
                         <div className="menu-panel-admin-left__infor-bottom">
                             © 2019 Kubo Viet Nam <br /> All right reserved
                  </div>

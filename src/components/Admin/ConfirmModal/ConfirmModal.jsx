@@ -5,7 +5,7 @@ import Modal from 'react-awesome-modal';
 export class ConfirmModal extends Component {
     state = {}
     render() {
-        //props: closeModal, action, visible
+        //props: CloseModal, action, visible
         const { content, confirmBtn } = this.props;
         return (
             <Modal visible={this.props.visible} width="300px" height="200px" onClickAway={() => this.props.CloseModal()}>

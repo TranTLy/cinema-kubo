@@ -17,7 +17,6 @@ import BookTicket from './containers/Customer/BookTicket/BookTicket';
 import CategoryFilm from './components/Customer/CategoryFilm/CategoryFilm';
 
 import HomeAdmin from './containers/Admin/HomeAdmin/HomeAdmin';
-import BranchAdmin from './containers/Admin/Branch/Branch';
 
 const routing = (
 	<Router>
@@ -35,8 +34,7 @@ const routing = (
 			<Route path="/detailfilm" component={DetailFilm} />
 			<Route path="/categoryfilm" component={CategoryFilm} />
 
-			<Route path="/admin/home" component={HomeAdmin} />
-			<Route path="/admin/branch" component={BranchAdmin} />
+			<Route path="/admin" component={HomeAdmin} />
 		</div>
 	</Router>
 );

@@ -79,19 +79,18 @@ class BranchAdmin extends Component {
             }
         ]
         return (
-            <div className="admin branch-admin">
-                <MenuPanel currentTab={1} />
-                <div className="branch-admin__content">
-                    <div className="branch-admin__head">
-                        <div className="branch-admin__head--find">
+            <React.Fragment>
+                <div className="branch-admin__content admin__content">
+                    <div className="branch-admin__head admin__head">
+                        <div className="branch-admin__head--find admin__head--find">
                             <input type="text" placeholder="Tìm kiếm" />
                             <i class="fas fa-search"></i>
                         </div>
-                        <div className="branch-admin__head--add">
+                        <div className="branch-admin__head--add admin__head--add">
                             <a name="" id="" class="btn " href="#" role="button" onClick={() => this.OpenAddModal()}>Thêm</a>
                         </div>
                     </div>
-                    <div className="branch-admin__branchs">
+                    <div className="branch-admin__branchs admin__detail">
                         <table className="table table-hover">
                             <thead>
                                 <tr>
@@ -103,7 +102,7 @@ class BranchAdmin extends Component {
                             </thead>
                             <tbody>
                                 {branchs.map((item, index) => (
-                                    <tr className="branch-admin__branchs--single-branch">
+                                    <tr className="branch-admin__branchs--single-branch admin__detail--single">
                                         <td>{index + 1}</td>
                                         <td>{item.nameBranch}</td>
                                         <td>{item.address}</td>
@@ -127,7 +126,7 @@ class BranchAdmin extends Component {
 
 
                 </div>
-            </div>);
+            </React.Fragment >);
     }
 }
 
