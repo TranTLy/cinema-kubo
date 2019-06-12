@@ -8,11 +8,13 @@ export class ConfirmModal extends Component {
         //props: closeModal, action, visible
         const { content, confirmBtn } = this.props;
         return (
-            <Modal visible={this.props.visible} width="300px" height="200px" className="confirm-modal" onClickAway={() => this.props.closeModal()}>
-                {/* <h4 className="confirm-modal__title">{title != null ? title : ""}</h4> */}
-                <div className="confirm-modal__content">{content}</div>
-                <div className="confirm-modal__btns">
-                    <a name="" id="" class="btn" href="#" role="button" onClick={() => this.props.action()}>{confirmBtn}</a>
+            <Modal visible={this.props.visible} width="300px" height="200px" onClickAway={() => this.props.CloseModal()}>
+                <div className="confirm-modal">
+                    <div className="confirm-modal__content">{content}</div>
+                    <div className="confirm-modal__btns">
+                        <a name="" id="" class="btn" href="#" role="button" onClick={() => this.props.action()}>{confirmBtn}</a>
+                        <a name="" id="" class="btn btn-primary" href="#" role="button" onClick={() => this.props.CloseModal()}>Đóng</a>
+                    </div>
                 </div>
             </Modal>
         );

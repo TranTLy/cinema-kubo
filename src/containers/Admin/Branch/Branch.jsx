@@ -18,33 +18,43 @@ class BranchAdmin extends Component {
         }
     }
 
-    closeAddModel = () => {
+    CloseAddModel = () => {
         this.setState({ addBranchModalVisible: false })
     }
-    openAddModal = () => {
+    OpenAddModal = () => {
         this.setState({ addBranchModalVisible: true });
     }
 
-    closeEditModel = () => {
+    CloseEditModel = () => {
         this.setState({ editBranchModalVisible: false })
     }
-    openEditModal = (item) => {
+    OpenEditModal = (item) => {
         console.log("item", item);
         this.setState({ editBranchModalVisible: true, branchEdit: item });
     }
 
-    closeDeleteModal = () => {
+    CloseDeleteModal = () => {
         this.setState({ deleteBranchModalVisible: false });
     }
-    openDeleteModal = (item) => {
+    OpenDeleteModal = (item) => {
         this.setState({ branchDelete: item, deleteBranchModalVisible: true });
     }
 
-    deleteBranch = () => {
+    DeleteBranch = () => {
         //TODO
         console.log("delete branch");
+        this.CloseDeleteModal();
     }
-
+    SaveEditBranch = () => {
+        //TODO
+        console.log("save branch...");
+        this.CloseEditModel();
+    }
+    AddNewBranch = () => {
+        //TODO
+        console.log("add new branch ... ");
+        this.CloseAddModel();
+    }
     render() {
         // const {branchs} = this.props;
         const branchs = [
@@ -78,7 +88,7 @@ class BranchAdmin extends Component {
                             <i class="fas fa-search"></i>
                         </div>
                         <div className="branch-admin__head--add">
-                            <a name="" id="" class="btn " href="#" role="button" onClick={() => this.openAddModal()}>Thêm</a>
+                            <a name="" id="" class="btn " href="#" role="button" onClick={() => this.OpenAddModal()}>Thêm</a>
                         </div>
                     </div>
                     <div className="branch-admin__branchs">
@@ -98,8 +108,8 @@ class BranchAdmin extends Component {
                                         <td>{item.nameBranch}</td>
                                         <td>{item.address}</td>
                                         <td className="actions">
-                                            <i class="fas fa-edit" onClick={() => this.openEditModal(item)}></i>
-                                            <i class="fas fa-trash-alt" onClick={() => this.openDeleteModal(item)}></i></td>
+                                            <i class="fas fa-edit" onClick={() => this.OpenEditModal(item)}></i>
+                                            <i class="fas fa-trash-alt" onClick={() => this.OpenDeleteModal(item)}></i></td>
                                     </tr>
                                 ))}
 
@@ -109,11 +119,11 @@ class BranchAdmin extends Component {
                     </div>
 
 
-                    <BranchModal mode={ADD_BRANCH_MODE} visible={this.state.addBranchModalVisible} branch={null} closeAddModel={this.closeAddModel} />
+                    <BranchModal mode={ADD_BRANCH_MODE} visible={this.state.addBranchModalVisible} branch={null} CloseAddModel={this.CloseAddModel} AddNewBranch={this.AddNewBranch} />
 
-                    <BranchModal mode={EDIT_BRANCH_MODE} visible={this.state.editBranchModalVisible} branch={this.state.branchEdit} closeAddModel={this.closeEditModel} />
+                    <BranchModal mode={EDIT_BRANCH_MODE} visible={this.state.editBranchModalVisible} branch={this.state.branchEdit} CloseAddModel={this.CloseEditModel} SaveEditBranch={this.SaveEditBranch} />
 
-                    <ConfirmModal visible={this.state.deleteBranchModalVisible} content={this.state.branchDelete !== null ? `Bạn chắc chắn muốn xóa chi nhánh  ${this.state.branchDelete.nameBranch}?` : ""} confirmBtn={"Xóa"} action={this.deleteBranch} closeModal={this.closeDeleteModal} />
+                    <ConfirmModal visible={this.state.deleteBranchModalVisible} content={this.state.branchDelete !== null ? `Bạn chắc chắn muốn xóa chi nhánh  ${this.state.branchDelete.nameBranch}?` : ""} confirmBtn={"Xóa"} action={this.DeleteBranch} CloseModal={this.CloseDeleteModal} />
 
 
                 </div>
