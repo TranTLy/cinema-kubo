@@ -4,6 +4,7 @@ import './HomeAdmin.scss';
 import { MenuPanel } from '../../../components';
 import Branch from '../Branch/Branch';
 import CinemaAdmin from '../CinemaAdmin/CinemaAdmin';
+import ScheduleAdmin from '../ScheduleAdmin/ScheduleAdmin';
 
 class HomeAdmin extends Component {
     constructor(props) {
@@ -37,8 +38,8 @@ class HomeAdmin extends Component {
                 return (<Branch />);
             case 2: //cinema
                 return <CinemaAdmin />;
-            case 3:
-                return (<div />);
+            case 3: //schedule
+                return (<ScheduleAdmin />);
             default:
                 return ("");
         }

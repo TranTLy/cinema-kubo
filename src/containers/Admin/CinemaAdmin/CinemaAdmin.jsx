@@ -124,6 +124,9 @@ class CinemaAdmin extends Component {
                                     <th scope="col">STT</th>
                                     <th scope="col">Tên phim</th>
                                     <th scope="col">Thời lượng</th>
+                                    <th scope="col">Đạo diễn</th>
+                                    <th scope="col">Điểm đánh giá</th>
+                                    <th scope="col"></th>
                                     <th scope="col">Tình trạng</th>
                                     {/* th: actor */}
                                 </tr>
@@ -134,6 +137,8 @@ class CinemaAdmin extends Component {
                                         <td>{index + 1}</td>
                                         <td>{item.name}</td>
                                         <td>{item.duration}</td>
+                                        <td>{item.actor}</td>
+                                        <td>{item.rating}</td>
                                         <td className="actions">
                                             <i class="fas fa-edit" onClick={() => this.OpenEditModal(item)}></i>
                                             <i class="fas fa-trash-alt" onClick={() => this.OpenDeleteModal(item)}></i></td>
