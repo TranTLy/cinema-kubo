@@ -16,7 +16,8 @@ import Schedule from './containers/Customer/Schedule/Schedule';
 import BookTicket from './containers/Customer/BookTicket/BookTicket';
 import CategoryFilm from './components/Customer/CategoryFilm/CategoryFilm';
 
-const HomeAdmin = React.lazy(() => import('./containers/Admin/HomeAdmin/HomeAdmin'));
+import HomeAdmin from './containers/Admin/HomeAdmin/HomeAdmin';
+
 const routing = (
 	<Router>
 		<div>
@@ -33,7 +34,7 @@ const routing = (
 			<Route path="/detailfilm" component={DetailFilm} />
 			<Route path="/categoryfilm" component={CategoryFilm} />
 
-			<Route path="/admin/home" component={HomeAdmin} />
+			<Route path="/admin" component={HomeAdmin} />
 		</div>
 	</Router>
 );
