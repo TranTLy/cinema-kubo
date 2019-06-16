@@ -5,8 +5,8 @@ import {
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import Menu from '../Menu/Menu'
-import imgFilm from '../../assets/img/NgoiDenKiQuai.jpg'
-import imgFilm1 from '../../assets/img/3.jpg';
+import imgFilm from '../../../assets/img/NgoiDenKiQuai.jpg'
+import imgFilm1 from '../../../assets/img/3.jpg';
 import CardItem from "../CardItem/CardItem"
 import "./ResultSearch.scss"
 const listItem = [{ img: imgFilm }, { img: imgFilm1 }, { img: imgFilm }, { img: imgFilm1 }];
