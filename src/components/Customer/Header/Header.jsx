@@ -14,31 +14,36 @@ import logo from '../../../assets/img/logo.png'
 import { Link } from 'react-router-dom'
 import LogInButton from './LogInButton';
 import LogOutButton from './LogOutButton';
+import { connect } from "react-redux"
+import { READ_CATEGORY } from '../../../config/ActionType';
 
-export default class Header extends Component {
+class Header extends Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
         this.state = {
-            isLoggedIn: false
+            isLoggedIn: this.props.isLoggedIn,
+            data: this.props.data
         }
-    }
-    handleClick() {
-        this.setState({ isLoggedIn: !this.state.isLoggedIn })
-        // if(this.)
-        // if (this.state.isLoggedIn) {
-        //     window.location.href = "/login";
-        // }
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.isLoggedIn !== this.state.isLoggedIn) {
+            this.setState({ isLoggedIn: nextProps.isLoggedIn })
+        }
+        if (nextProps.data !== this.state.data) {
+            this.setState({ data: nextProps.data })
+        }
+    };
+    componentDidMount() {
+        this.props.read();
+    }
     render() {
         let button;
-        console.log(this.state.isLoggedIn);
         if (!this.state.isLoggedIn) {
-            button = <LogInButton onClick={this.handleClick}></LogInButton>
+            button = <LogInButton ></LogInButton>
         }
         else {
-            button = <LogOutButton onClick={this.handleClick}></LogOutButton>
+            button = <LogOutButton ></LogOutButton>
         }
 
         return (
@@ -92,3 +97,21 @@ export default class Header extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    console.log("state", state);
+    return {
+        isLoggedIn: state.login.isLoggedIn,
+        loading: state.categorys.loading,
+        data: state.categorys.data,
+        error: state.categorys.error
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        read: () => dispatch({ type: READ_CATEGORY })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

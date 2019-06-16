@@ -2,7 +2,18 @@ import React, { Component } from 'react';
 import { Form, FormGroup, Col, Label, Input, Button } from 'reactstrap'
 import './LogIn.scss'
 import { Link } from "react-router-dom"
-export default class LogIn extends Component {
+import { connect } from "react-redux"
+import { LOG_IN } from '../../../config/ActionType';
+class LogIn extends Component {
+    constructor(props) {
+        super(props);
+        this.handleLoginClick = this.handleLoginClick.bind(this);
+    }
+    handleLoginClick() {
+        console.log("is loggin", this.props.isLoggedIn);
+        this.props.login(true);
+        console.log("is loggin after", this.props.isLoggedIn);
+    }
     render() {
         return (
             <Form className="mt-2 w-50 f-login">
@@ -86,7 +97,7 @@ export default class LogIn extends Component {
                 <FormGroup row>
                     <Col className=" text-center">
                         <Link to="profile">
-                            <Button outline color="light" className="font-weight-bold mb-1">
+                            <Button outline color="light" className="font-weight-bold mb-1" onClick={this.handleLoginClick}>
                                 <i class="fas fa-user-alt pr-2"></i>
                                 Đăng nhập
                         </Button>
@@ -99,3 +110,16 @@ export default class LogIn extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    console.log("state", state);
+    return {
+        isLoggedIn: state.isLoggedIn
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        login: (isLoggedIn) => dispatch({ type: LOG_IN, isLoggedIn })
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn)
