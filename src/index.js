@@ -15,6 +15,7 @@ import About from "./containers/About/About";
 import Schedule from "./containers/Schedule/Schedule";
 import BookTicket from "./containers/BookTicket/BookTicket";
 import CategoryFilm from "./components/CategoryFilm/CategoryFilm";
+import ResultSearch from "./components/ResultSearch/ResultSearch";
 const routing = (
   <Router>
     <div>
@@ -30,6 +31,7 @@ const routing = (
       <Route path="/book-ticket" component={BookTicket} />
       <Route path="/detailfilm" component={DetailFilm} />
       <Route path="/categoryfilm" component={CategoryFilm} />
+      <Route path="/resultfilm" component={ResultSearch} />
     </div>
   </Router>
 );
