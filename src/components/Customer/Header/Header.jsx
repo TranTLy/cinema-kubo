@@ -45,7 +45,6 @@ class Header extends Component {
         else {
             button = <LogOutButton ></LogOutButton>
         }
-
         return (
             <div className="header">
                 <Container>
@@ -66,7 +65,8 @@ class Header extends Component {
                                             Thể loại
                                         </DropdownToggle>
                                         <DropdownMenu right>
-                                            <DropdownItem>
+                                            {this.state.data !== null ? this.state.data.map(type => <DropdownItem>{type.name}</DropdownItem>) : <DropdownItem></DropdownItem>}
+                                            {/* <DropdownItem>
                                                 Tâm lý - tình cảm
                                             </DropdownItem>
                                             <DropdownItem>
@@ -75,7 +75,7 @@ class Header extends Component {
                                             <DropdownItem />
                                             <DropdownItem>
                                                 Hài
-                                            </DropdownItem>
+                                            </DropdownItem> */}
                                         </DropdownMenu>
                                     </UncontrolledDropdown>
                                     <NavItem>
@@ -103,7 +103,7 @@ function mapStateToProps(state) {
     return {
         isLoggedIn: state.login.isLoggedIn,
         loading: state.categorys.loading,
-        data: state.categorys.data,
+        data: state.categorys.data || [],
         error: state.categorys.error
     }
 }

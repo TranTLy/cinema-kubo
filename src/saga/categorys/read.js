@@ -4,11 +4,11 @@ import { url } from "../../config/urlApi";
 import {
   readCategoryPending,
   readCategorySuccess,
-  readCategoryFailure,
+  readCategoryFailure
 } from "../../actions/action";
 
 async function readAsync() {
-  const res = await fetch(url + "/branch");
+  const res = await fetch(url + "/typefilm");
   if (res.ok) return res.json();
   return new Error(res.statusText);
 }
