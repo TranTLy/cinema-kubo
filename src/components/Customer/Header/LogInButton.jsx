@@ -6,7 +6,7 @@ export default class LogInButton extends Component {
         return (
             <div>
                 <Link to="/login">
-                    <Button outline color="danger" onClick={this.props.onClick}>Đăng nhập</Button>
+                    <Button outline color="danger">Đăng nhập</Button>
                 </Link>
             </div>
         )
