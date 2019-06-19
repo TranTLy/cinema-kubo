@@ -46,3 +46,8 @@ export const DELETE_FILM_SUCCESS = "DELETE_FILM_SUCCESS";
 export const DELETE_FILM_FAILURE = "DELETE_FILM_FAILURE";
 //film
 
+//get one film
+export const GET_ONE_FILM = "GET_ONE_FILM";
+export const GET_ONE_FILM_SUCCESS = "GET_ONE_FILM_SUCCESS";
+export const GET_ONE_FILM_FAILURE = "GET_ONE_FILM_FAILURE";
+//end

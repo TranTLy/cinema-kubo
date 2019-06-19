@@ -14,16 +14,26 @@ const listItem = [{ img: imgFilm }, { img: imgFilm1 }, { img: imgFilm }, { img: 
 export default class CategoryFilm extends Component {
     render() {
         return (
-            <div className="App">
+            <div className="SectionFilm">
                 <Header />
                 <Menu />
-                <Container>
+                <Container className="content">
                     <Row className="mt-4">
                         <Col sm={4}>
                             <hr></hr>
                         </Col>
-                        <Col sm={4} className="title-category">
-                            <h4>Tên thể loại phim</h4>
+                        <Col sm={4} className="d-flex flexDirection: 'row'">
+                            <img
+                                src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-ribon-left-transparent.png"
+                                alt=""
+                            />
+                            <div className="title-type-film">
+                                <h4>assa</h4>
+                            </div>
+                            <img
+                                src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-ribon-right-transparent.png"
+                                alt=""
+                            />
                         </Col>
                         <Col sm={4}>
                             <hr></hr>

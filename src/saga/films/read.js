@@ -10,7 +10,7 @@ import {
 
 async function readAsync() {
   const res = await fetch(url + "/film");
-  console.log("res in saga: ", res);
+  // console.log("res in saga: ", res);
   if (res.ok) return res.json();
   return new Error(res.statusText);
 }
