@@ -4,7 +4,6 @@ import {
   READ_CATEGORY_PENDING,
   READ_CATEGORY_SUCCESS,
   READ_CATEGORY_FAILURE,
-  READ_CATEGORY
 } from "../config/ActionType";
 
 export function LogIn() {
@@ -14,6 +13,8 @@ export function LogOut() {
   return { type: LOG_OUT };
 }
 
+
+//category
 export function readCategoryPending() {
   return { type: READ_CATEGORY_PENDING };
 }
@@ -23,4 +24,8 @@ export function readCategorySuccess(data) {
 export function readCategoryFailure(error) {
   return { type: READ_CATEGORY_FAILURE, error };
 }
+//end category
+
+
+
 
