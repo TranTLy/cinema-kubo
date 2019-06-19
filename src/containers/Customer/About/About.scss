@@ -6,14 +6,21 @@
 	.branch-infor {
 		.content {
 			margin-left: 20px;
-			.branchs {
-				li {
+			.branches {
+				.branches__single {
 					a {
 						text-decoration: none;
 						font-weight: bold;
 						color: $main-color;
 						&:hover {
 							color: $sub-main-color;
+						}
+					}
+					&--img{
+						img{
+							width: 100px;
+							height: 100px;
+
 						}
 					}
 				}

@@ -17,12 +17,12 @@ class CardItemDetail extends Component {
                 <div className="movie-infor">
                     <div className="title"><a href="#">{movie.name}</a> </div>
                     <div className="duration"><i class="far fa-clock"></i> {movie.duration}</div>
-                    <div className="description">{movie.description.substring(0, 50)} ...</div>
-                    <div className="release-date"><span className="lable">Ngày khởi chiếu: </span>{movie.releaseDate}</div>
+                    <div className="description">{movie.description != null && movie.description.substring(0, 50)} ...</div>
+                    <div className="release-date"><span className="lable">Ngày khởi chiếu: </span>{movie.releaseDate.toLocaleString()}</div>
                     <div className="director"><span className="lable">Đạo diễn: </span>   <a href="#">{movie.director}</a></div>
-                    <div className="actors"><span className="lable">Diễn viên: </span>{movie.actors.substring(0, 50)}...</div>
+                    <div className="actors"><span className="lable">Diễn viên: </span>{movie.actors != null && movie.actors.substring(0, 50)}...</div>
                     <div className="language"><span className="lable">Ngôn ngữ: </span>{movie.language}</div>
-                    <div className="price"><span className="lable">Giá: </span><span className="price__detail">{movie.price}</span></div>
+                    <div className="price"><span className="lable">Giá: </span><span className="price__detail">{(movie.price / 1000.0).toFixed(3)}đ</span></div>
                 </div>
             </div>
         );
