@@ -8,56 +8,118 @@ import Menu from '../Menu/Menu'
 import PosterDetailFilm from '../PosterDetailFilm/PosterDetailFilm'
 import imgFilm from '../../../assets/img/NgoiDenKiQuai.jpg'
 import './DetailFilm.scss'
-export default class DetailFilm extends Component {
+import { connect } from "react-redux"
+import { request } from 'http';
+import { queryString } from "query-string"
+class DetailFilm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            films: this.props.films || []
+            // types: this.props.types || []
+        }
+    }
+    // componentDidMount() {
+    //     // console.log("id", request.query.id);
+    //     let values = this.props.location.search;
+    //     const param = new URLSearchParams(values);
+    //     console.log("id", param.get('id'));
+    // }
+    componentWillReceiveProps = (nextProps) => {
+        // console.log("next props", nextProps.films);
+        if (nextProps.films !== this.state.films) {
+            this.setState({ films: nextProps.films })
+        }
+        // if (nextProps.types !== this.state.types) {
+        //     this.setState({ types: nextProps.types })
+        // }
+    }
     render() {
+        let values = this.props.location.search;
+        const param = new URLSearchParams(values);
+        const id = param.get('id');
+        let container = null;
+        let typeName = null;
+        let film = this.state.films.filter(film => film._id == id);
+        console.log("film", film);
+        if (film[0]) {
+            // let idtype = film[0].type;
+            // console.log("id type", idtype);
+            // let type = this.state.types.filter(type => type._id == idtype);
+            // if (type[0]) {
+            //     typeName = type[0].name;
+            //     console.log("name", typeName);
+            container = 1;
+            // }
+        }
         return (
             <div className="detail-film">
                 <Header />
                 <Menu />
                 <PosterDetailFilm />
-                <Container className="pt-5">
-                    <Row className="flexDirection: 'column',">
-                        <Col sm={3}>
-                            <img src={imgFilm} className="w-100" ></img>
-                            <Button color="secondary" className="w-100 mt-3 rounded-0">Đặt vé</Button>
-                        </Col>
-                        <Col>
-                            <h3 className="text-dark font-weight-bold pb-3">NGÔI ĐỀN KÌ QUÁI</h3>
-                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                <h5 className="pr-3 pl-0">Xem xếp hạng:</h5>
-                                <i class="fas fa-star text-warning pt-1"></i>
-                                <i class="fas fa-star text-warning pt-1"></i>
-                                <i class="fas fa-star text-warning pt-1"></i>
-                                <i class="fas fa-star text-warning pt-1"></i>
-                                <i class="fas fa-star-half-alt text-warning pt-1"></i>
-                            </Col>
-                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                <h5 className="pr-3 pl-0">Ngày phát hành:</h5>
-                                <h6 className="pt-1">{new Date().toLocaleDateString()}</h6>
-                            </Col>
-                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                <h5 className="pr-3 pl-0">Thể loại:</h5>
-                                <h6 className="pt-1">Thriller/Criminal/Horror Thailand</h6>
-                            </Col>
-                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                <h5 className="pr-3 pl-0">Thời lượng:</h5>
-                                <h6 className="pt-1">115 phút</h6>
-                            </Col>
-                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                <h5 className="pr-3 pl-0">Loại:</h5>
-                                <h6 className="pt-1">  2D | Normal | Normal sound | Phụ đề</h6>
-                            </Col>
-                        </Col>
-                    </Row>
-                </Container>
-                <Container className="pt-5">
-                    <Row>
-                        <Col>
-                            <h3 className="text-dark font-weight-bold ">Tóm tắt</h3>
-                            <p>Với tên gọi “Ngôi Đền Kỳ Quái”, Pee Nak là câu chuyện của một hội bạn thân khi tìm đến nơi được xem là đền thờ của truyền thuyết nàng Nak. Những tưởng sẽ “cầu được ước thấy” khi khám phá ngôi đền hoang sơ bí hiểm này thế nhưng hàng loạt tình huống “dở khóc dở cười” lại xảy đến với họ.</p>
-                        </Col>
-                    </Row>
-                </Container>
+                {container !== null && (
+                    <React.Fragment>
+                        <Container className="pt-5">
+                            <Row className="flexDirection: 'column',">
+                                <Col sm={3}>
+                                    <img src={film[0].img} className="w-100" alt="" ></img>
+                                    <Button color="secondary" className="w-100 mt-3 rounded-0">Đặt vé</Button>
+                                </Col>
+                                <Col>
+                                    <h3 className="text-dark font-weight-bold pb-3">{film[0].name}</h3>
+                                    {/* <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                        <h5 className="pr-3 pl-0">Xem xếp hạng:</h5>
+                                        <i class="fas fa-star text-warning pt-1"></i>
+                                        <i class="fas fa-star text-warning pt-1"></i>
+                                        <i class="fas fa-star text-warning pt-1"></i>
+                                        <i class="fas fa-star text-warning pt-1"></i>
+                                        <i class="fas fa-star-half-alt text-warning pt-1"></i>
+                                    </Col> */}
+                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Ngày phát hành:</h5>
+                                        <h6 className="pt-1">{film[0].releaseDate}</h6>
+                                    </Col>
+                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Thể loại:</h5>
+                                        <h6 className="pt-1">{film[0].type.name}</h6>
+                                    </Col>
+                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Thời lượng:</h5>
+                                        <h6 className="pt-1">{film[0].duration}</h6>
+                                    </Col>
+                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Đạo diễn:</h5>
+                                        <h6 className="pt-1">{film[0].director}</h6>
+                                    </Col>
+                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Diễn viên:</h5>
+                                        <h6 className="pt-1">{film[0].actors}</h6>
+                                    </Col>
+                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Giá:</h5>
+                                        <h6 className="pt-1">{film[0].price} VND</h6>
+                                    </Col>
+                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Ngôn ngữ:</h5>
+                                        <h6 className="pt-1">{film[0].language} </h6>
+                                    </Col>
+                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Độ tuổi tối thiểu:</h5>
+                                        <h6 className="pt-1">{film[0].age} tuổi</h6>
+                                    </Col>
+                                </Col>
+                            </Row>
+                        </Container>
+                        <Container className="pt-5">
+                            <Row>
+                                <Col>
+                                    <h3 className="text-danger font-weight-bold ">Tóm tắt</h3>
+                                    <p>{film[0].description}</p>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </React.Fragment>
+                )}
                 <Container className="pt-5 mt-5">
                     <Row>
                         <Col className="d-flex flexDirection: 'row',">
@@ -140,3 +202,13 @@ export default class DetailFilm extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+    // console.log("statkfghjklfghjk", state);
+    return {
+        films: state.films.data,
+        // types: state.categorys.data
+    }
+}
+
+
+export default connect(mapStateToProps)(DetailFilm)

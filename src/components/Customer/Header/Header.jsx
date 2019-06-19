@@ -15,17 +15,19 @@ import { Link } from 'react-router-dom'
 import LogInButton from './LogInButton';
 import LogOutButton from './LogOutButton';
 import { connect } from "react-redux"
-import { READ_CATEGORY } from '../../../config/ActionType';
-
+import { READ_CATEGORY, READ_FILM } from '../../../config/ActionType';
 class Header extends Component {
     constructor(props) {
         super(props);
+        this.handleClick = this.handleClick.bind(this);
         this.state = {
             isLoggedIn: this.props.isLoggedIn,
             data: this.props.data
         }
     }
-
+    handleClick = (id) =>{
+        window.location.href = "/categoryfilm?id=" + id;
+    }
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.isLoggedIn !== this.state.isLoggedIn) {
             this.setState({ isLoggedIn: nextProps.isLoggedIn })
@@ -34,8 +36,9 @@ class Header extends Component {
             this.setState({ data: nextProps.data })
         }
     };
-    componentDidMount() {
+    componentWillMount() {
         this.props.read();
+        this.props.readFilms();
     }
     render() {
         let button;
@@ -64,7 +67,7 @@ class Header extends Component {
                                             Thể loại
                                         </DropdownToggle>
                                         <DropdownMenu right>
-                                            {this.state.data !== null ? this.state.data.map(type => <DropdownItem>{type.name}</DropdownItem>) : <DropdownItem></DropdownItem>}
+                                            {this.state.data !== null ? this.state.data.map(type => <DropdownItem onClick={() => this.handleClick(type._id)}>{type.name}</DropdownItem>) : <DropdownItem></DropdownItem>}
                                             {/* <DropdownItem>
                                                 Tâm lý - tình cảm
                                             </DropdownItem>
@@ -109,7 +112,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        read: () => dispatch({ type: READ_CATEGORY })
+        read: () => dispatch({ type: READ_CATEGORY }),
+        readFilms: () => dispatch({ type: READ_FILM })
     }
 }
 

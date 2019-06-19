@@ -67,26 +67,26 @@ const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga);
 
 const routing = (
-  <Provider store={store}>
-    <Router>
-      <div>
-        <Route exact path="/" component={App} />
-        <Route path="/login" component={PageLogIn} />
-        <Route path="/signin" component={PageSignIn} />
-        <Route path="/forgotpassword" component={PageForgotPassword} />
-        <Route path="/repassword" component={PageRePassword} />
-        <Route path="/home" component={Home} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/about" component={About} />
-        <Route path="/schedule" component={Schedule} />
-        <Route path="/book-ticket" component={BookTicket} />
-        <Route path="/detailfilm" component={DetailFilm} />
-        <Route path="/categoryfilm" component={CategoryFilm} />
-        <Route path="/resultfilm" component={ResultSearch} />
-        <Route path="/admin" component={HomeAdmin} />
-      </div>
-    </Router>
-  </Provider>
+	<Provider store={store}>
+		<Router>
+			<div>
+				<Route exact path="/" component={App} />
+				<Route path="/login" component={PageLogIn} />
+				<Route path="/signin" component={PageSignIn} />
+				<Route path="/forgotpassword" component={PageForgotPassword} />
+				<Route path="/repassword" component={PageRePassword} />
+				<Route path="/home" component={Home} />
+				<Route path="/profile" component={Profile} />
+				<Route path="/about" component={About} />
+				<Route path="/schedule" component={Schedule} />
+				<Route path="/book-ticket" component={BookTicket} />
+				<Route path="/detailfilm" component={DetailFilm} />
+				<Route path="/categoryfilm" component={CategoryFilm} />
+				<Route path="/resultfilm" component={ResultSearch} />
+				<Route path="/admin" component={HomeAdmin} />
+			</div>
+		</Router>
+	</Provider>
 );
 ReactDOM.render(routing, document.getElementById("root"));
 serviceWorker.unregister();

@@ -1,23 +1,21 @@
 
 import React, { Component } from 'react';
 import {
-    Card, CardBody, CardHeader, Container, Row
+    Card, CardImg, CardText, CardBody,
+    CardTitle, CardFooter, CardHeader, Container, Row, Button
 } from 'reactstrap';
-import imgMovie from '../../../assets/img/2.jpg';
-import './MostFamousMovie.scss'
+import imgMovie from '../../../assets/img/3.jpg';
+import './CardFilm.scss'
 import CardItem from "../CardItem/CardItem"
 
-
-export default class MovieMostFamous extends Component {
+export default class Movie extends Component {
     render() {
         return (
-            <div>
+            <div className="pt-3 w-100 d-flex flexDirection: 'row' ">
                 <Container>
                     <Row>
                         <div className="home-film">
-                            {/* <CardHeader >Nổi bậc nhất</CardHeader> */}
-                            {/* <hr className="mt-0"></hr> */}
-                            <CardBody className="flexDirection: 'row, w-100">
+                            <CardBody className="w-100 section-movie">
                                 <CardItem listItem={this.props.listItem}></CardItem>
                             </CardBody>
                         </div>
