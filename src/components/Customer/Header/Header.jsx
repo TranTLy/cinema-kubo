@@ -59,7 +59,6 @@ class Header extends Component {
                                     <NavItem>
                                         <NavLink href="/">Trang chủ</NavLink>
                                     </NavItem>
-
                                     <UncontrolledDropdown nav inNavbar>
                                         <DropdownToggle nav caret>
                                             Thể loại
