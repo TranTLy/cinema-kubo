@@ -12,6 +12,8 @@
 		overflow: hidden;
 		img {
 			transition: transform 2s ease-out;
+			width: 228px;
+			height: 335px;
 			&:hover {
 				transform: scale(1.1);
 			}

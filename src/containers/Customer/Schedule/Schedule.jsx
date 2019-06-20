@@ -4,18 +4,19 @@ import Footer from '../../../components/Customer/Footer/Footer';
 import Menu from '../../../components/Customer/Menu/Menu';
 import CardItemDetail from '../../../components/Customer/CardItemDetail/CardItemDetail'
 import { Container, Button } from 'reactstrap';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Loading } from '../../../components'
 import './Schedule.scss'
-import {READ_SCHEDULE, READ_BRANCH} from  '../../../config/ActionType';
+import { READ_SCHEDULE, READ_BRANCH } from '../../../config/ActionType';
+
 
 class Schedule extends Component {
     constructor(props) {
         super(props);
         this.state = {
             allBrandOption: 0,
-            branchs:[],
-            allSchedules:[],
+            branchs: [],
+            allSchedules: [],
             schedules: [],
             currentBranch: 0,
             isLoading: true
@@ -23,23 +24,23 @@ class Schedule extends Component {
         // this.onSelectBranch = this.onSelectBranch.bind(this);
     }
 
-    
+
     componentWillReceiveProps = (nextProps) => {
-        if (!nextProps.schedule.loading) {
-            console.log("onchange in receive props", nextProps)
+        if (!nextProps.schedule.loading && !nextProps.branch.loading) {
+            // console.log("Schedule: onchange in receive props", nextProps)
             // this.setState({ branches: nextProps.branches.data,  })
-            this.setState({ 
+            this.setState({
                 schedules: nextProps.schedule.data,
                 allSchedules: nextProps.schedule.data,
-                currentBranch:  this.state.allBrandOption,
+                currentBranch: this.state.allBrandOption,
                 branchs: nextProps.branch.data,
                 isLoading: false
             });
         }
     }
-    
+
     componentDidMount() {
-        console.log("on did mount");
+        // console.log("schedule: on did mount ");
         this.props.readSchedule();
         this.props.readBranch();
 
@@ -58,7 +59,7 @@ class Schedule extends Component {
             else {
                 const results = this.state.allSchedules;
                 const newSchelude = [...results.filter((item) => item.idroom.idbranch === idBranch)];
-                console.log("new schedule: ", newSchelude);
+                // console.log("new schedule: ", newSchelude);
                 this.setState({
                     schedules: newSchelude
                 })
@@ -70,16 +71,19 @@ class Schedule extends Component {
         this.setState({ currentBranch: idBranch });
     }
 
-    onChangeDate = () => {
-        const input = document.getElementById("select-date");
-        const date = input.value;
-        //TODO: loc thoi gian lich chieu phim
-        if (date == "") {
-            console.log("haven't choosen");
+    onSearchSchelduleTime = () => {
+        let startTime = document.getElementById("select-date-start").value;
+        let endTime = document.getElementById("select-date-end").value;
+
+        console.log("time:", startTime, endTime);
+        if (startTime === '' && endTime === '') {
+            alert("Vui lòng chọn thời gian");
+        } else if (startTime === '') {
+            endTime = new Date(endTime).getTime();
+            console.log("schedule ");
+            // this.setState({schedules: this.allSchedules.filter((item) => item.startTime.getTime())});
         }
-        else {
-            console.log("date chose: ", date);
-        }
+
 
 
     }
@@ -92,56 +96,61 @@ class Schedule extends Component {
                 <Header />
                 <Menu />
                 {
-                    this.state.isLoading? 
-                    (<Loading/>) :
-                    <Container className="schedule-wrap">
-                    <div className="search">
-                        <div className="search-branch">
-                            Chi nhánh
+                    this.state.isLoading ?
+                        (<Loading />) :
+                        <Container className="schedule-wrap">
+                            <div className="search">
+                                <div className="search-branch">
+                                    Chi nhánh
                              <select id="select-branch" onChange={() => this.onSelectBranch()}>
-                                <option value={this.state.allBrandOption}>Tất cả</option>)
+                                        <option value={this.state.allBrandOption}>Tất cả</option>)
                                 {
-                                    this.state.branchs.map((item) => {
-                                        return (
-                                            <option value={item._id}>{item.name}</option>)
+                                            this.state.branchs.map((item) => {
+                                                return (
+                                                    <option value={item._id}>{item.name}</option>)
+                                            })
+                                        }
+                                    </select>
+                                </div>
+                                <div className="search-date">
+                                    Thời gian
+                                    Từ <input className="select-date" id="select-date-start" type="date" name="date" />
+                                    Đến <input className="select-date" id="select-date-end" type="date" name="date" />
+                                    <a name="" id="" onClick={() => this.onSearchSchelduleTime()} class="btn btn-dark btn-search-schedule" href="#" role="button">Tìm kiếm</a>
+                                </div>
+                            </div>
 
+                            <div className="sum-schedule"><i>Tổng cộng {this.state.schedules.length} lịch chiếu</i></div>
+                            <div className="list-schedules">
+                                {
+                                    this.state.schedules.map((schedule, index) => {
+                                        // const branch = this.state.branchs.filter((item) => item.id == schedule.branch)[0];
+                                        // const _movie = this.state.movies.filter((item) => item.id == schedule.movie)[0];
+                                        let branch = this.state.branchs.filter((item) => item._id == schedule.idroom.idbranch);
+                                        // console.log("branch in card item: ", branch[0]);
+
+                                        // console.log("branch in card item - not null: ", branch[0]);
+                                        branch = branch[0];
+                                        const _movie = schedule.idfilm;
+                                        return (
+                                            <div className="schedule">
+                                                <CardItemDetail movie={_movie} key={index} />
+                                                <div className="detail-schedule">
+                                                    <div className="title"><div> <i class="fas fa-film"></i> Lịch chiếu</div></div>
+                                                    <div><span className="lable">Chi nhánh: </span>{branch.name}</div>
+                                                    <div><span className="lable">Địa chỉ: </span>{branch.address}</div>
+                                                    <div><span className="lable">Thời gian bắt đầu: </span>{schedule.startTime}</div>
+                                                    <div><span className="lable">Phòng: </span>{schedule.room}</div>
+                                                    <div><span className="lable">Số vé còn: </span>{schedule.availableTicket} vé/ tổng {schedule.sumTicket} vé</div>
+                                                    <div className="btn-book-ticket"> <Button class="btn" ><a href="/book-ticket">Đặt vé </a> </Button></div>
+                                                </div>
+                                            </div>
+                                        );
                                     })
                                 }
-                            </select>
-                        </div>
-                        <div className="search-date">
-                            Thời gian
-                            <input id="select-date" type="date" name="date" onChange={() => this.onChangeDate()} />
-                        </div>
-                    </div>
-                    
-                    <div className="list-schedules">
-                        {
-                            this.state.schedules.map((schedule) => {
-                                // const branch = this.state.branchs.filter((item) => item.id == schedule.branch)[0];
-                                // const _movie = this.state.movies.filter((item) => item.id == schedule.movie)[0];
-                                 
-                                const branch = this.state.branchs.filter((item) => item._id == schedule.idroom.idbranch)[0];
-                                const _movie = schedule.idfilm;
-                                return (
-                                    <div className="schedule">
-                                        <CardItemDetail movie={_movie} />
-                                        <div className="detail-schedule">
-                                            <div className="title"><div> <i class="fas fa-film"></i> Lịch chiếu</div></div>
-                                            <div><span className="lable">Chi nhánh: </span>{branch.name}</div>
-                                            <div><span className="lable">Địa chỉ: </span>{branch.address}</div>
-                                            <div><span className="lable">Thời gian bắt đầu: </span>{schedule.startTime}</div>
-                                            <div><span className="lable">Phòng: </span>{schedule.room}</div>
-                                            <div><span className="lable">Số vé còn: </span>{schedule.availableTicket} vé/ tổng {schedule.sumTicket} vé</div>
-                                            <div className="btn-book-ticket"> <Button class="btn" ><a href="/book-ticket">Đặt vé </a> </Button></div>
-                                        </div>
-                                    </div>
-                                );
-                            })
-                        }
-                    </div>
-                </Container>
-                 }
+                            </div>
+                        </Container>
+                }
                 <Footer />
             </div>
         );
@@ -158,7 +167,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         readSchedule: () => dispatch({ type: READ_SCHEDULE }),
-        readBranch: () => dispatch ({type: READ_BRANCH})
+        readBranch: () => dispatch({ type: READ_BRANCH })
     }
 }
 

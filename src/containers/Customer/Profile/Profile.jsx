@@ -31,7 +31,7 @@ class Profile extends Component {
 
 	componentWillReceiveProps = (nextProps) => {
 		if (nextProps.filmFavor != this.state.filmFavor) {
-			console.log("will revieve props, next props:", nextProps.filmFavor);
+			console.log("profile: will revieve props , next props:", nextProps.filmFavor);
 			this.setState({ filmFavor: nextProps.filmFavor, isLoading: false });
 		}
 	}
@@ -44,7 +44,7 @@ class Profile extends Component {
 	componentDidMount() {
 		const id = "5d09b69efed6a72290d288c6";
 		this.props.readFilmFavor(id);
-		console.log("on component did mount, film favor = : ", this.props.filmFavor);
+		console.log("profile: on component did mount, film favor = : ", this.props.filmFavor);
 		this.setState({ filmFavor: this.props.filmFavor })
 	}
 
