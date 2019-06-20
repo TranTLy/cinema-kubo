@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Menu from "./components/Customer/Menu/Menu";
 import Footer from "./components/Customer/Footer/Footer";
 // import MostFamousMovie from "./components/Customer/MostFamousMovie/MostFamousMovie";
 // import AminationMovie from "./components/Customer/AminationMovie/AminationMovie";
@@ -33,106 +32,61 @@ class App extends Component {
 
   render() {
     let mostMovie;
-    let romantic;
-    let animation;
+    let newMovie;
+    let oldMovie;
+    let date = new Date();
+    console.log("date", date);
     if (this.state.films) {
-      mostMovie = this.state.films.sort((a, b) => a.rate > b.rate);
-      // console.log("most film", mostMovie);
-      romantic = this.state.films.filter(
-        film => film.type._id === "5d0087a1943583288452e3fe"
+      let activeMovie = this.state.films.filter(film => {
+        let dateFilm = new Date(film.releaseDate);
+        console.log("dateFilm", dateFilm);
+        return dateFilm < date && film.isActive === true;
+      });
+
+      mostMovie = activeMovie.sort((a, b) =>
+        a.rate > b.rate
+          ? -1
+          : a.rate === b.rate
+          ? a.point > b.point
+            ? -1
+            : 1
+          : 1
       );
-      // .slice(0, 4);
-      // console.log("romantic", romantic);
-      animation = this.state.films.filter(
-        film => film.type._id === "5d060546e84db113bc2f61b4"
-      );
-      // .slice(0, 4);
+
+      newMovie = this.state.films
+        .filter(film => {
+          let dateFilm = new Date(film.releaseDate);
+          return dateFilm > date && film.isActive === true;
+        })
+        .sort((a, b) =>
+          a.rate > b.rate
+            ? -1
+            : a.rate === b.rate
+            ? a.point > b.point
+              ? -1
+              : 1
+            : 1
+        );
+
+      oldMovie = this.state.films
+        .filter(film => {
+          let dateFilm = new Date(film.releaseDate);
+          console.log("dateFilm", dateFilm);
+          return dateFilm < date && film.isActive === true;
+        })
+        .sort((a, b) => (a.point > b.point ? 1 : -1));
+      console.log("new", newMovie);
+      console.log("old", oldMovie);
+      console.log("most", mostMovie);
     }
     return (
-      <div className="App">
+      <div>
         <Header />
-        <Menu />
         <Poster />
         <SectionFilm movie={mostMovie} title="Phim nổi bật nhất" />
-        <SectionFilm movie={romantic} title="Phim nổi bật sdsd nhất" />
-        <SectionFilm movie={animation} title="Phim nổi bật sdsd sdsd nhất" />
-        {/* <Container className="content">
-          <Row className="mt-4">
-            <Col sm={4}>
-              <hr />
-            </Col>
-            <Col sm={4} className="d-flex flexDirection: 'row'">
-              <img
-                src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-ribon-left-transparent.png"
-                alt=""
-              />
-              <div className="title-type-film">
-                <h4>Phim nổi bật nhất</h4>
-              </div>
+        <SectionFilm movie={newMovie} title="Phim sắp chiếu" />
+        <SectionFilm movie={oldMovie} title="Phim đang chiếu" />
 
-              <img
-                src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-ribon-right-transparent.png"
-                alt=""
-              />
-            </Col>
-            <Col sm={4}>
-              <hr />
-            </Col>
-          </Row>
-          <MostFamousMovie listItem={mostMovie} />
-        </Container>
-        <Container className="content">
-          <Row className="mt-4">
-            <Col sm={4}>
-              <hr />
-            </Col>
-            <Col sm={4} className="d-flex flexDirection: 'row'">
-              <img
-                src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-ribon-left-transparent.png"
-                alt=""
-              />
-              <div className="title-type-film">
-                <a href="/">
-                  <h4>Phim tâm lý - tình cảm</h4>
-                </a>
-              </div>
-
-              <img
-                src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-ribon-right-transparent.png"
-                alt=""
-              />
-            </Col>
-            <Col sm={4}>
-              <hr />
-            </Col>
-          </Row>
-          <RomanticMovie listItem={romantic} />
-        </Container>
-        <Container className="content">
-          <Row className="mt-4">
-            <Col sm={4}>
-              <hr />
-            </Col>
-            <Col sm={4} className="d-flex flexDirection: 'row'">
-              <img
-                src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-ribon-left-transparent.png"
-                alt=""
-              />
-              <div className="title-type-film">
-                <h4>Phim hoạt hình</h4>
-              </div>
-
-              <img
-                src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-ribon-right-transparent.png"
-                alt=""
-              />
-            </Col>
-            <Col sm={4}>
-              <hr />
-            </Col>
-          </Row>
-          <AminationMovie listItem={animation} />
-    </Container>*/}
         <Footer className="mt-0" />
       </div>
     );
@@ -140,7 +94,6 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  // console.log("state", state.films.data);
   return {
     films: state.films.data
   };

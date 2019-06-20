@@ -8,21 +8,23 @@ import { GET_ONE_FILM } from '../../../config/ActionType';
 class CardItem extends React.Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClickDetail = this.handleClickDetail.bind(this);
+        this.handleClickBookTicket = this.handleClickBookTicket.bind(this);
         this.state = {
         }
     }
-    handleClick(id) {
-        console.log("get one film", id)
-        // this.props.getFilm(id);
+    handleClickDetail(id) {
         window.location.href = "/detailfilm?id=" + id;
+    }
+    handleClickBookTicket(id) {
+        window.location.href = "/book-ticket?id=" + id;
     }
     render() {
         return (
             this.props.listItem.map(item =>
                 <Card className="bordered">
-                   <button className="btn-card__detail" onClick={() => this.handleClick(item._id)}> Chi tiết</button>
-                    <button className="btn-card__bookticket"> Đặt vé</button>
+                    <button className="btn-card__detail" onClick={() => this.handleClickDetail(item._id)}> Chi tiết</button>
+                    <button className="btn-card__bookticket" onClick={() => this.handleClickBookTicket(item._id)}> Đặt vé</button>
                     <img src={item.img} alt="" width='228px' height='332px' />
                 </Card>
             )

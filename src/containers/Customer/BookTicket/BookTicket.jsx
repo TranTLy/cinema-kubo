@@ -160,9 +160,7 @@ class BookTicket extends Component {
         }
         return (
             <div>
-                <head></head>
                 <Header />
-                <Menu />
                 <Container className="book-ticket-wrap">
                     <div className="schedule">
                         <CardItemDetail movie={myMovie} />

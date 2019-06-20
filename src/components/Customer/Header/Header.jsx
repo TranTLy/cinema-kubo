@@ -16,6 +16,7 @@ import LogInButton from './LogInButton';
 import LogOutButton from './LogOutButton';
 import { connect } from "react-redux"
 import { READ_CATEGORY, READ_FILM } from '../../../config/ActionType';
+
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +26,7 @@ class Header extends Component {
             data: this.props.data
         }
     }
-    handleClick = (id) =>{
+    handleClick = (id) => {
         window.location.href = "/categoryfilm?id=" + id;
     }
     componentWillReceiveProps = (nextProps) => {
@@ -40,6 +41,28 @@ class Header extends Component {
         this.props.read();
         this.props.readFilms();
     }
+    componentDidMount() {
+        console.log("lik", window.location.pathname);
+        let pathname = window.location.pathname;
+        if (pathname === "/") {
+            document.getElementsByClassName("type")[0].classList.remove("active");
+            document.getElementsByClassName("about")[0].classList.remove("active");
+            let element = document.getElementsByClassName("home");
+            element[0].classList.add("active");
+        }
+        else if (pathname == "/categoryfilm") {
+            document.getElementsByClassName("home")[0].classList.remove("active");
+            document.getElementsByClassName("about")[0].classList.remove("active");
+            let element = document.getElementsByClassName("type");
+            element[0].classList.add("active");
+        }
+        else if (pathname == "/about") {
+            document.getElementsByClassName("home")[0].classList.remove("active");
+            document.getElementsByClassName("type")[0].classList.remove("active");
+            let element = document.getElementsByClassName("about");
+            element[0].classList.add("active");
+        }
+    }
     render() {
         let button;
         if (!this.state.isLoggedIn) {
@@ -49,45 +72,34 @@ class Header extends Component {
             button = <LogOutButton ></LogOutButton>
         }
         return (
-            <div className="header">
+            <div className="header sticky-top">
                 <Container>
                     <Row>
                         <Navbar expand="md">
-                            <NavbarBrand href="/" className="pt-0">
-                                <img src={logo} alt="logo" class="d-inline-block align-top"></img>
-                                Kubo</NavbarBrand>
+                            <NavbarBrand href="/" className="pt-0 mb-1">
+                                <img src={logo} alt="logo" class="d-inline-block align-top "></img>
+                            </NavbarBrand>
                             <NavbarToggler onClick={this.toggle} />
                             <Collapse isOpen={this.state.isOpen} navbar>
                                 <Nav navbar className="pt-0 pb-2">
-                                    <NavItem>
-                                        <NavLink href="/">Trang chủ</NavLink>
+                                    <NavItem className="pr-2">
+                                        <NavLink href="/" className="home">Trang chủ</NavLink>
                                     </NavItem>
-                                    <UncontrolledDropdown nav inNavbar>
-                                        <DropdownToggle nav caret>
+                                    <UncontrolledDropdown nav inNavbar className="pr-2">
+                                        <DropdownToggle nav caret className="type">
                                             Thể loại
                                         </DropdownToggle>
                                         <DropdownMenu right>
                                             {this.state.data !== null ? this.state.data.map(type => <DropdownItem onClick={() => this.handleClick(type._id)}>{type.name}</DropdownItem>) : <DropdownItem></DropdownItem>}
-                                            {/* <DropdownItem>
-                                                Tâm lý - tình cảm
-                                            </DropdownItem>
-                                            <DropdownItem>
-                                                Kinh dị
-                                            </DropdownItem>
-                                            <DropdownItem />
-                                            <DropdownItem>
-                                                Hài
-                                            </DropdownItem> */}
                                         </DropdownMenu>
                                     </UncontrolledDropdown>
-                                    <NavItem>
-                                        <NavLink href="about">Giới thiệu</NavLink>
+                                    <NavItem className="pr-2">
+                                        <NavLink href="about" className="about">Giới thiệu</NavLink>
                                     </NavItem>
                                 </Nav>
                             </Collapse>
                         </Navbar>
                         <div className="ml-auto d-flex mt-2 mr-2">
-
                             {button}
                             <Link to="/signin">
                                 <Button outline color="danger" className="ml-2">Đăng ký</Button>
@@ -101,7 +113,6 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log("state", state);
     return {
         isLoggedIn: state.login.isLoggedIn,
         loading: state.categorys.loading,
