@@ -4,7 +4,6 @@ import {
   READ_CATEGORY_PENDING,
   READ_CATEGORY_SUCCESS,
   READ_CATEGORY_FAILURE,
-
   READ_FILM_PENDING,
   READ_FILM_FAILURE,
   READ_FILM_SUCCESS,
@@ -86,4 +85,6 @@ export function readScheduleFailure(error) {
 }
 //--schedule
 
-
+export function getOneFilmFailure(error) {
+  return { type: GET_ONE_FILM_FAILURE, error };
+}

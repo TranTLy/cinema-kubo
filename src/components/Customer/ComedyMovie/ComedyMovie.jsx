@@ -23,7 +23,7 @@ export default class ComedyMovie extends Component {
                             {/* <CardHeader >Nổi bậc nhất</CardHeader> */}
                             {/* <hr className="mt-0"></hr> */}
                             <CardBody className="flexDirection: 'row, w-100">
-                                <CardItem listItem={listItem}></CardItem>
+                                <CardItem listItem={this.props.listItem}></CardItem>
                             </CardBody>
                         </div>
                     </Row>
