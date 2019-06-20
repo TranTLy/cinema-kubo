@@ -17,31 +17,40 @@ export default class SectionFilm extends Component {
         };
     }
 
-    // componentDidMount = () => {
-    //     if (this.state.start === 0)
-    //         document.getElementsByClassName("icon-arrow__left")[0].style = "display: none"
-    // };
+    componentDidMount = () => {
+        console.log("end", this.state.movie.length);
+        if (this.state.start === 0)
+            document.getElementsByClassName("icon-arrow__left")[0].style = "display: none"
+        // document.getElementsByClassName("icon-arrow__right")[0].style = "display: none"
+    };
     handleClickArrowLeft() {
-        if (this.state.start > 0)
-            // document.getElementsByClassName("icon-arrow__left")[0].style = "display: none"
-        // else {
+        if (this.state.start <= 0)
+            document.getElementsByClassName("icon-arrow__left")[0].style = "display: none"
+        else {
             document.getElementsByClassName("icon-arrow__right")[0].style = "display: block";
+            document.getElementsByClassName("icon-arrow__left")[0].style = "display: block";
             this.setState({ start: this.state.start - 1, end: this.state.end - 1 })
-        // }
+        }
     }
     handleClickArrowRight() {
         if (this.state.end < this.state.movie.length) {
-            // document.getElementsByClassName("icon-arrow__left")[0].style = "display: block";
+            document.getElementsByClassName("icon-arrow__left")[0].style = "display: block";
+            document.getElementsByClassName("icon-arrow__right")[0].style = "display: block";
             this.setState({ start: this.state.start + 1, end: this.state.end + 1 })
         }
-        // else {
-        //     document.getElementsByClassName("icon-arrow__right")[0].style = "display: none"
-        // }
+        else {
+            document.getElementsByClassName("icon-arrow__right")[0].style = "display: none"
+        }
     }
     componentWillReceiveProps = nextProps => {
         console.log("recive props");
         if (nextProps.movie !== this.state.movie) {
             this.setState({ movie: nextProps.movie });
+            if (this.state.end > nextProps.movie.length)
+                document.getElementsByClassName("icon-arrow__right")[0].style = "display: none"
+            else {
+                document.getElementsByClassName("icon-arrow__right")[0].style = "display: block"
+            }
         }
     };
 
@@ -71,9 +80,9 @@ export default class SectionFilm extends Component {
                         </Col>
                     </Row>
                     <div className="d-flex flexDirection: 'row', w-100 section" >
-                        <a onClick={this.handleClickArrowLeft}><i class="fas fa-angle-left fa-4x icon-arrow__left"></i></a>
+                        <a onClick={this.handleClickArrowLeft}><i class="fas fa-angle-left fa-3x icon-arrow__left"></i></a>
                         <CardFilm listItem={this.state.movie.slice(this.state.start, this.state.end)} className="w-100" />
-                        <a onClick={this.handleClickArrowRight}><i class="fas fa-angle-right fa-4x icon-arrow__right"></i></a>
+                        <a onClick={this.handleClickArrowRight}><i class="fas fa-angle-right fa-3x icon-arrow__right"></i></a>
                     </div>
                 </Container>
             </div >

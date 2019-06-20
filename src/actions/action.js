@@ -19,6 +19,8 @@ export function LogOut() {
   return { type: LOG_OUT };
 }
 
+
+//category
 export function readCategoryPending() {
   return { type: READ_CATEGORY_PENDING };
 }

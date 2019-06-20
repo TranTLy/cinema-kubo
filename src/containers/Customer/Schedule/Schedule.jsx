@@ -168,7 +168,7 @@ class Schedule extends Component {
                 <head>
                 </head>
                 <Header />
-                <Menu />
+                {/* <Menu /> */}
                 <Container className="schedule-wrap">
                     <div className="search">
                         <div className="search-branch">

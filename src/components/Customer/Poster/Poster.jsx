@@ -25,7 +25,6 @@ export default class Poster extends Component {
                 <Container className="content-poster">
                     <Link to="detailfilm">
                         <UncontrolledCarousel items={items} autoPlay={false} indicators={false} interval={false}>
-
                         </UncontrolledCarousel>
                     </Link>
                 </Container>

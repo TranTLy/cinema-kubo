@@ -24,9 +24,11 @@ $sub-main-color: #c20a0a;
       align-items: center;
       a {
         color: #c20a0a;
+        transition: transform 2s ease-out;
         i:hover {
-          color: #c20a0a;
+          color: #e45430;
           cursor: pointer;
+          
         }
       }
     }

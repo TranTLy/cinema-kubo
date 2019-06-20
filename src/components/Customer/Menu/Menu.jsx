@@ -36,16 +36,16 @@ export default class Menu extends Component {
         //     document.getElementsByClassName('menu').
         // }
     }
-    // addBreadCrumb() {
-    //     console.log("href", window.location.href);
-    //     const link = window.location.href;
-    //     if (link.includes("/about")) {
-    //         console.log("href fs", window.location.href);
-    //         document.getElementsByClassName('home')[0].style.display = "none";
-    //         document.getElementsByClassName('detail-film')[0].style.display = "none";
-    //         document.getElementsByClassName('about')[0].style.display = "block";
-    //     }
-    // }
+    addBreadCrumb() {
+        console.log("href", window.location.href);
+        const link = window.location.href;
+        if (link.includes("/about")) {
+            console.log("href fs", window.location.href);
+            document.getElementsByClassName('home')[0].style.display = "none";
+            document.getElementsByClassName('detail-film')[0].style.display = "none";
+            document.getElementsByClassName('about')[0].style.display = "block";
+        }
+    }
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
@@ -54,7 +54,7 @@ export default class Menu extends Component {
     render() {
 
         return (
-            <div className={this.state.menu}>
+            <div >
                 <Container>
                     <Row>
                         <Navbar expand="md" className="w-100 pt-0">
