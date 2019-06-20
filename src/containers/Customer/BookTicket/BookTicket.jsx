@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../../../components/Customer/Header/Header';
 import Footer from '../../../components/Customer/Footer/Footer';
-import Menu from '../../../components/Customer/Menu/Menu';
 import CardItemDetail from '../../../components/Customer/CardItemDetail/CardItemDetail'
 import { Container, Button } from 'reactstrap';
 import { ProgressBookTicket, SeatingPlant, Bill } from '../../../components'

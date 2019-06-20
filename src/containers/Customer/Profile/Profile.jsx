@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Header from '../../../components/Customer/Header/Header';
 import Footer from '../../../components/Customer/Footer/Footer';
-import Menu from '../../../components/Customer/Menu/Menu';
 import CardItemDetail from '../../../components/Customer/CardItemDetail/CardItemDetail'
 import { Container, Table, Button } from 'reactstrap';
 import './Profile.scss';
+import { connect } from 'react-redux';
+import { READ_USER_FILM_FAVOR } from '../../../config/ActionType';
 class Profile extends Component {
 	constructor(props) {
 		super(props);
@@ -21,9 +22,31 @@ class Profile extends Component {
 					id: 1,
 					name: 'Bộ sưu tập yêu thích'
 				}
-			]
+			],
+			filmFavor: [],
+			isLoading: true
 		};
 	}
+
+	componentWillReceiveProps = (nextProps) => {
+		if (nextProps.filmFavor != this.state.filmFavor) {
+			console.log("profile: will revieve props , next props:", nextProps.filmFavor);
+			this.setState({ filmFavor: nextProps.filmFavor, isLoading: false });
+		}
+	}
+
+	// componentWillMount = () => {
+	// 	console.log("will mount, next props:", this.props.filmFavor);
+	// 	this.setState({ filmFavor: this.props.filmFavor, isLoading: false });
+	// }
+
+	componentDidMount() {
+		const id = "5d09b69efed6a72290d288c6";
+		this.props.readFilmFavor(id);
+		console.log("profile: on component did mount, film favor = : ", this.props.filmFavor);
+		this.setState({ filmFavor: this.props.filmFavor })
+	}
+
 	setCurrentTab = (id) => {
 		this.setState({ currentTab: id });
 
@@ -93,55 +116,6 @@ class Profile extends Component {
 			diemTichLuy: 103
 		};
 
-		const moviesSample = [{
-			name: "Game Of Thrones",
-			description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
-			type: "Cuộc sống",
-			releaseDate: "April 1, 2019",
-			duration: "02 giờ 50 phút",
-			director: "Grace Belly",
-			actors: " Alexander Cattly, Greta Garbo",
-			language: "Tiếng Anh",
-			age: "",
-			price: 80000,
-			isActive: true,
-			rate: 4.5,
-			point: 2,
-			img: "http://demo.amytheme.com/movie/demo/movie-news/wp-content/uploads/2019/04/img_8-1-196x336.jpg"
-		},
-		{
-			name: "Game Of Thrones",
-			description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
-			type: "Cuộc sống",
-			releaseDate: "April 1, 2019",
-			duration: "02 giờ 50 phút",
-			director: "Grace Belly",
-			actors: " Alexander Cattly, Greta Garbo",
-			language: "Tiếng Anh",
-			age: "",
-			price: 80000,
-			isActive: true,
-			rate: 4.5,
-			point: 2,
-			img: "http://demo.amytheme.com/movie/demo/movie-news/wp-content/uploads/2019/04/img_9-1-196x336.jpg"
-		},
-		{
-			name: "Game Of Thrones",
-			description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
-			type: "Cuộc sống",
-			releaseDate: "April 1, 2019",
-			duration: "02 giờ 50 phút",
-			director: "Grace Belly",
-			actors: " Alexander Cattly, Greta Garbo",
-			language: "Tiếng Anh",
-			age: "",
-			price: 80000,
-			isActive: true,
-			rate: 4.5,
-			point: 2,
-			img: "http://demo.amytheme.com/movie/demo/movie-news/wp-content/uploads/2019/04/img_7-1-196x336.jpg"
-		}]
-
 		if (this.state.currentTab === this.state.tabInformation) {
 			return (
 				<div className="infor-wrap">
@@ -185,11 +159,12 @@ class Profile extends Component {
 		} else if (this.state.currentTab == this.state.tabFavourite) {
 			return (
 				<div className="favourite-wrap">
-					<div id="sum-favoutire-movie">Tổng cộng: 12 bộ phim</div>
+					<div id="sum-favoutire-movie">Tổng cộng: {this.state.filmFavor.length} bộ phim</div>
 					<div className="favourite-content-wrap">
 						<div className="favourite-movie-left-column">
 							{
-								moviesSample.map((item, index) => {
+								this.state.filmFavor.map((film, index) => {
+									const item = film.idfilm;
 									if (index % 2 == 0) {
 										return (
 											<CardItemDetail movie={item} />
@@ -201,7 +176,8 @@ class Profile extends Component {
 						<div className="favourite-movie-right-column">
 
 							{
-								moviesSample.map((item, index) => {
+								this.state.filmFavor.map((film, index) => {
+									const item = film.idfilm;
 									if (index % 2 == 1) {
 										return (
 											<CardItemDetail movie={item} />
@@ -219,6 +195,7 @@ class Profile extends Component {
 
 
 	render() {
+		// if (!this.state.isLoading) {
 		return (
 			<div>
 				<head>
@@ -226,7 +203,6 @@ class Profile extends Component {
 				</head>
 				<div className="profile-container-wrap">
 					<Header />
-					<Menu />
 					<Container>
 						<div className="tab-wrap">
 							{this.state.tab.map((item) => {
@@ -244,8 +220,28 @@ class Profile extends Component {
 					<Footer />
 				</div>
 			</div>
-		);
+		)
+		// }
+		// else return (
+		// 	<div>Loading</div>
+		// )
+		// this.state.isLoading && (
+		// 	<div>Loading</div>
+		// )
+
 	}
 }
 
-export default Profile;
+function mapStateToProps(state) {
+	console.log("state in view:", state);
+	return {
+		filmFavor: state.userFilmFavor.data
+	}
+}
+function mapDispatchToProps(dispatch) {
+	return {
+		readFilmFavor: (userId) => dispatch({ type: READ_USER_FILM_FAVOR, userId })
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

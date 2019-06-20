@@ -1,10 +1,7 @@
 import React from 'react';
 import { Card } from 'reactstrap';
 import './CardItem.scss'
-import { Link } from 'react-router-dom'
 import { connect } from "react-redux"
-import { getOneFilm } from "../../../actions/action"
-import { GET_ONE_FILM } from '../../../config/ActionType';
 class CardItem extends React.Component {
     constructor(props) {
         super(props);
@@ -33,10 +30,7 @@ class CardItem extends React.Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    console.log("dispatch");
-    return {
-        getFilm: (id) => dispatch({ type: GET_ONE_FILM, id })
-    }
+
 }
 
 // const mapDispatchToProps = dispatch => {

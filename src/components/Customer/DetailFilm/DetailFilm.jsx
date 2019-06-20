@@ -4,7 +4,6 @@ import {
 } from 'reactstrap';
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
-import Menu from '../Menu/Menu'
 import PosterDetailFilm from '../PosterDetailFilm/PosterDetailFilm'
 import imgFilm from '../../../assets/img/NgoiDenKiQuai.jpg'
 import './DetailFilm.scss'
@@ -42,7 +41,6 @@ class DetailFilm extends Component {
         return (
             <div className="detail-film">
                 <Header />
-                {/* <Menu /> */}
                 <PosterDetailFilm />
                 {container !== null && (
                     <React.Fragment>

@@ -7,9 +7,19 @@ import {
   READ_FILM_PENDING,
   READ_FILM_FAILURE,
   READ_FILM_SUCCESS,
-  GET_ONE_FILM,
-  GET_ONE_FILM_SUCCESS,
-  GET_ONE_FILM_FAILURE
+
+  READ_USER_FILM_FAVOR_PENDING,
+  READ_USER_FILM_FAVOR_FAILURE,
+  READ_USER_FILM_FAVOR_SUCCESS,
+
+  READ_BRANCH_PENDING,
+  READ_BRANCH_FAILURE,
+  READ_BRANCH_SUCCESS,
+
+  READ_SCHEDULE_PENDING,
+  READ_SCHEDULE_FAILURE,
+  READ_SCHEDULE_SUCCESS
+
 } from "../config/ActionType";
 
 export function LogIn() {
@@ -41,15 +51,39 @@ export function readFilmFailure(error) {
   return { type: READ_FILM_FAILURE, error };
 }
 
-export function getOneFilm(id) {
-  return { type: GET_ONE_FILM, id };
+//user - fim favor
+export function readUserFilmFavorPending() {
+  return { type: READ_USER_FILM_FAVOR_PENDING };
 }
+export function readUserFilmFavorSuccess(data) {
+  return { type: READ_USER_FILM_FAVOR_SUCCESS, data };
+}
+export function readUserFilmFavorFailure(error) {
+  return { type: READ_USER_FILM_FAVOR_FAILURE, error };
+}
+//--user - fim favor
 
-export function getOneFilmSucces(data) {
-  console.log("dataa", data);
-  return { type: GET_ONE_FILM_SUCCESS, data };
+//branch
+export function readBranchPending() {
+  return { type: READ_BRANCH_PENDING };
 }
+export function readBranchSuccess(data) {
+  return { type: READ_BRANCH_SUCCESS, data };
+}
+export function readBranchFailure(error) {
+  return { type: READ_BRANCH_FAILURE, error };
+}
+//--branch
 
-export function getOneFilmFailure(error) {
-  return { type: GET_ONE_FILM_FAILURE, error };
+//schedule
+export function readSchedulePending() {
+  return { type: READ_SCHEDULE_PENDING };
 }
+export function readScheduleSuccess(data) {
+  return { type: READ_SCHEDULE_SUCCESS, data };
+}
+export function readScheduleFailure(error) {
+  return { type: READ_SCHEDULE_FAILURE, error };
+}
+//--schedule
+
