@@ -56,7 +56,7 @@ class App extends Component {
       newMovie = this.state.films
         .filter(film => {
           let dateFilm = new Date(film.releaseDate);
-          return dateFilm > date && film.isActive === true;
+          return dateFilm > date && film.status === true;
         })
         .sort((a, b) =>
           a.rate > b.rate
@@ -72,7 +72,7 @@ class App extends Component {
         .filter(film => {
           let dateFilm = new Date(film.releaseDate);
           console.log("dateFilm", dateFilm);
-          return dateFilm < date && film.isActive === true;
+          return dateFilm < date && film.status === true;
         })
         .sort((a, b) => (a.point > b.point ? 1 : -1));
       console.log("new", newMovie);

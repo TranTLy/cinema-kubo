@@ -47,19 +47,29 @@ class Header extends Component {
         if (pathname === "/") {
             document.getElementsByClassName("type")[0].classList.remove("active");
             document.getElementsByClassName("about")[0].classList.remove("active");
+            document.getElementsByClassName("schedule")[0].classList.remove("active");
             let element = document.getElementsByClassName("home");
             element[0].classList.add("active");
         }
-        else if (pathname == "/categoryfilm") {
+        else if (pathname === "/categoryfilm") {
             document.getElementsByClassName("home")[0].classList.remove("active");
             document.getElementsByClassName("about")[0].classList.remove("active");
+            document.getElementsByClassName("schedule")[0].classList.remove("active");
             let element = document.getElementsByClassName("type");
             element[0].classList.add("active");
         }
-        else if (pathname == "/about") {
+        else if (pathname === "/about") {
             document.getElementsByClassName("home")[0].classList.remove("active");
             document.getElementsByClassName("type")[0].classList.remove("active");
+            document.getElementsByClassName("schedule")[0].classList.remove("active");
             let element = document.getElementsByClassName("about");
+            element[0].classList.add("active");
+        }
+        else if (pathname === "/schedule") {
+            document.getElementsByClassName("home")[0].classList.remove("active");
+            document.getElementsByClassName("type")[0].classList.remove("active");
+            document.getElementsByClassName("about")[0].classList.remove("active");
+            let element = document.getElementsByClassName("schedule");
             element[0].classList.add("active");
         }
     }
@@ -95,6 +105,9 @@ class Header extends Component {
                                     </UncontrolledDropdown>
                                     <NavItem className="pr-2">
                                         <NavLink href="about" className="about">Giới thiệu</NavLink>
+                                    </NavItem>
+                                    <NavItem className="pr-2">
+                                        <NavLink href="schedule" className="schedule">Lịch chiếu</NavLink>
                                     </NavItem>
                                 </Nav>
                             </Collapse>
