@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../../../components/Customer/Header/Header';
 import Footer from '../../../components/Customer/Footer/Footer';
-import Menu from '../../../components/Customer/Menu/Menu';
 import HeadLine from '../../../components/Customer/HeadLine/HeadLine'
 import { Loading } from '../../../components'
 import { Container } from 'reactstrap';
@@ -44,7 +43,6 @@ class About extends Component {
 
                         </head>
                         <Header />
-                        <Menu />
                         <Container>
                             <div className="about-us-wrap">
                                 <div className="general-infor">

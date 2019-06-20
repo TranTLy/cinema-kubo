@@ -4,7 +4,6 @@ import {
 } from 'reactstrap';
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
-import Menu from '../Menu/Menu'
 import PosterDetailFilm from '../PosterDetailFilm/PosterDetailFilm'
 import imgFilm from '../../../assets/img/NgoiDenKiQuai.jpg'
 import './DetailFilm.scss'
@@ -14,25 +13,19 @@ import { queryString } from "query-string"
 class DetailFilm extends Component {
     constructor(props) {
         super(props);
+        this.handleClick = this.handleClick.bind(this);
         this.state = {
             films: this.props.films || []
-            // types: this.props.types || []
         }
     }
-    // componentDidMount() {
-    //     // console.log("id", request.query.id);
-    //     let values = this.props.location.search;
-    //     const param = new URLSearchParams(values);
-    //     console.log("id", param.get('id'));
-    // }
+    handleClick = id => {
+        window.location.href = "/schedule?id=" + id;
+    }
+
     componentWillReceiveProps = (nextProps) => {
-        // console.log("next props", nextProps.films);
         if (nextProps.films !== this.state.films) {
             this.setState({ films: nextProps.films })
         }
-        // if (nextProps.types !== this.state.types) {
-        //     this.setState({ types: nextProps.types })
-        // }
     }
     render() {
         let values = this.props.location.search;
@@ -43,19 +36,11 @@ class DetailFilm extends Component {
         let film = this.state.films.filter(film => film._id == id);
         console.log("film", film);
         if (film[0]) {
-            // let idtype = film[0].type;
-            // console.log("id type", idtype);
-            // let type = this.state.types.filter(type => type._id == idtype);
-            // if (type[0]) {
-            //     typeName = type[0].name;
-            //     console.log("name", typeName);
             container = 1;
-            // }
         }
         return (
             <div className="detail-film">
                 <Header />
-                <Menu />
                 <PosterDetailFilm />
                 {container !== null && (
                     <React.Fragment>
@@ -63,18 +48,18 @@ class DetailFilm extends Component {
                             <Row className="flexDirection: 'column',">
                                 <Col sm={3}>
                                     <img src={film[0].img} className="w-100" alt="" ></img>
-                                    <Button color="secondary" className="w-100 mt-3 rounded-0">Đặt vé</Button>
+                                    <Button color="secondary" className="w-100 mt-3 rounded-0" onClick={() => this.handleClick(film[0]._id)}>Đặt vé</Button>
                                 </Col>
                                 <Col>
                                     <h3 className="text-dark font-weight-bold pb-3">{film[0].name}</h3>
-                                    {/* <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
                                         <h5 className="pr-3 pl-0">Xem xếp hạng:</h5>
                                         <i class="fas fa-star text-warning pt-1"></i>
                                         <i class="fas fa-star text-warning pt-1"></i>
                                         <i class="fas fa-star text-warning pt-1"></i>
                                         <i class="fas fa-star text-warning pt-1"></i>
                                         <i class="fas fa-star-half-alt text-warning pt-1"></i>
-                                    </Col> */}
+                                    </Col>
                                     <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
                                         <h5 className="pr-3 pl-0 text-danger font-weight-bold">Ngày phát hành:</h5>
                                         <h6 className="pt-1">{film[0].releaseDate}</h6>

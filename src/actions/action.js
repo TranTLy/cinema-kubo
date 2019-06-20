@@ -29,6 +29,8 @@ export function LogOut() {
   return { type: LOG_OUT };
 }
 
+
+//category
 export function readCategoryPending() {
   return { type: READ_CATEGORY_PENDING };
 }
@@ -85,6 +87,3 @@ export function readScheduleFailure(error) {
 }
 //--schedule
 
-export function getOneFilmFailure(error) {
-  return { type: GET_ONE_FILM_FAILURE, error };
-}

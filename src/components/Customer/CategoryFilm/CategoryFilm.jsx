@@ -4,58 +4,52 @@ import {
 } from 'reactstrap';
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
-import Menu from '../Menu/Menu'
 import imgFilm from '../../../assets/img/NgoiDenKiQuai.jpg'
 import imgFilm1 from '../../../assets/img/3.jpg';
 import CardItem from "../CardItem/CardItem"
 import "./CategoryFilm.scss"
+import { connect } from "react-redux"
+import SectionFilm from '../CardFilm/SectionFilm';
 
-const listItem = [{ img: imgFilm }, { img: imgFilm1 }, { img: imgFilm }, { img: imgFilm1 }];
-export default class CategoryFilm extends Component {
+
+class CategoryFilm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            films: this.props.films
+        }
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.films !== this.state.films) {
+            this.setState({ films: nextProps.films });
+        }
+    }
     render() {
+        const values = this.props.location.search;
+        const params = new URLSearchParams(values);
+        const id = params.get('id');
+        let title = "";
+        let filmBytype = this.state.films.filter(film => film.type._id == id);
+        if (filmBytype[0]) {
+            title = filmBytype[0].type.name;
+        }
         return (
-            <div className="SectionFilm">
+            <div>
                 <Header />
-                <Menu />
-                <Container className="content">
-                    <Row className="mt-4">
-                        <Col sm={4}>
-                            <hr></hr>
-                        </Col>
-                        <Col sm={4} className="d-flex flexDirection: 'row'">
-                            <img
-                                src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-ribon-left-transparent.png"
-                                alt=""
-                            />
-                            <div className="title-type-film">
-                                <h4>assa</h4>
-                            </div>
-                            <img
-                                src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-ribon-right-transparent.png"
-                                alt=""
-                            />
-                        </Col>
-                        <Col sm={4}>
-                            <hr></hr>
-                        </Col>
-                    </Row>
-                    <Row className="category-film justifyContent: 'center',alignItems: 'center',">
-                        <Row className="film mt-4">
-                            <CardItem listItem={listItem}></CardItem>
-                        </Row>
-                        <Row className="film mt-4">
-                            <CardItem listItem={listItem}></CardItem>
-                        </Row>
-                        <Row className="film mt-4">
-                            <CardItem listItem={listItem}></CardItem>
-                        </Row>
-                    </Row>
-                </Container>
+                <div className="SectionFilm">
+                    <SectionFilm movie={filmBytype} title={title}></SectionFilm>
+                </div >
                 <Footer />
-            </div>
+            </div >
         )
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        films: state.films.data
+    }
+}
 
-
+export default connect(mapStateToProps)(CategoryFilm)
