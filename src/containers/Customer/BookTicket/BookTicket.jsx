@@ -4,8 +4,10 @@ import Footer from '../../../components/Customer/Footer/Footer';
 import CardItemDetail from '../../../components/Customer/CardItemDetail/CardItemDetail'
 import { Container, Button } from 'reactstrap';
 import { ProgressBookTicket, SeatingPlant, Bill } from '../../../components'
-
+import { connect } from "react-redux"
+import { READ_SCHEDULE } from "../../../config/ActionType"
 import './BookTicket.scss'
+import { URLSearchParams } from 'url';
 class BookTicket extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +29,18 @@ class BookTicket extends Component {
             ],
             currentStep: 1,
             numberTicket: 0,
-            arrayPositionSeat: [] //an array that records the position of seat
+            arrayPositionSeat: [], //an array that records the position of seat,
+            schedules: this.props.schedules
+        }
+    }
+
+    componentDidMount() {
+        this.props.readSchedules();
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.schedules !== this.state.schedules) {
+            this.setState({ schedules: nextProps.schedules })
         }
     }
 
@@ -118,48 +131,62 @@ class BookTicket extends Component {
         }
     }
     render() {
-        const branch =
-        {
-            id: 1,
-            nameBranch: "Kubo Vạn Hanh",
-            address: "111, Sư Vạn Hạnh, Q.10, TP. Hồ Chí Minh"
-        };
-        const promotion = {
-            namePromotion: "Ưu đãi mùa hè cùng Kubo",
-            discount: 0.3
+
+        const values = this.props.location.search;
+        const params = new URLSearchParams(values);
+        const id = params.get('id');
+
+        let branch;
+        let promotion;
+        let schedule;
+        let myMovie;
+        let container = null;
+        if(this.state.schedules){
+            branch = this.state.schedules.filter()
         }
-        const schedule = {
-            idBranch: 1,
-            idCinema: 1,
-            startTime: "09:00 12/05/2019",
-            idRoom: 1,
-            sumTicket: 60,
-            availableTicket: 16
-        };
-        const myMovie =
-        {
-            id: 1,
-            name: "Game Of Thrones",
-            description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
-            type: "Cuộc sống",
-            releaseDate: "April 1, 2019",
-            duration: "02 giờ 50 phút",
-            director: "Grace Belly",
-            actors: " Alexander Cattly, Greta Garbo",
-            language: "Tiếng Anh",
-            age: "",
-            price: 80000,
-            score: 1,
-            isActive: true,
-            rate: 4.5,
-            img: "http://demo.amytheme.com/movie/demo/movie-news/wp-content/uploads/2019/04/img_8-1-196x336.jpg"
-        };
+        // const branch =
+        // {
+        //     id: 1,
+        //     nameBranch: "Kubo Vạn Hanh",
+        //     address: "111, Sư Vạn Hạnh, Q.10, TP. Hồ Chí Minh"
+        // };
+        // const promotion = {
+        //     namePromotion: "Ưu đãi mùa hè cùng Kubo",
+        //     discount: 0.3
+        // }
+        // const schedule = {
+        //     idBranch: 1,
+        //     idCinema: 1,
+        //     startTime: "09:00 12/05/2019",
+        //     idRoom: 1,
+        //     sumTicket: 60,
+        //     availableTicket: 16
+        // };
+        // const myMovie =
+        // {
+        //     id: 1,
+        //     name: "Game Of Thrones",
+        //     description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+        //     type: "Cuộc sống",
+        //     releaseDate: "April 1, 2019",
+        //     duration: "02 giờ 50 phút",
+        //     director: "Grace Belly",
+        //     actors: " Alexander Cattly, Greta Garbo",
+        //     language: "Tiếng Anh",
+        //     age: "",
+        //     price: 80000,
+        //     score: 1,
+        //     isActive: true,
+        //     rate: 4.5,
+        //     img: "http://demo.amytheme.com/movie/demo/movie-news/wp-content/uploads/2019/04/img_8-1-196x336.jpg"
+        // };
         const SeatingRoomSchedule = {
             stateSeat: "0001000000000000000000000000000000000000000000001110000000000000000000011000000000000000000000000100"
         }
         return (
             <div>
                 <Header />
+                {container !== null ? (
                 <Container className="book-ticket-wrap">
                     <div className="schedule">
                         <CardItemDetail movie={myMovie} />
@@ -189,7 +216,7 @@ class BookTicket extends Component {
                         </div>
 
                     </div>
-                </Container>
+                </Container>) : ""}
                 <Footer />
 
             </div>
@@ -197,4 +224,16 @@ class BookTicket extends Component {
     }
 }
 
-export default BookTicket;
+function mapStateToProps(state) {
+    return {
+        schedules: state.schedules
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        readSchedules: () => dispatch({ type: READ_SCHEDULE })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookTicket);

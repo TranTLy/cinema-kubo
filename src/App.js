@@ -18,11 +18,6 @@ class App extends Component {
       films: this.props.films || []
     };
   }
-
-  componentDidMount = () => {
-    console.log("didmount");
-  };
-
   componentWillReceiveProps = nextProps => {
     console.log("recive props");
     if (nextProps.films !== this.state.films) {
@@ -35,11 +30,9 @@ class App extends Component {
     let newMovie;
     let oldMovie;
     let date = new Date();
-    console.log("date", date);
     if (this.state.films) {
       let activeMovie = this.state.films.filter(film => {
         let dateFilm = new Date(film.releaseDate);
-        console.log("dateFilm", dateFilm);
         return dateFilm < date && film.isActive === true;
       });
 
@@ -75,9 +68,6 @@ class App extends Component {
           return dateFilm < date && film.status === true;
         })
         .sort((a, b) => (a.point > b.point ? 1 : -1));
-      console.log("new", newMovie);
-      console.log("old", oldMovie);
-      console.log("most", mostMovie);
     }
     return (
       <div>

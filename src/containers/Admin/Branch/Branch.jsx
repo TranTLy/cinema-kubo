@@ -4,7 +4,8 @@ import Modal from 'react-awesome-modal';
 import './Branch.scss';
 import { MenuPanel, BranchModal, ConfirmModal } from '../../../components';
 import { ADD_BRANCH_MODE, EDIT_BRANCH_MODE } from '../../../constanst';
-
+import { connect } from "react-redux"
+import { READ_BRANCH } from "../../../config/ActionType"
 class BranchAdmin extends Component {
     state = {}
     constructor(props) {
@@ -15,6 +16,17 @@ class BranchAdmin extends Component {
             deleteBranchModalVisible: false,
             branchEdit: null,
             branchDelete: null,
+            branchs: this.props.branchs
+        }
+    }
+
+    componentDidMount = () => {
+        this.props.readBranch();
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.branchs !== this.state.branchs) {
+            this.setState({ branchs: nextProps.branchs })
         }
     }
 
@@ -57,27 +69,27 @@ class BranchAdmin extends Component {
     }
     render() {
         // const {branchs} = this.props;
-        const branchs = [
-            {
-                _id: "1",
-                nameBranch: "KuBo Bình Thạnh",
-                address: "Số 111, quận Bình Thạnh, TP. Hồ Chí Minh", numberRoom: 5, status: 1
-            },
-            {
-                _id: "2",
-                nameBranch: "KuBo Bình Thạnh",
-                address: "Số 111, quận Bình Thạnh, TP. Hồ Chí Minh", numberRoom: 5, status: 1
-            }, {
-                _id: "3",
-                nameBranch: "KuBo Bình Thạnh",
-                address: "Số 111, quận Bình Thạnh, TP. Hồ Chí Minh", numberRoom: 5, status: 1
-            },
-            {
-                _id: "4",
-                nameBranch: "KuBo Bình Thạnh",
-                address: "Số 111, quận Bình Thạnh, TP. Hồ Chí Minh", numberRoom: 5, status: 1
-            }
-        ]
+        // const branchs = [
+        //     {
+        //         _id: "1",
+        //         nameBranch: "KuBo Bình Thạnh",
+        //         address: "Số 111, quận Bình Thạnh, TP. Hồ Chí Minh", numberRoom: 5, status: 1
+        //     },
+        //     {
+        //         _id: "2",
+        //         nameBranch: "KuBo Bình Thạnh",
+        //         address: "Số 111, quận Bình Thạnh, TP. Hồ Chí Minh", numberRoom: 5, status: 1
+        //     }, {
+        //         _id: "3",
+        //         nameBranch: "KuBo Bình Thạnh",
+        //         address: "Số 111, quận Bình Thạnh, TP. Hồ Chí Minh", numberRoom: 5, status: 1
+        //     },
+        //     {
+        //         _id: "4",
+        //         nameBranch: "KuBo Bình Thạnh",
+        //         address: "Số 111, quận Bình Thạnh, TP. Hồ Chí Minh", numberRoom: 5, status: 1
+        //     }
+        // ]
         return (
             <React.Fragment>
                 <div className="branch-admin__content admin__content">
@@ -100,19 +112,20 @@ class BranchAdmin extends Component {
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {branchs.map((item, index) => (
-                                    <tr className="branch-admin__branchs--single-branch admin__detail--single">
-                                        <td>{index + 1}</td>
-                                        <td>{item.nameBranch}</td>
-                                        <td>{item.address}</td>
-                                        <td className="actions">
-                                            <i class="fas fa-edit" onClick={() => this.OpenEditModal(item)}></i>
-                                            <i class="fas fa-trash-alt" onClick={() => this.OpenDeleteModal(item)}></i></td>
-                                    </tr>
-                                ))}
+                            {this.state.branchs !== null ? (
+                                <tbody>
+                                    {this.state.branchs.map((item, index) => (
+                                        <tr className="branch-admin__branchs--single-branch admin__detail--single">
+                                            <td>{index + 1}</td>
+                                            <td>{item.name}</td>
+                                            <td>{item.address}</td>
+                                            <td className="actions">
+                                                <i class="fas fa-edit" onClick={() => this.OpenEditModal(item)}></i>
+                                                <i class="fas fa-trash-alt" onClick={() => this.OpenDeleteModal(item)}></i></td>
+                                        </tr>
+                                    ))}
 
-                            </tbody>
+                                </tbody>) : ""}
                         </table>
 
                     </div>
@@ -130,4 +143,16 @@ class BranchAdmin extends Component {
     }
 }
 
-export default BranchAdmin;
+function mapStateToProps(state) {
+    return {
+        branchs: state.branch.data
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        readBranch: () => dispatch({ type: READ_BRANCH })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BranchAdmin)
