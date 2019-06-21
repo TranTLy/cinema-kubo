@@ -47,10 +47,10 @@ class App extends Component {
         a.rate > b.rate
           ? -1
           : a.rate === b.rate
-          ? a.point > b.point
-            ? -1
+            ? a.point > b.point
+              ? -1
+              : 1
             : 1
-          : 1
       );
 
       newMovie = this.state.films
@@ -62,10 +62,10 @@ class App extends Component {
           a.rate > b.rate
             ? -1
             : a.rate === b.rate
-            ? a.point > b.point
-              ? -1
+              ? a.point > b.point
+                ? -1
+                : 1
               : 1
-            : 1
         );
 
       oldMovie = this.state.films
@@ -82,11 +82,12 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <Poster />
-        <SectionFilm movie={mostMovie} title="Phim nổi bật nhất" />
-        <SectionFilm movie={newMovie} title="Phim sắp chiếu" />
-        <SectionFilm movie={oldMovie} title="Phim đang chiếu" />
-
+        <Container>
+          <Poster />
+          <SectionFilm movie={mostMovie} title="Phim nổi bật nhất" />
+          <SectionFilm movie={newMovie} title="Phim sắp chiếu" />
+          <SectionFilm movie={oldMovie} title="Phim đang chiếu" />
+        </Container>
         <Footer className="mt-0" />
       </div>
     );

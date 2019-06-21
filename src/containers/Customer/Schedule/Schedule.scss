@@ -1,10 +1,12 @@
 @import "../../../assets/stylesheet/default.scss";
 
 .schedule-wrap {
-	margin-top: 10px;
+	margin-top: 40px;
+	margin-bottom: $footer-height;
 	.search {
 		display: flex;
 		margin-bottom: 20px;
+		justify-content: center;
 		div {
 			margin-right: 30px;
 		}
@@ -16,18 +18,28 @@
 			}
 		}
 		.search-date {
+			display: flex;
+			color: #000;
 			input {
-				margin-left: 20px;
+				margin-left: 5px;
+				margin-right: 5px;
+				padding-left: 10px;
 			}
 		}
 		.btn-search-schedule{
 			margin-left: 10px;
+			background-color: #c20a0a;
+			border: none;
+			box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3)
 		}
 	}
 	.sum-schedule{
 		margin: 20px;
 		text-align: right;
 		color: rgb(247, 192, 11);
+		&:hover{
+			cursor: pointer;
+		}
 		
 	}
 	.list-schedules {
@@ -89,6 +101,13 @@
 
 @media only screen and (max-width: 600px) {
 	.schedule-wrap {
+		// .search {
+		// 	flex-direction: column;
+		// 	.select-date {
+		// 		flex-direction: column;
+		// 		height: 20px;
+		// 	}
+		// }
 		.list-schedules {
 			.schedule {
 				flex-direction: column;
