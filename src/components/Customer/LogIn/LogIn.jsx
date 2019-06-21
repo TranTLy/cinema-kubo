@@ -38,8 +38,8 @@ class LogIn extends Component {
                         <i class="fas fa-user fa-2x"></i>
                     </Col>
                     <Col sm={{ size: 8 }} >
-                        <Input className="text-secondary" type="text" name="userName" id="userName"
-                            placeholder="Nhập tên đăng nhập của bạn"
+                        <Input className="text-secondary" type="email" name="email" id="email"
+                            placeholder="Nhập gmail của bạn" 
                         />
                     </Col>
                 </FormGroup>

@@ -22,8 +22,8 @@ import {
 
 } from "../config/ActionType";
 
-export function LogIn() {
-  return { type: LOG_IN };
+export function LogIn(user) {
+  return { type: LOG_IN,user };
 }
 export function LogOut() {
   return { type: LOG_OUT };
