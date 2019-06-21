@@ -3,9 +3,11 @@ import Header from '../../../components/Customer/Header/Header';
 import Footer from '../../../components/Customer/Footer/Footer';
 import CardItemDetail from '../../../components/Customer/CardItemDetail/CardItemDetail'
 import { Container, Button } from 'reactstrap';
-import { ProgressBookTicket, SeatingPlant, Bill } from '../../../components'
+import { ProgressBookTicket, SeatingPlant, Bill, Loading } from '../../../components'
 
 import './BookTicket.scss'
+import { READ_SCHEDULE } from '../../../config/ActionType';
+import { connect } from 'react-redux';
 class BookTicket extends Component {
     constructor(props) {
         super(props);
@@ -27,8 +29,19 @@ class BookTicket extends Component {
             ],
             currentStep: 1,
             numberTicket: 0,
-            arrayPositionSeat: [] //an array that records the position of seat
+            arrayPositionSeat: [], //an array that records the position of seat,
+            schedule: null,
+            schedules: [],
+            isLoading: true,
         }
+    }
+
+    componentWillReceiveProps(next) {
+        // if ()
+    }
+
+    componentDidMount() {
+        // this.props.readSchedule();
     }
 
     selectSeatPosition = (pos) => {
@@ -82,7 +95,7 @@ class BookTicket extends Component {
         this.setState({ numberTicket: inputNumberTicket.value });
     }
 
-    renderOption = (stateSeat) => {
+    renderOption = () => {
         switch (this.state.currentStep) {
             case this.state.STEP_ONE:
                 return (
@@ -96,7 +109,7 @@ class BookTicket extends Component {
 
                 return (
                     <div class="option__detail">
-                        <SeatingPlant stateSeat={stateSeat} maxSeat={this.state.numberTicket}
+                        <SeatingPlant stateSeat={this.schedule.stateSeat} maxSeat={this.state.numberTicket}
                             selectSeatPosition={this.selectSeatPosition} deselectSeatPosition={this.deselectSeatPosition} />
                     </div>
                 )
@@ -118,6 +131,19 @@ class BookTicket extends Component {
         }
     }
     render() {
+        // if (this.state.isLoading){
+        //     return (
+        //         <Loading/>
+        //     )
+        // } else if (this.state.schedule !=null) {
+        //     const branch = this.state.schedule.idbranch;
+        //     //TODO
+        //             const promotion = {
+        //     namePromotion: "Ưu đãi mùa hè cùng Kubo",
+        //     discount: 0.3
+        // }
+        // const myMovie = this.schedule.idfilm;
+
         const branch =
         {
             id: 1,
@@ -154,9 +180,7 @@ class BookTicket extends Component {
             rate: 4.5,
             img: "http://demo.amytheme.com/movie/demo/movie-news/wp-content/uploads/2019/04/img_8-1-196x336.jpg"
         };
-        const SeatingRoomSchedule = {
-            stateSeat: "0001000000000000000000000000000000000000000000001110000000000000000000011000000000000000000000000100"
-        }
+
         return (
             <div>
                 <Header />
@@ -181,7 +205,7 @@ class BookTicket extends Component {
                         </div>
                         <div className="option">
                             {
-                                this.renderOption(SeatingRoomSchedule.stateSeat)
+                                this.renderOption()
                             }
                         </div>
                         <div className="bill">
@@ -197,4 +221,16 @@ class BookTicket extends Component {
     }
 }
 
-export default BookTicket;
+
+function mapStateToProps(state) {
+    return {
+        schedule: state.schedule
+    }
+}
+
+function mapDispathToProps(dispath) {
+    return {
+        readSchedule: () => dispath({ type: READ_SCHEDULE })
+    }
+}
+export default connect(mapStateToProps, mapDispathToProps)(BookTicket);

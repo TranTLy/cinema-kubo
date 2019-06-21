@@ -14,7 +14,7 @@ class CardItem extends React.Component {
         window.location.href = "/detailfilm?id=" + id;
     }
     handleClickBookTicket(id) {
-        window.location.href = "/book-ticket?id=" + id;
+        window.location.href = "/schedule?idfilm=" + id;
     }
     render() {
         return (

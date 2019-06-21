@@ -1,9 +1,13 @@
 @import "../../../assets/stylesheet/default.scss";
 
 .footer {
+	position: absolute;
+	bottom: 0;
+	width:100%;
 	margin-top: 47px;
+	height: $footer-height;
 	background-image: $background-image;
-
+	// margin-top: $footer-height;
 	.content-footer {
 		padding-right: 0;
 		display: flex;
