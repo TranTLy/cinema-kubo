@@ -3,11 +3,11 @@ import Header from '../../../components/Customer/Header/Header';
 import Footer from '../../../components/Customer/Footer/Footer';
 import CardItemDetail from '../../../components/Customer/CardItemDetail/CardItemDetail'
 import { Container, Button } from 'reactstrap';
-import { ProgressBookTicket, SeatingPlant, Bill } from '../../../components'
-import { connect } from "react-redux"
-import { READ_SCHEDULE } from "../../../config/ActionType"
+import { ProgressBookTicket, SeatingPlant, Bill, Loading } from '../../../components'
+
 import './BookTicket.scss'
-import { URLSearchParams } from 'url';
+import { READ_SCHEDULE } from '../../../config/ActionType';
+import { connect } from 'react-redux';
 class BookTicket extends Component {
     constructor(props) {
         super(props);
@@ -30,18 +30,18 @@ class BookTicket extends Component {
             currentStep: 1,
             numberTicket: 0,
             arrayPositionSeat: [], //an array that records the position of seat,
-            schedules: this.props.schedules
+            schedule: null,
+            schedules: [],
+            isLoading: true,
         }
+    }
+
+    componentWillReceiveProps(next) {
+        // if ()
     }
 
     componentDidMount() {
-        this.props.readSchedules();
-    }
-
-    componentWillReceiveProps = (nextProps) => {
-        if (nextProps.schedules !== this.state.schedules) {
-            this.setState({ schedules: nextProps.schedules })
-        }
+        // this.props.readSchedule();
     }
 
     selectSeatPosition = (pos) => {
@@ -95,7 +95,7 @@ class BookTicket extends Component {
         this.setState({ numberTicket: inputNumberTicket.value });
     }
 
-    renderOption = (stateSeat) => {
+    renderOption = () => {
         switch (this.state.currentStep) {
             case this.state.STEP_ONE:
                 return (
@@ -109,7 +109,7 @@ class BookTicket extends Component {
 
                 return (
                     <div class="option__detail">
-                        <SeatingPlant stateSeat={stateSeat} maxSeat={this.state.numberTicket}
+                        <SeatingPlant stateSeat={this.schedule.stateSeat} maxSeat={this.state.numberTicket}
                             selectSeatPosition={this.selectSeatPosition} deselectSeatPosition={this.deselectSeatPosition} />
                     </div>
                 )
@@ -131,92 +131,89 @@ class BookTicket extends Component {
         }
     }
     render() {
-
-        const values = this.props.location.search;
-        const params = new URLSearchParams(values);
-        const id = params.get('id');
-
-        let branch;
-        let promotion;
-        let schedule;
-        let myMovie;
-        let container = null;
-        if(this.state.schedules){
-            branch = this.state.schedules.filter()
-        }
-        // const branch =
-        // {
-        //     id: 1,
-        //     nameBranch: "Kubo Vạn Hanh",
-        //     address: "111, Sư Vạn Hạnh, Q.10, TP. Hồ Chí Minh"
-        // };
-        // const promotion = {
+        // if (this.state.isLoading){
+        //     return (
+        //         <Loading/>
+        //     )
+        // } else if (this.state.schedule !=null) {
+        //     const branch = this.state.schedule.idbranch;
+        //     //TODO
+        //             const promotion = {
         //     namePromotion: "Ưu đãi mùa hè cùng Kubo",
         //     discount: 0.3
         // }
-        // const schedule = {
-        //     idBranch: 1,
-        //     idCinema: 1,
-        //     startTime: "09:00 12/05/2019",
-        //     idRoom: 1,
-        //     sumTicket: 60,
-        //     availableTicket: 16
-        // };
-        // const myMovie =
-        // {
-        //     id: 1,
-        //     name: "Game Of Thrones",
-        //     description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
-        //     type: "Cuộc sống",
-        //     releaseDate: "April 1, 2019",
-        //     duration: "02 giờ 50 phút",
-        //     director: "Grace Belly",
-        //     actors: " Alexander Cattly, Greta Garbo",
-        //     language: "Tiếng Anh",
-        //     age: "",
-        //     price: 80000,
-        //     score: 1,
-        //     isActive: true,
-        //     rate: 4.5,
-        //     img: "http://demo.amytheme.com/movie/demo/movie-news/wp-content/uploads/2019/04/img_8-1-196x336.jpg"
-        // };
-        const SeatingRoomSchedule = {
-            stateSeat: "0001000000000000000000000000000000000000000000001110000000000000000000011000000000000000000000000100"
+        // const myMovie = this.schedule.idfilm;
+
+        const branch =
+        {
+            id: 1,
+            nameBranch: "Kubo Vạn Hanh",
+            address: "111, Sư Vạn Hạnh, Q.10, TP. Hồ Chí Minh"
+        };
+        const promotion = {
+            namePromotion: "Ưu đãi mùa hè cùng Kubo",
+            discount: 0.3
         }
+        const schedule = {
+            idBranch: 1,
+            idCinema: 1,
+            startTime: "09:00 12/05/2019",
+            idRoom: 1,
+            sumTicket: 60,
+            availableTicket: 16
+        };
+        const myMovie =
+        {
+            id: 1,
+            name: "Game Of Thrones",
+            description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+            type: "Cuộc sống",
+            releaseDate: "April 1, 2019",
+            duration: "02 giờ 50 phút",
+            director: "Grace Belly",
+            actors: " Alexander Cattly, Greta Garbo",
+            language: "Tiếng Anh",
+            age: "",
+            price: 80000,
+            score: 1,
+            isActive: true,
+            rate: 4.5,
+            img: "http://demo.amytheme.com/movie/demo/movie-news/wp-content/uploads/2019/04/img_8-1-196x336.jpg"
+        };
+
         return (
             <div>
                 <Header />
-                {container !== null ? (
-                <Container className="book-ticket-wrap">
-                    <div className="schedule">
-                        <CardItemDetail movie={myMovie} />
-                        <div className="detail-schedule">
-                            <div className="title"><div> <i class="fas fa-film"></i> Lịch chiếu</div></div>
-                            <div><span className="lable">Chi nhánh: </span>{branch.nameBranch}</div>
-                            <div><span className="lable">Địa chỉ: </span>{branch.address}</div>
-                            <div><span className="lable">Thời gian bắt đầu: </span>{schedule.startTime}</div>
-                            <div><span className="lable">Phòng: </span>{schedule.idRoom}</div>
-                            <div><span className="lable">Số vé còn: </span>{schedule.availableTicket} vé/ tổng {schedule.sumTicket} vé</div>
+                    <Container className="book-ticket-wrap">
+                        <div className="schedule">
+                            <CardItemDetail movie={myMovie} />
+                            <div className="detail-schedule">
+                                <div className="title"><div> <i class="fas fa-film"></i> Lịch chiếu</div></div>
+                                <div><span className="lable">Chi nhánh: </span>{branch.nameBranch}</div>
+                                <div><span className="lable">Địa chỉ: </span>{branch.address}</div>
+                                <div><span className="lable">Thời gian bắt đầu: </span>{schedule.startTime}</div>
+                                <div><span className="lable">Phòng: </span>{schedule.idRoom}</div>
+                                <div><span className="lable">Số vé còn: </span>{schedule.availableTicket} vé/ tổng {schedule.sumTicket} vé</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="book-ticket-option">
-                        <div className="title"><span>ĐẶT VÉ</span></div>
-                        <ProgressBookTicket currentStep={this.state.currentStep} steps={this.state.steps} />
-                        <div className="btns">
-                            <button id="btn--back" onClick={() => { this.backStep() }}>Trở về</button>
-                            <button id="btn--next" onClick={() => { this.nextStep() }}>Tiếp theo</button>
-                        </div>
-                        <div className="option">
-                            {
-                                this.renderOption(SeatingRoomSchedule.stateSeat)
-                            }
-                        </div>
-                        <div className="bill">
-                            <Bill price={myMovie.price} numberTicket={this.state.numberTicket} discount={promotion.discount} namePromotion={promotion.namePromotion} />
-                        </div>
+                        <div className="book-ticket-option">
+                            <div className="title"><span>ĐẶT VÉ</span></div>
+                            <ProgressBookTicket currentStep={this.state.currentStep} steps={this.state.steps} />
+                            <div className="btns">
+                                <button id="btn--back" onClick={() => { this.backStep() }}>Trở về</button>
+                                <button id="btn--next" onClick={() => { this.nextStep() }}>Tiếp theo</button>
+                            </div>
+                            <div className="option">
+                                {
+                                    this.renderOption()
+                                }
+                            </div>
+                            <div className="bill">
+                                <Bill price={myMovie.price} numberTicket={this.state.numberTicket} discount={promotion.discount} namePromotion={promotion.namePromotion} />
+                            </div>
 
-                    </div>
-                </Container>) : ""}
+                        </div>
+                    </Container>
                 <Footer />
 
             </div>
@@ -224,16 +221,16 @@ class BookTicket extends Component {
     }
 }
 
+
 function mapStateToProps(state) {
     return {
-        schedules: state.schedules
+        schedule: state.schedule
     }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispathToProps(dispath) {
     return {
-        readSchedules: () => dispatch({ type: READ_SCHEDULE })
+        readSchedule: () => dispath({ type: READ_SCHEDULE })
     }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(BookTicket);
+export default connect(mapStateToProps, mapDispathToProps)(BookTicket);

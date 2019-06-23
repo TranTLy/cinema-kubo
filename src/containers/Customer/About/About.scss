@@ -1,26 +1,33 @@
 @import "../../../assets/stylesheet/default.scss";
 
-.about-us-wrap {
-	margin-top: 20px;
+.about-page {
+	margin-bottom: 200px;
 
-	.branch-infor {
-		.content {
-			margin-left: 20px;
-			.branches {
-				.branches__single {
-					a {
-						text-decoration: none;
-						font-weight: bold;
-						color: $main-color;
-						&:hover {
-							color: $sub-main-color;
+	.about-us-wrap {
+		margin-top: 20px;
+
+		.branch-infor {
+			.content {
+				margin-left: 20px;
+
+				.branches {
+					.branches__single {
+						a {
+							text-decoration: none;
+							font-weight: bold;
+							color: $main-color;
+
+							&:hover {
+								color: $sub-main-color;
+							}
 						}
-					}
-					&--img{
-						img{
-							width: 100px;
-							height: 100px;
 
+						&--img {
+							img {
+								width: 100px;
+								height: 100px;
+
+							}
 						}
 					}
 				}

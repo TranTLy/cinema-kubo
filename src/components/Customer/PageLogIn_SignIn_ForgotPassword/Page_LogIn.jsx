@@ -10,19 +10,22 @@ import kubo from '../../../assets/img/Kubo.png'
 export default class PageLogInSignInIntro extends Component {
     render() {
         return (
-            <div className="page-login-sign-intro">
+            <div>
                 <Header></Header>
-                <Container>
-                    <Row>
-                        <Card className="mt-5 w-100">
-                            <div className="form mt-5 pt-0 my-5 w-100">
-                                <img src={kubo}></img>
-                                <LogIn></LogIn>
-                            </div>
-                        </Card>
-                    </Row>
-                </Container>
+                <div className="page-login-sign-intro">
+                    <Container>
+                        <Row>
+                            <Card className="mt-5 w-100">
+                                <div className="form mt-5 pt-0 my-5 w-100">
+                                    <img src={kubo}></img>
+                                    <LogIn></LogIn>
+                                </div>
+                            </Card>
+                        </Row>
+                    </Container>
+                </div>
                 <Footer></Footer>
+
             </div>
         );
     }

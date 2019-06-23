@@ -8,7 +8,7 @@ export class Loading extends Component {
     }
     render() {
         return (
-            <div>Loading</div>
+            <div className="loader" ></div >
         );
     }
 }

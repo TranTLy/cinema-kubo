@@ -201,8 +201,8 @@ class Profile extends Component {
 				<head>
 					<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
 				</head>
+				<Header />
 				<div className="profile-container-wrap">
-					<Header />
 					<Container>
 						<div className="tab-wrap">
 							{this.state.tab.map((item) => {
@@ -217,8 +217,8 @@ class Profile extends Component {
 							{this.getContentTab()}
 						</div>
 					</Container>
-					<Footer />
 				</div>
+				<Footer />
 			</div>
 		)
 		// }

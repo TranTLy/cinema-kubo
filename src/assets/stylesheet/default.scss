@@ -20,21 +20,23 @@ $box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
 $width-menu-admin: 160px;
 $height-menu-right-admin: 40px;
 $w-2: 200px;
+$footer-height: 163px;
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: $font-family !important;
-  font-size: 16px !important;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: $main-color !important;
-  background-color: $background-color;
+	font-family: $font-family !important;
+	font-size: 16px !important;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	color: $main-color !important;
+	background-color: $background-color;
+	// min-height: 100vh !important;
 }
 #root {
   position: relative;
