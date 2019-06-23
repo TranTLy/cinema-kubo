@@ -1,59 +1,41 @@
-// import {CreateUsersLoading,CreateUsersSuccess,CreateUsersError} from "../../actions/actions";
-// import {apiURL} from "../../constants/ActionTypes"
-// import {put,takeLatest,call} from 'redux-saga/effects'
-// import navigateTo from '../../services/navigation'
-// // export default function CreateEmployee(employee) {
-// //     const options = {
-// //         method: "POST",
-// //         body: JSON.stringify(employee),
-// //         headers: {
-// //             "Content-type" : "application/json"
-// //         }
-// //     };
-// //     return dispatch => {
-// //             fetch(apiURL,options)
-// //                 .then(res => {
-// //                     if(res.ok)
-// //                         return res.json();
-// //                     else {
-// //                         return Promise.reject({status: res.status, statusText: res.statusText});
-// //                     }
-// //                 })
-// //                 .then(res => {
-// //                     dispatch(FetchUsersSuccess(res))
-// //                 })
-// //                 .catch(err => dispatch(FetchUsersError(err.status + err.statusText)))
-// //     }
-// // }
-// async function createAsync(user) {
+import { takeLatest, put, call } from "redux-saga/effects";
+import { CREATE_BILL } from "../../config/ActionType";
+import { url } from "../../config/urlApi";
+import {
+    createBillPending,
+    createBillFailure,
+    createBillSuccess
+} from "../../actions/action";
 
-//     const options = {
-//         method: "POST",
-//         body: JSON.stringify(user),
-//         headers: {
-//             "Content-type" : "application/json"
-//         }
-//     };
-//     console.log("user", user);
-//     const res = await fetch(apiURL,options);
-//     if(res.ok){
-//         return await res.json();
-//     }
-//     throw new Error(res.statusText);
 
-// }
 
-// function* createUser(action) {
-//     yield put(CreateUsersLoading());
-//     try {
-//         const user = yield call(createAsync,action.user);
-//         yield put(CreateUsersSuccess(user));
-//         // navigateTo('/')
-//     } catch (e) {
-//         yield put(CreateUsersError(e.message));
-//     }
-// }
+async function createAsync(bill) {
+    const options = {
+        method: "POST",
+        body: JSON.stringify(bill),
+        headers: {
+            "Content-type": "application/json"
+        }
+    };
+    // console.log("saga: bill: ", bill);
+    const res = await fetch(url + '/bill', options);
+    if (res.ok) {
+        return await res.json();
+    }
+    throw new Error(res.statusText);
 
-// export default function* WatchCreateUser() {
-//     yield takeLatest('CREATE_USER',createUser);
-// }
+}
+
+function* createBill(action) {
+    yield put(createBillPending());
+    try {
+        const bill = yield call(createAsync, action.bill);
+        yield put(createBillSuccess(bill));
+    } catch (e) {
+        yield put(createBillFailure(e.message));
+    }
+}
+
+export default function* watchCreateBill() {
+    yield takeLatest(CREATE_BILL, createBill);
+}

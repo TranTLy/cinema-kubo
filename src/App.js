@@ -17,6 +17,7 @@ import BookTicket from "./containers/Customer/BookTicket/BookTicket";
 import CategoryFilm from "./components/Customer/CategoryFilm/CategoryFilm";
 import ResultSearch from "./components/Customer/ResultSearch/ResultSearch";
 import HomeAdmin from "./containers/Admin/HomeAdmin/HomeAdmin";
+import BookTicketSuccess from "./containers/Customer/BookTicketSuccess/BookTicketSuccess";
 import { connect } from "react-redux";
 class App extends React.Component {
   constructor(props) {
@@ -47,8 +48,8 @@ class App extends React.Component {
               this.state.isLoggedIn === true ? (
                 <Profile />
               ) : (
-                <Redirect to="/login" />
-              )
+                  <Redirect to="/login" />
+                )
             }
           />
           <Route path="/about" component={About} />
@@ -57,6 +58,7 @@ class App extends React.Component {
           <Route path="/detailfilm" component={DetailFilm} />
           <Route path="/categoryfilm" component={CategoryFilm} />
           <Route path="/resultfilm" component={ResultSearch} />
+          <Route path="/book-ticket-success" component={BookTicketSuccess} />
           <Route path="/admin" component={HomeAdmin} />
         </div>
       </Router>
