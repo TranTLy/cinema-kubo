@@ -114,7 +114,10 @@ class BookTicket extends Component {
         if (currentStep === this.state.STEP_THREE) {
             //TODO
             console.log("array seat: ", this.state.arrayPositionSeat);
-            console.log
+            // console.log("sum ticket: ", this.state.arrayPositionSeat.length);
+            console.log("user: ", this.state.user._id);
+            console.log("sum ticket: ", this.state.arrayPositionSeat.length);
+
 
             //payment
         }

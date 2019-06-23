@@ -8,7 +8,7 @@ import schedule from "./schedule";
 import promotion from "./promotion";
 import promotionBookTicket from "./promotionBookTicket";
 import typePayment from "./typepayment";
-
+import bill from "./bill"
 
 const rootReducder = combineReducers({
   login,
@@ -19,6 +19,7 @@ const rootReducder = combineReducers({
   schedule,
   promotion,
   promotionBookTicket,
-  typePayment
+  typePayment,
+  bill
 });
 export default rootReducder;

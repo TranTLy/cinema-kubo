@@ -31,6 +31,14 @@ import {
   READ_TYPEPAYMENT_PENDING,
   READ_TYPEPAYMENT_FAILURE,
   READ_TYPEPAYMENT_SUCCESS,
+
+  READ_BILL_PENDING,
+  READ_BILL_FAILURE,
+  READ_BILL_SUCCESS,
+
+  CREATE_BILL_PENDING,
+  CREATE_BILL_FAILURE,
+  CREATE_BILL_SUCCESS
 } from "../config/ActionType";
 
 export function LogIn() {
@@ -132,3 +140,25 @@ export function readTypePaymentFailure(error) {
 }
 //-- type payment
 
+//bill
+//post
+export function createBillPending() {
+  return { type: CREATE_BILL_PENDING };
+}
+export function createBillSuccess(data) {
+  return { type: CREATE_BILL_SUCCESS, data };
+}
+export function createBillFailure(error) {
+  return { type: CREATE_BILL_FAILURE, error };
+}
+//get
+export function readBillPending() {
+  return { type: READ_BILL_PENDING };
+}
+export function readBillSuccess(data) {
+  return { type: READ_BILL_SUCCESS, data };
+}
+export function readBillFailure(error) {
+  return { type: READ_BILL_FAILURE, error };
+}
+//--bill
