@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
-import CardFilm from "./CardFilm";
+import CardFilm from "../CardFilm/CardFilm";
 import "./SectionFilm.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "reactstrap";

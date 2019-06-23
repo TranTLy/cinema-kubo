@@ -1,103 +1,72 @@
-import React, { Component } from "react";
-import Footer from "./components/Customer/Footer/Footer";
-// import MostFamousMovie from "./components/Customer/MostFamousMovie/MostFamousMovie";
-// import AminationMovie from "./components/Customer/AminationMovie/AminationMovie";
-import SectionFilm from "./components/Customer/CardFilm/SectionFilm";
-import Poster from "./components/Customer/Poster/Poster";
-import BoxOffice from "./components/Customer/BoxOffice/BoxOffice";
-import Header from "./components/Customer/Header/Header";
-import "./App.scss";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col } from "reactstrap";
+import React from "react";
+import ReactDOM from "react-dom";
+import * as serviceWorker from "./serviceWorker";
+import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import PageLogIn from "./components/Customer/PageLogIn_SignIn_ForgotPassword/Page_LogIn";
+import HomePage from "./components/Customer/HomePage/HomePage";
+import PageSignIn from "./components/Customer/PageLogIn_SignIn_ForgotPassword/Page_SignIn";
+import PageForgotPassword from "./components/Customer/PageLogIn_SignIn_ForgotPassword/Page_ForgotPassword";
+import PageRePassword from "./components/Customer/PageLogIn_SignIn_ForgotPassword/Page_RePassword";
+import DetailFilm from "./components/Customer/DetailFilm/DetailFilm";
+import Home from "./containers/Customer/Home/Home";
+import Profile from "./containers/Customer/Profile/Profile";
+import About from "./containers/Customer/About/About";
+import Schedule from "./containers/Customer/Schedule/Schedule";
+import BookTicket from "./containers/Customer/BookTicket/BookTicket";
+import CategoryFilm from "./components/Customer/CategoryFilm/CategoryFilm";
+import ResultSearch from "./components/Customer/ResultSearch/ResultSearch";
+import HomeAdmin from "./containers/Admin/HomeAdmin/HomeAdmin";
 import { connect } from "react-redux";
-
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      films: this.props.films || []
+      isLoggedIn: this.props.isLoggedIn
     };
   }
 
-  componentDidMount = () => {
-    console.log("didmount");
-  };
-
   componentWillReceiveProps = nextProps => {
-    console.log("recive props");
-    if (nextProps.films !== this.state.films) {
-      this.setState({ films: nextProps.films });
+    if (nextProps.isLoggedIn !== this.state.isLoggedIn) {
+      this.setState({ isLoggedIn: nextProps.isLoggedIn });
     }
   };
-
   render() {
-    let mostMovie;
-    let newMovie;
-    let oldMovie;
-    let date = new Date();
-    console.log("date", date);
-    if (this.state.films) {
-      let activeMovie = this.state.films.filter(film => {
-        let dateFilm = new Date(film.releaseDate);
-        console.log("dateFilm", dateFilm);
-        return dateFilm < date && film.isActive === true;
-      });
-
-      mostMovie = activeMovie.sort((a, b) =>
-        a.rate > b.rate
-          ? -1
-          : a.rate === b.rate
-            ? a.point > b.point
-              ? -1
-              : 1
-            : 1
-      );
-
-      newMovie = this.state.films
-        .filter(film => {
-          let dateFilm = new Date(film.releaseDate);
-          return dateFilm > date && film.status === true;
-        })
-        .sort((a, b) =>
-          a.rate > b.rate
-            ? -1
-            : a.rate === b.rate
-              ? a.point > b.point
-                ? -1
-                : 1
-              : 1
-        );
-
-      oldMovie = this.state.films
-        .filter(film => {
-          let dateFilm = new Date(film.releaseDate);
-          console.log("dateFilm", dateFilm);
-          return dateFilm < date && film.status === true;
-        })
-        .sort((a, b) => (a.point > b.point ? 1 : -1));
-      console.log("new", newMovie);
-      console.log("old", oldMovie);
-      console.log("most", mostMovie);
-    }
     return (
-      <div>
-        <Header />
-        <Container>
-          <Poster />
-          <SectionFilm movie={mostMovie} title="Phim nổi bật nhất" />
-          <SectionFilm movie={newMovie} title="Phim sắp chiếu" />
-          <SectionFilm movie={oldMovie} title="Phim đang chiếu" />
-        </Container>
-        <Footer className="mt-0" />
-      </div>
+      <Router>
+        <div>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/login" component={PageLogIn} />
+          <Route path="/signin" component={PageSignIn} />
+          <Route path="/forgotpassword" component={PageForgotPassword} />
+          <Route path="/repassword" component={PageRePassword} />
+          <Route path="/home" component={Home} />
+          <Route
+            path="/profile"
+            render={() =>
+              this.state.isLoggedIn === true ? (
+                <Profile />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+          <Route path="/about" component={About} />
+          <Route path="/schedule" component={Schedule} />
+          <Route path="/book-ticket" component={BookTicket} />
+          <Route path="/detailfilm" component={DetailFilm} />
+          <Route path="/categoryfilm" component={CategoryFilm} />
+          <Route path="/resultfilm" component={ResultSearch} />
+          <Route path="/admin" component={HomeAdmin} />
+        </div>
+      </Router>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    films: state.films.data
+    isLoggedIn: state.login.isLoggedIn
   };
 }
-
 export default connect(mapStateToProps)(App);

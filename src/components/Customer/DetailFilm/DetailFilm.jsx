@@ -10,12 +10,14 @@ import './DetailFilm.scss'
 import { connect } from "react-redux"
 import { request } from 'http';
 import { queryString } from "query-string"
+import { Loading } from '../../Loading/Loading';
 class DetailFilm extends Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.state = {
-            films: this.props.films || []
+            films: this.props.films || [],
+            loading: this.props.loading
         }
     }
     handleClick = id => {
@@ -26,13 +28,15 @@ class DetailFilm extends Component {
         if (nextProps.films !== this.state.films) {
             this.setState({ films: nextProps.films })
         }
+        if (nextProps.loading !== this.state.loading) {
+            this.setState({ loading: nextProps.loading })
+        }
     }
     render() {
         let values = this.props.location.search;
         const param = new URLSearchParams(values);
         const id = param.get('id');
         let container = null;
-        let typeName = null;
         let film = this.state.films.filter(film => film._id == id);
         console.log("film", film);
         if (film[0]) {
@@ -41,70 +45,72 @@ class DetailFilm extends Component {
         return (
             <div className="detail-film">
                 <Header />
-                <PosterDetailFilm />
-                {container !== null && (
-                    <React.Fragment>
-                        <Container className="pt-5">
-                            <Row className="flexDirection: 'column',">
-                                <Col sm={3}>
-                                    <img src={film[0].img} className="w-100" alt="" ></img>
-                                    <Button color="secondary" className="w-100 mt-3 rounded-0" onClick={() => this.handleClick(film[0]._id)}>Đặt vé</Button>
-                                </Col>
-                                <Col>
-                                    <h3 className="text-dark font-weight-bold pb-3">{film[0].name}</h3>
-                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                        <h5 className="pr-3 pl-0">Xem xếp hạng:</h5>
-                                        <i class="fas fa-star text-warning pt-1"></i>
-                                        <i class="fas fa-star text-warning pt-1"></i>
-                                        <i class="fas fa-star text-warning pt-1"></i>
-                                        <i class="fas fa-star text-warning pt-1"></i>
-                                        <i class="fas fa-star-half-alt text-warning pt-1"></i>
-                                    </Col>
-                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Ngày phát hành:</h5>
-                                        <h6 className="pt-1">{film[0].releaseDate}</h6>
-                                    </Col>
-                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Thể loại:</h5>
-                                        <h6 className="pt-1">{film[0].type.name}</h6>
-                                    </Col>
-                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Thời lượng:</h5>
-                                        <h6 className="pt-1">{film[0].duration}</h6>
-                                    </Col>
-                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Đạo diễn:</h5>
-                                        <h6 className="pt-1">{film[0].director}</h6>
-                                    </Col>
-                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Diễn viên:</h5>
-                                        <h6 className="pt-1">{film[0].actors}</h6>
-                                    </Col>
-                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Giá:</h5>
-                                        <h6 className="pt-1">{film[0].price} VND</h6>
-                                    </Col>
-                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Ngôn ngữ:</h5>
-                                        <h6 className="pt-1">{film[0].language} </h6>
-                                    </Col>
-                                    <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
-                                        <h5 className="pr-3 pl-0 text-danger font-weight-bold">Độ tuổi tối thiểu:</h5>
-                                        <h6 className="pt-1">{film[0].age} tuổi</h6>
-                                    </Col>
-                                </Col>
-                            </Row>
-                        </Container>
-                        <Container className="pt-5">
-                            <Row>
-                                <Col>
-                                    <h3 className="text-danger font-weight-bold ">Tóm tắt</h3>
-                                    <p>{film[0].description}</p>
-                                </Col>
-                            </Row>
-                        </Container>
-                    </React.Fragment>
-                )}
+                {this.state.loading ? <Loading /> : (
+                    <div>
+                        <PosterDetailFilm />
+                        {container !== null ? (
+                            <React.Fragment>
+                                <Container className="pt-5">
+                                    <Row className="flexDirection: 'column',">
+                                        <Col sm={3}>
+                                            <img src={film[0].img} className="w-100" alt="" ></img>
+                                            <Button color="secondary" className="w-100 mt-3 rounded-0" onClick={() => this.handleClick(film[0]._id)}>Đặt vé</Button>
+                                        </Col>
+                                        <Col>
+                                            <h3 className="text-dark font-weight-bold pb-3">{film[0].name}</h3>
+                                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                                <h5 className="pr-3 pl-0">Xem xếp hạng:</h5>
+                                                <i class="fas fa-star text-warning pt-1"></i>
+                                                <i class="fas fa-star text-warning pt-1"></i>
+                                                <i class="fas fa-star text-warning pt-1"></i>
+                                                <i class="fas fa-star text-warning pt-1"></i>
+                                                <i class="fas fa-star-half-alt text-warning pt-1"></i>
+                                            </Col>
+                                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                                <h5 className="pr-3 pl-0 text-danger font-weight-bold">Ngày phát hành:</h5>
+                                                <h6 className="pt-1">{new Date(film[0].releaseDate).toLocaleDateString('en-GB')}</h6>
+                                            </Col>
+                                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                                <h5 className="pr-3 pl-0 text-danger font-weight-bold">Thể loại:</h5>
+                                                <h6 className="pt-1">{film[0].type.name}</h6>
+                                            </Col>
+                                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                                <h5 className="pr-3 pl-0 text-danger font-weight-bold">Thời lượng:</h5>
+                                                <h6 className="pt-1">{film[0].duration}</h6>
+                                            </Col>
+                                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                                <h5 className="pr-3 pl-0 text-danger font-weight-bold">Đạo diễn:</h5>
+                                                <h6 className="pt-1">{film[0].director}</h6>
+                                            </Col>
+                                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                                <h5 className="pr-3 pl-0 text-danger font-weight-bold">Diễn viên:</h5>
+                                                <h6 className="pt-1">{film[0].actors}</h6>
+                                            </Col>
+                                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                                <h5 className="pr-3 pl-0 text-danger font-weight-bold">Giá:</h5>
+                                                <h6 className="pt-1">{film[0].price} VND</h6>
+                                            </Col>
+                                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                                <h5 className="pr-3 pl-0 text-danger font-weight-bold">Ngôn ngữ:</h5>
+                                                <h6 className="pt-1">{film[0].language} </h6>
+                                            </Col>
+                                            <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
+                                                <h5 className="pr-3 pl-0 text-danger font-weight-bold">Độ tuổi tối thiểu:</h5>
+                                                <h6 className="pt-1">{film[0].age} tuổi</h6>
+                                            </Col>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                                <Container className="pt-5">
+                                    <Row>
+                                        <Col>
+                                            <h3 className="text-danger font-weight-bold ">Tóm tắt</h3>
+                                            <p>{film[0].description}</p>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            </React.Fragment>) : ""}
+                    </div>)}
                 <Container className="pt-5 mt-5">
                     <Row>
                         <Col className="d-flex flexDirection: 'row',">
@@ -188,10 +194,9 @@ class DetailFilm extends Component {
     }
 }
 function mapStateToProps(state) {
-    // console.log("statkfghjklfghjk", state);
     return {
         films: state.films.data,
-        // types: state.categorys.data
+        loading: state.films.loading
     }
 }
 

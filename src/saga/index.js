@@ -7,8 +7,9 @@ import rootSchedule from "./schedule/index";
 import rootPromotion from './promotion/index';
 import rootPromotionBookTicket from './promotionBookTicket/index';
 import rootTypePayment from './typepayment/index';
+import rootUser from "./users/index";
 
 export default function* rootSaga() {
   yield all([rootCategory(), rootFilm(), rootUserFilmFavor(),
-  rootBranch(), rootSchedule(), rootPromotion(), rootPromotionBookTicket(), rootTypePayment()]);
+  rootBranch(), rootSchedule(), rootPromotion(), rootPromotionBookTicket(), rootTypePayment(), rootUser()]);
 }

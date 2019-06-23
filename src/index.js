@@ -1,92 +1,35 @@
-// import React from "react";
-// import ReactDOM from "react-dom";
-// import "./index.css";
-// import App from "./App";
-// import * as serviceWorker from "./serviceWorker";
-// import { Route, Link, BrowserRouter as Router } from "react-router-dom";
-// import PageLogIn from "./components/PageLogIn_SignIn_ForgotPassword/Page_LogIn";
-// import PageSignIn from "./components/PageLogIn_SignIn_ForgotPassword/Page_SignIn";
-// import PageForgotPassword from "./components/PageLogIn_SignIn_ForgotPassword/Page_ForgotPassword";
-// import PageRePassword from "./components/PageLogIn_SignIn_ForgotPassword/Page_RePassword";
-// import DetailFilm from "./components/DetailFilm/DetailFilm";
-// import Home from "./containers/Home/Home";
-// import Profile from "./containers/Profile/Profile";
-// import About from "./containers/About/About";
-// import Schedule from "./containers/Schedule/Schedule";
-// import BookTicket from "./containers/BookTicket/BookTicket";
-// import CategoryFilm from "./components/CategoryFilm/CategoryFilm";
-// import ResultSearch from "./components/ResultSearch/ResultSearch";
-// const routing = (
-//   <Router>
-//     <div>
-//       <Route exact path="/" component={App} />
-//       <Route path="/login" component={PageLogIn} />
-//       <Route path="/signin" component={PageSignIn} />
-//       <Route path="/forgotpassword" component={PageForgotPassword} />
-//       <Route path="/repassword" component={PageRePassword} />
-//       <Route path="/home" component={Home} />
-//       <Route path="/profile" component={Profile} />
-//       <Route path="/about" component={About} />
-//       <Route path="/schedule" component={Schedule} />
-//       <Route path="/book-ticket" component={BookTicket} />
-//       <Route path="/detailfilm" component={DetailFilm} />
-//       <Route path="/categoryfilm" component={CategoryFilm} />
-//       <Route path="/resultfilm" component={ResultSearch} />
-//     </div>
-//   </Router>
-
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { Route, Link, BrowserRouter as Router } from "react-router-dom";
-import PageLogIn from "./components/Customer/PageLogIn_SignIn_ForgotPassword/Page_LogIn";
-import PageSignIn from "./components/Customer/PageLogIn_SignIn_ForgotPassword/Page_SignIn";
-import PageForgotPassword from "./components/Customer/PageLogIn_SignIn_ForgotPassword/Page_ForgotPassword";
-import PageRePassword from "./components/Customer/PageLogIn_SignIn_ForgotPassword/Page_RePassword";
-import DetailFilm from "./components/Customer/DetailFilm/DetailFilm";
-import Home from "./containers/Customer/Home/Home";
-import Profile from "./containers/Customer/Profile/Profile";
-import About from "./containers/Customer/About/About";
-import Schedule from "./containers/Customer/Schedule/Schedule";
-import BookTicket from "./containers/Customer/BookTicket/BookTicket";
-import CategoryFilm from "./components/Customer/CategoryFilm/CategoryFilm";
-import ResultSearch from "./components/Customer/ResultSearch/ResultSearch";
-import HomeAdmin from "./containers/Admin/HomeAdmin/HomeAdmin";
+import { Router } from "react-router-dom";
 import rootReducer from "./reducers/index";
 import rootSaga from "./saga/index";
-import root from "./saga/categorys/index";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
+import { persistStore, persistReducer } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import storage from "../node_modules/redux-persist/lib/storage";
 
+const persistConfig = {
+  key: "root",
+  storage: storage
+};
+
+const pReducer = persistReducer(persistConfig, rootReducer);
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-
+const store = createStore(pReducer, applyMiddleware(sagaMiddleware));
+let persistor = persistStore(store);
 sagaMiddleware.run(rootSaga);
 
 const routing = (
-	<Provider store={store}>
-		<Router>
-			<div>
-				<Route exact path="/" component={App} />
-				<Route path="/login" component={PageLogIn} />
-				<Route path="/signin" component={PageSignIn} />
-				<Route path="/forgotpassword" component={PageForgotPassword} />
-				<Route path="/repassword" component={PageRePassword} />
-				<Route path="/home" component={Home} />
-				<Route path="/profile" component={Profile} />
-				<Route path="/about" component={About} />
-				<Route path="/schedule" component={Schedule} />
-				<Route path="/book-ticket" component={BookTicket} />
-				<Route path="/detailfilm" component={DetailFilm} />
-				<Route path="/categoryfilm" component={CategoryFilm} />
-				<Route path="/resultfilm" component={ResultSearch} />
-				<Route path="/admin" component={HomeAdmin} />
-			</div>
-		</Router>
-	</Provider>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>
 );
 ReactDOM.render(routing, document.getElementById("root"));
 serviceWorker.unregister();

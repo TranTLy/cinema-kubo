@@ -1,6 +1,7 @@
 import {
   LOG_IN,
   LOG_OUT,
+
   READ_CATEGORY_PENDING,
   READ_CATEGORY_SUCCESS,
   READ_CATEGORY_FAILURE,
@@ -19,6 +20,14 @@ import {
   READ_SCHEDULE_PENDING,
   READ_SCHEDULE_FAILURE,
   READ_SCHEDULE_SUCCESS,
+
+  READ_USER_SUCCESS,
+  READ_USER_FAILURE,
+  READ_USER_PENDING,
+
+  CREATE_USER_SUCCESS,
+  CREATE_USER_PENDING,
+  CREATE_USER_FAILURE,
 
   READ_PROMOTION_PENDING,
   READ_PROMOTION_FAILURE,
@@ -41,8 +50,8 @@ import {
   CREATE_BILL_SUCCESS
 } from "../config/ActionType";
 
-export function LogIn() {
-  return { type: LOG_IN };
+export function LogIn(user) {
+  return { type: LOG_IN, user };
 }
 export function LogOut() {
   return { type: LOG_OUT };
@@ -162,3 +171,26 @@ export function readBillFailure(error) {
   return { type: READ_BILL_FAILURE, error };
 }
 //--bill
+// user
+export function readUserPending() {
+  return { type: READ_USER_PENDING };
+}
+export function readUserSuccess(data) {
+  return { type: READ_USER_SUCCESS, data };
+}
+export function readUserFailure(error) {
+  return { type: READ_USER_FAILURE, error };
+}
+//end user
+
+//create user
+export function CreateUsersLoading() {
+  return { type: CREATE_USER_PENDING }
+}
+export function CreateUsersSuccess(user) {
+  return { type: CREATE_USER_SUCCESS, user }
+}
+export function CreateUsersError(error) {
+  return { type: CREATE_USER_FAILURE, error }
+}
+//end
