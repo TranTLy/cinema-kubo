@@ -1,9 +1,11 @@
 @import "../../../assets/stylesheet/default.scss";
 
 .book-ticket-wrap {
-	margin-top: 10px;
+	margin-top: 40px;
 	display: flex;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+	margin-bottom: 200px;
+
 	.schedule {
 		flex: 1;
 		display: flex;
@@ -89,6 +91,9 @@
 				&.-number-ticket {
 					text-align: center;
 					margin-top: 20px;
+					input{
+						text-align: center;
+					}
 				}
 			}
 		}
@@ -117,6 +122,14 @@
 					margin-right: 5%;
 				}
 			}
+		}
+		#message{
+			color: #fab31a;
+			font-style: italic;
+			font-size: 0.8em;
+			margin: 10px 10px;
+			text-align: right;
+			height: 6px;;
 		}
 		.bill {
 			margin: auto;

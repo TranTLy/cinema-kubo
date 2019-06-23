@@ -5,6 +5,10 @@ import films from "./films"
 import userFilmFavor from "./userFilmFavor";
 import branch from "./branch";
 import schedule from "./schedule";
+import promotion from "./promotion";
+import promotionBookTicket from "./promotionBookTicket";
+import typePayment from "./typepayment";
+
 
 const rootReducder = combineReducers({
   login,
@@ -12,6 +16,9 @@ const rootReducder = combineReducers({
   films,
   userFilmFavor,
   branch,
-  schedule
+  schedule,
+  promotion,
+  promotionBookTicket,
+  typePayment
 });
 export default rootReducder;

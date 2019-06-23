@@ -19,6 +19,8 @@
 			font-size: 0.8 em;
 			font-style: italic;
 			padding-left: 10px;
+			display: flex;
+			flex-direction: column;
 		}
 		&.-last-sum {
 			border-top: 1px solid $sub-main-color;

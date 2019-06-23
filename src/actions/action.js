@@ -18,8 +18,19 @@ import {
 
   READ_SCHEDULE_PENDING,
   READ_SCHEDULE_FAILURE,
-  READ_SCHEDULE_SUCCESS
+  READ_SCHEDULE_SUCCESS,
 
+  READ_PROMOTION_PENDING,
+  READ_PROMOTION_FAILURE,
+  READ_PROMOTION_SUCCESS,
+
+  READ_PROMOTION_BOOK_TICKET_PENDING,
+  READ_PROMOTION_BOOK_TICKET_FAILURE,
+  READ_PROMOTION_BOOK_TICKET_SUCCESS,
+
+  READ_TYPEPAYMENT_PENDING,
+  READ_TYPEPAYMENT_FAILURE,
+  READ_TYPEPAYMENT_SUCCESS,
 } from "../config/ActionType";
 
 export function LogIn() {
@@ -86,4 +97,38 @@ export function readScheduleFailure(error) {
   return { type: READ_SCHEDULE_FAILURE, error };
 }
 //--schedule
+
+//promotion
+export function readPromotionPending() {
+  return { type: READ_PROMOTION_PENDING };
+}
+export function readPromotionSuccess(data) {
+  return { type: READ_PROMOTION_SUCCESS, data };
+}
+export function readPromotionFailure(error) {
+  return { type: READ_PROMOTION_FAILURE, error };
+}
+//=======get single promotion on book ticket =====
+export function readPromotionBookTicketPending() {
+  return { type: READ_PROMOTION_BOOK_TICKET_PENDING };
+}
+export function readPromotionBookTicketSuccess(data) {
+  return { type: READ_PROMOTION_BOOK_TICKET_SUCCESS, data };
+}
+export function readPromotionBookTicketFailure(error) {
+  return { type: READ_PROMOTION_BOOK_TICKET_FAILURE, error };
+}
+//--promotion
+
+// type payment
+export function readTypePaymentPending() {
+  return { type: READ_TYPEPAYMENT_PENDING };
+}
+export function readTypePaymentSuccess(data) {
+  return { type: READ_TYPEPAYMENT_SUCCESS, data };
+}
+export function readTypePaymentFailure(error) {
+  return { type: READ_TYPEPAYMENT_FAILURE, error };
+}
+//-- type payment
 
