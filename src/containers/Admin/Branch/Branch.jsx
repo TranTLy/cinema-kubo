@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-awesome-modal';
 
 import './Branch.scss';
-import { MenuPanel, BranchModal, ConfirmModal } from '../../../components';
+import { MenuPanel, BranchModal, ConfirmModal, Loading } from '../../../components';
 import { ADD_BRANCH_MODE, EDIT_BRANCH_MODE } from '../../../constanst';
 import { connect } from "react-redux"
 import { READ_BRANCH } from "../../../config/ActionType"
@@ -16,7 +16,8 @@ class BranchAdmin extends Component {
             deleteBranchModalVisible: false,
             branchEdit: null,
             branchDelete: null,
-            branchs: this.props.branchs
+            branchs: this.props.branchs,
+            loading: this.props.loading
         }
     }
 
@@ -27,6 +28,9 @@ class BranchAdmin extends Component {
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.branchs !== this.state.branchs) {
             this.setState({ branchs: nextProps.branchs })
+        }
+        if (nextProps.loading !== this.state.loading) {
+            this.setState({ loading: nextProps.loading })
         }
     }
 
@@ -102,34 +106,34 @@ class BranchAdmin extends Component {
                             <a name="" id="" class="btn " href="#" role="button" onClick={() => this.OpenAddModal()}>Thêm</a>
                         </div>
                     </div>
-                    <div className="branch-admin__branchs admin__detail">
-                        <table className="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">STT</th>
-                                    <th scope="col">Tên chi nhánh</th>
-                                    <th scope="col">Địa chỉ</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            {this.state.branchs !== null ? (
-                                <tbody>
-                                    {this.state.branchs.map((item, index) => (
-                                        <tr className="branch-admin__branchs--single-branch admin__detail--single">
-                                            <td>{index + 1}</td>
-                                            <td>{item.name}</td>
-                                            <td>{item.address}</td>
-                                            <td className="actions">
-                                                <i class="fas fa-edit" onClick={() => this.OpenEditModal(item)}></i>
-                                                <i class="fas fa-trash-alt" onClick={() => this.OpenDeleteModal(item)}></i></td>
-                                        </tr>
-                                    ))}
+                    {this.state.loading ? <Loading /> : (
+                        <div className="branch-admin__branchs admin__detail">
+                            <table className="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Tên chi nhánh</th>
+                                        <th scope="col">Địa chỉ</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                {this.state.branchs !== null ? (
+                                    <tbody>
+                                        {this.state.branchs.map((item, index) => (
+                                            <tr className="branch-admin__branchs--single-branch admin__detail--single">
+                                                <td>{index + 1}</td>
+                                                <td>{item.name}</td>
+                                                <td>{item.address}</td>
+                                                <td className="actions">
+                                                    <i class="fas fa-edit" onClick={() => this.OpenEditModal(item)}></i>
+                                                    <i class="fas fa-trash-alt" onClick={() => this.OpenDeleteModal(item)}></i></td>
+                                            </tr>
+                                        ))}
 
-                                </tbody>) : ""}
-                        </table>
+                                    </tbody>) : ""}
+                            </table>
 
-                    </div>
-
+                        </div>)}
 
                     <BranchModal mode={ADD_BRANCH_MODE} visible={this.state.addBranchModalVisible} branch={null} CloseAddModel={this.CloseAddModel} AddNewBranch={this.AddNewBranch} />
 
@@ -144,8 +148,10 @@ class BranchAdmin extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log("state admin home ", state);
     return {
-        branchs: state.branch.data
+        branchs: state.branch.data,
+        loading: state.branch.loading
     }
 }
 
