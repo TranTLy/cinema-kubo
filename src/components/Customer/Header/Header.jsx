@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom'
 import LogInButton from './LogInButton';
 import LogOutButton from './LogOutButton';
 import { connect } from "react-redux"
-import { READ_CATEGORY, READ_FILM } from '../../../config/ActionType';
+import { READ_CATEGORY, READ_FILM, READ_USER } from '../../../config/ActionType';
 
 class Header extends Component {
     constructor(props) {
@@ -40,6 +40,7 @@ class Header extends Component {
     componentWillMount() {
         this.props.read();
         this.props.readFilms();
+        this.props.readUsers();
     }
     componentDidMount() {
         console.log("lik", window.location.pathname);
@@ -126,6 +127,7 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log("state header", state);
     return {
         isLoggedIn: state.login.isLoggedIn,
         loading: state.categorys.loading,
@@ -137,7 +139,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         read: () => dispatch({ type: READ_CATEGORY }),
-        readFilms: () => dispatch({ type: READ_FILM })
+        readFilms: () => dispatch({ type: READ_FILM }),
+        readUsers: () => dispatch({ type: READ_USER })
     }
 }
 

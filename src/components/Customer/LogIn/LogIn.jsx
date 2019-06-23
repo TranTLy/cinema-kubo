@@ -3,17 +3,49 @@ import { Form, FormGroup, Col, Label, Input, Button } from 'reactstrap'
 import './LogIn.scss'
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
-import { LOG_IN } from '../../../config/ActionType';
-class LogIn extends Component {
+import { LogIn } from "../../../actions/action"
+class Login extends Component {
     constructor(props) {
         super(props);
         this.handleLoginClick = this.handleLoginClick.bind(this);
+        this.handleInputEmail = this.handleInputEmail.bind(this);
+        this.handleInputPassWord = this.handleInputPassWord.bind(this);
+        this.state = {
+            email: "",
+            password: "",
+            users: this.props.users || []
+        }
     }
+
+    componentWillReceiveProps = nextprops => {
+        if (nextprops.users !== this.state.users) {
+            this.setState({ users: nextprops.users })
+        }
+    }
+
+    handleInputEmail(e) {
+        this.setState({ email: e.target.value })
+    }
+    handleInputPassWord(e) {
+        this.setState({ password: e.target.value })
+    }
+
     handleLoginClick() {
-        console.log("is loggin", this.props.isLoggedIn);
-        this.props.login(true);
-        console.log("is loggin after", this.props.isLoggedIn);
+        console.log("email", this.state.email);
+        console.log("password", this.state.password);
+
+        let user = this.state.users.filter(user => user.email === this.state.email && user.password.toString() === this.state.password);
+        console.log("user", user);
+        if (user.length > 0) {
+            this.props.login(user[0]);
+            window.location.href = "/profile";
+        }
+        else {
+            alert("Email hoặc mật khẩu bị sai, mời bạn đăng nhập lại");
+
+        }
     }
+
     render() {
         return (
             <Form className="mt-2 w-50 f-login">
@@ -38,8 +70,8 @@ class LogIn extends Component {
                         <i class="fas fa-user fa-2x"></i>
                     </Col>
                     <Col sm={{ size: 8 }} >
-                        <Input className="text-secondary" type="text" name="userName" id="userName"
-                            placeholder="Nhập tên đăng nhập của bạn"
+                        <Input className="text-secondary" type="email" name="email" id="email"
+                            placeholder="Nhập gmail của bạn" value={this.state.email} onChange={this.handleInputEmail}
                         />
                     </Col>
                 </FormGroup>
@@ -50,7 +82,7 @@ class LogIn extends Component {
 
                     <Col sm={{ size: 8 }}>
                         <Input className="text-secondary" type="password" name="password" id="password"
-                            placeholder="Nhập mật khẩu của bạn"
+                            placeholder="Nhập mật khẩu của bạn" value={this.state.password} onChange={this.handleInputPassWord}
                         />
                     </Col>
                 </FormGroup>
@@ -61,7 +93,7 @@ class LogIn extends Component {
                         </Link>
                     </Col>
                 </FormGroup>
-                <FormGroup row>
+                {/* <FormGroup row>
                     <Col sm={4}>
                         <hr></hr>
                     </Col>
@@ -71,8 +103,8 @@ class LogIn extends Component {
                     <Col sm={4}>
                         <hr></hr>
                     </Col>
-                </FormGroup>
-                <FormGroup row >
+                </FormGroup> */}
+                {/* <FormGroup row >
                     <Col className="d-flex flexDirection: 'row',">
                         <Col sm={{ size: 2, offset: 3 }}>
                             <Button color="primary" className="d-flex flexDirection: 'row',">
@@ -85,7 +117,7 @@ class LogIn extends Component {
                                 Google</Button>
                         </Col>
                     </Col>
-                </FormGroup>
+                </FormGroup> */}
                 <FormGroup row>
                     <Col sm={{ offset: 3 }} className="d-flex flexDirection: 'row',">
                         <h6>Bạn chưa có tài khoản? </h6>
@@ -96,12 +128,10 @@ class LogIn extends Component {
                 </FormGroup>
                 <FormGroup row>
                     <Col className=" text-center">
-                        <Link to="profile">
-                            <Button outline color="light" className="font-weight-bold mb-1" onClick={this.handleLoginClick}>
-                                <i class="fas fa-user-alt pr-2"></i>
-                                Đăng nhập
+                        <Button outline color="light" className="font-weight-bold mb-1" onClick={this.handleLoginClick}>
+                            <i class="fas fa-user-alt pr-2"></i>
+                            Đăng nhập
                         </Button>
-                        </Link>
                     </Col>
                 </FormGroup>
 
@@ -111,15 +141,15 @@ class LogIn extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log("state", state);
     return {
-        isLoggedIn: state.isLoggedIn
+        isLoggedIn: state.login.isLoggedIn,
+        users: state.users.data
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        login: (isLoggedIn) => dispatch({ type: LOG_IN, isLoggedIn })
+        login: (user) => dispatch(LogIn(user))
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(LogIn)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

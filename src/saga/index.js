@@ -4,8 +4,15 @@ import rootFilm from "./films/index";
 import rootUserFilmFavor from "./userFilmFavor/index";
 import rootBranch from "./branch/index";
 import rootSchedule from "./schedule/index";
+import rootUser from "./users/index";
 
 export default function* rootSaga() {
-  yield all([rootCategory(), rootFilm(), rootUserFilmFavor(),
-  rootBranch(), rootSchedule()]);
+  yield all([
+    rootCategory(),
+    rootFilm(),
+    rootUserFilmFavor(),
+    rootBranch(),
+    rootSchedule(),
+    rootUser()
+  ]);
 }

@@ -3,6 +3,42 @@ import { Form, FormGroup, Col, Label, Input, Button } from 'reactstrap'
 import './SignIn.scss'
 import { Link } from "react-router-dom"
 export default class LogIn extends Component {
+    constructor(props) {
+        super(props);
+        this.handleSignInClick = this.handleSignInClick.bind(this);
+        this.haneleInputEmail = this.haneleInputEmail.bind(this);
+        this.handleInputPassWord = this.handleInputPassWord.bind(this);
+        this.handleInputRePassWord = this.handleInputRePassWord.bind(this);
+        this.handleInputBirthday = this.handleInputBirthday.bind(this);
+        this.handleInputPhone = this.handleInputPhone.bind(this);
+        this.state = {
+            email: "",
+            password: "",
+            birthday: "",
+            username: "",
+            phone: "",
+            re_password: "",
+            address: ""
+        }
+    }
+    handleInputBirthday = e => {
+        this.setState({birthday: e.target.value});
+    }
+    handleInputPassWord = e => {
+        this.setState({password: e.target.password});
+    }
+    haneleInputEmail = e => {
+        this.setState({email: e.target.value});
+    }
+    handleInputBirthday = e => {
+        this.setState({birthday: e.target.value});
+    }
+    handleInputPhone = e => {
+        this.setState({phone: e.target.value})
+    }
+    handleSignInClick() {
+        
+    }
     render() {
         return (
             <Form className="mt-5 w-50 f-signin">
@@ -27,28 +63,8 @@ export default class LogIn extends Component {
                         <i class="fas fa-user fa-2x"></i>
                     </Col>
                     <Col sm={{ size: 8 }} >
-                        <Input className="text-secondary" type="text" name="userName" id="userName"
-                            placeholder="Vui lòng nhập tên của bạn"
-                        />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Col sm={{ size: 1, offset: 1 }} className="pr-0" >
-                        <i class="fas fa-key fa-2x"></i>
-                    </Col>
-                    <Col sm={{ size: 8 }}>
-                        <Input className="text-secondary" type="password" name="password" id="password"
-                            placeholder="Nhập mật khẩu của bạn"
-                        />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Col sm={{ size: 1, offset: 1 }} className="pr-0" >
-                        <i class="fas fa-lock fa-2x"></i>
-                    </Col>
-                    <Col sm={8}>
-                        <Input className="text-secondary" type="re-password" name="re-password" id="re-password"
-                            placeholder="Nhập lại mật khẩu"
+                        <Input className="text-secondary" type="text" name="username" id="username"
+                        placeholder="Vui lòng nhập tên của bạn" value={this.state.username}
                         />
                     </Col>
                 </FormGroup>
@@ -58,10 +74,30 @@ export default class LogIn extends Component {
                     </Col>
                     <Col sm={8}>
                         <Input className="text-secondary" type="email" name="email" id="email"
-                            placeholder="Địa chỉ email của bạn"
+                            placeholder="Địa chỉ email của bạn" value={this.state.email}
                         />
                     </Col>
 
+                </FormGroup>
+                <FormGroup row>
+                    <Col sm={{ size: 1, offset: 1 }} className="pr-0" >
+                        <i class="fas fa-key fa-2x"></i>
+                    </Col>
+                    <Col sm={{ size: 8 }}>
+                        <Input className="text-secondary" type="password" name="password" id="password"
+                            placeholder="Nhập mật khẩu của bạn" value={this.state.password}
+                        />
+                    </Col>
+                </FormGroup>
+                <FormGroup row>
+                    <Col sm={{ size: 1, offset: 1 }} className="pr-0" >
+                        <i class="fas fa-lock fa-2x"></i>
+                    </Col>
+                    <Col sm={8}>
+                        <Input className="text-secondary" type="re-password" name="re-password" id="re-password"
+                            placeholder="Nhập lại mật khẩu" value={this.state.re_password}
+                        />
+                    </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Col sm={{ size: 1, offset: 1 }} className="pr-0" >
@@ -69,7 +105,7 @@ export default class LogIn extends Component {
                     </Col>
                     <Col sm={8}>
                         <Input className="text-secondary" type="date" name="birthday" id="birthday"
-                            placeholder="Chọn ngày tháng năm sinh của bạn"
+                            placeholder="Chọn ngày tháng năm sinh của bạn" value={this.state.birthday}
                         />
                     </Col>
                 </FormGroup>
@@ -79,21 +115,21 @@ export default class LogIn extends Component {
                     </Col>
                     <Col sm={8}>
                         <Input className="text-secondary" type="text" name="phone" id="phone"
-                            placeholder="Nhập số điện thoại của bạn"
+                            placeholder="Nhập số điện thoại của bạn" value={this.state.phone}
                         />
                     </Col>
                 </FormGroup>
-                <FormGroup row>
+                {/* <FormGroup row>
                     <Col sm={{ size: 1, offset: 1 }} className="pr-0" >
                         <i class="fas fa-map-marker-alt fa-2x"></i>
                     </Col>
                     <Col sm={8}>
                         <Input className="text-secondary" type="text" name="address" id="address"
-                            placeholder="Vui lòng nhập địa chỉ"
+                            placeholder="Vui lòng nhập địa chỉ" value={this.state.address}
                         />
                     </Col>
-                </FormGroup>
-                <FormGroup row>
+                </FormGroup> */}
+                {/* <FormGroup row>
                     <Col sm={{ size: 1, offset: 1 }} className="pr-0" >
                         <i class="fas fa-film fa-2x"></i>
                     </Col>
@@ -128,10 +164,10 @@ export default class LogIn extends Component {
                             </Label>
                         </FormGroup>
                     </Col>
-                </FormGroup >
+                </FormGroup > */}
                 <FormGroup row className="pt-5" >
                     <Col className=" text-center">
-                        <Button outline color="light" className="font-weight-bold mb-1" type="submit">
+                        <Button outline color="light" className="font-weight-bold mb-1" onClick={this.handleSignInClick}>
                             <i class="fas fa-sign-in-alt pr-2"></i>
                             Đăng ký
                         </Button>

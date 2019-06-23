@@ -3,11 +3,12 @@
 @import "../../../node_modules/bootstrap/scss/mixins";
 
 @font-face {
-	font-family: "sf_pro_textregular";
-	src: url("../../../assets/font/sf-pro-text-regular-webfont.woff2") format("woff2"),
-		url("../../../assets/font/sf-pro-text-regular-webfont.woff") format("woff");
-	font-weight: normal;
-	font-style: normal;
+  font-family: "sf_pro_textregular";
+  src: url("../../../assets/font/sf-pro-text-regular-webfont.woff2")
+      format("woff2"),
+    url("../../../assets/font/sf-pro-text-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 $font-family: "sf_pro_textregular", sans-serif;
@@ -18,10 +19,11 @@ $background-image: linear-gradient(to top, #9b1b1b, #c20a0a) !important;
 $box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
 $width-menu-admin: 160px;
 $height-menu-right-admin: 40px;
+$w-2: 200px;
 $footer-height: 163px;
 * {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -37,27 +39,31 @@ body {
 	// min-height: 100vh !important;
 }
 #root {
-	position: relative;
-	height: 100%;
-	min-height: 100vh;
+  position: relative;
+  height: 100%;
+  min-height: 100vh;
 }
 i:hover {
-	color: white;
+  color: white;
 }
 .fa-search:hover {
-	color: #6b6b6b;
+  color: #6b6b6b;
 }
 
 .fa-user-alt:hover,
 .fa-sign-in-alt:hover,
 .fa-paper-plane:hover,
 .fa-clipboard-check:hover {
-	color: black;
+  color: black;
 }
 a {
-	color: #ffffff;
+  color: #ffffff;
 }
 
 .admin {
-	display: flex;
+  display: flex;
+}
+
+.w-2 {
+  width: $w-2;
 }

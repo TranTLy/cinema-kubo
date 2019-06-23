@@ -9,20 +9,25 @@ import imgFilm1 from '../../../assets/img/3.jpg';
 import CardItem from "../CardItem/CardItem"
 import "./CategoryFilm.scss"
 import { connect } from "react-redux"
-import SectionFilm from '../CardFilm/SectionFilm';
+import SectionFilm from '../SectionFilm/SectionFilm';
+import { Loading } from '../../Loading/Loading';
 
 
 class CategoryFilm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            films: this.props.films
+            films: this.props.films,
+            loading: this.props.loading
         }
     }
 
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.films !== this.state.films) {
             this.setState({ films: nextProps.films });
+        }
+        if (nextProps.loading !== this.state.loading) {
+            this.setState({ loading: nextProps.loading });
         }
     }
     render() {
@@ -37,9 +42,10 @@ class CategoryFilm extends Component {
         return (
             <div>
                 <Header />
-                <div className="SectionFilm">
-                    <SectionFilm movie={filmBytype} title={title}></SectionFilm>
-                </div >
+                {this.state.loading ? <Loading /> :
+                    <div className="SectionFilm">
+                        <SectionFilm movie={filmBytype} title={title}></SectionFilm>
+                    </div >}
                 <Footer />
             </div >
         )
@@ -48,7 +54,8 @@ class CategoryFilm extends Component {
 
 function mapStateToProps(state) {
     return {
-        films: state.films.data
+        films: state.films.data,
+        loading: state.films.loading
     }
 }
 

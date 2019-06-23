@@ -184,36 +184,36 @@ class BookTicket extends Component {
         return (
             <div>
                 <Header />
-                <Container className="book-ticket-wrap">
-                    <div className="schedule">
-                        <CardItemDetail movie={myMovie} />
-                        <div className="detail-schedule">
-                            <div className="title"><div> <i class="fas fa-film"></i> Lịch chiếu</div></div>
-                            <div><span className="lable">Chi nhánh: </span>{branch.nameBranch}</div>
-                            <div><span className="lable">Địa chỉ: </span>{branch.address}</div>
-                            <div><span className="lable">Thời gian bắt đầu: </span>{schedule.startTime}</div>
-                            <div><span className="lable">Phòng: </span>{schedule.idRoom}</div>
-                            <div><span className="lable">Số vé còn: </span>{schedule.availableTicket} vé/ tổng {schedule.sumTicket} vé</div>
+                    <Container className="book-ticket-wrap">
+                        <div className="schedule">
+                            <CardItemDetail movie={myMovie} />
+                            <div className="detail-schedule">
+                                <div className="title"><div> <i class="fas fa-film"></i> Lịch chiếu</div></div>
+                                <div><span className="lable">Chi nhánh: </span>{branch.nameBranch}</div>
+                                <div><span className="lable">Địa chỉ: </span>{branch.address}</div>
+                                <div><span className="lable">Thời gian bắt đầu: </span>{schedule.startTime}</div>
+                                <div><span className="lable">Phòng: </span>{schedule.idRoom}</div>
+                                <div><span className="lable">Số vé còn: </span>{schedule.availableTicket} vé/ tổng {schedule.sumTicket} vé</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="book-ticket-option">
-                        <div className="title"><span>ĐẶT VÉ</span></div>
-                        <ProgressBookTicket currentStep={this.state.currentStep} steps={this.state.steps} />
-                        <div className="btns">
-                            <button id="btn--back" onClick={() => { this.backStep() }}>Trở về</button>
-                            <button id="btn--next" onClick={() => { this.nextStep() }}>Tiếp theo</button>
-                        </div>
-                        <div className="option">
-                            {
-                                this.renderOption()
-                            }
-                        </div>
-                        <div className="bill">
-                            <Bill price={myMovie.price} numberTicket={this.state.numberTicket} discount={promotion.discount} namePromotion={promotion.namePromotion} />
-                        </div>
+                        <div className="book-ticket-option">
+                            <div className="title"><span>ĐẶT VÉ</span></div>
+                            <ProgressBookTicket currentStep={this.state.currentStep} steps={this.state.steps} />
+                            <div className="btns">
+                                <button id="btn--back" onClick={() => { this.backStep() }}>Trở về</button>
+                                <button id="btn--next" onClick={() => { this.nextStep() }}>Tiếp theo</button>
+                            </div>
+                            <div className="option">
+                                {
+                                    this.renderOption()
+                                }
+                            </div>
+                            <div className="bill">
+                                <Bill price={myMovie.price} numberTicket={this.state.numberTicket} discount={promotion.discount} namePromotion={promotion.namePromotion} />
+                            </div>
 
-                    </div>
-                </Container>
+                        </div>
+                    </Container>
                 <Footer />
 
             </div>

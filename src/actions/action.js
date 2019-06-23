@@ -18,12 +18,16 @@ import {
 
   READ_SCHEDULE_PENDING,
   READ_SCHEDULE_FAILURE,
-  READ_SCHEDULE_SUCCESS
+  READ_SCHEDULE_SUCCESS,
+  READ_USER,
+  READ_USER_SUCCESS,
+  READ_USER_FAILURE,
+  READ_USER_PENDING
 
 } from "../config/ActionType";
 
-export function LogIn() {
-  return { type: LOG_IN };
+export function LogIn(user) {
+  return { type: LOG_IN,user };
 }
 export function LogOut() {
   return { type: LOG_OUT };
@@ -87,3 +91,14 @@ export function readScheduleFailure(error) {
 }
 //--schedule
 
+// user
+export function readUserPending() {
+  return { type: READ_USER_PENDING };
+}
+export function readUserSuccess(data) {
+  return { type: READ_USER_SUCCESS, data };
+}
+export function readUserFailure(error) {
+  return { type: READ_USER_FAILURE, error };
+}
+//end user

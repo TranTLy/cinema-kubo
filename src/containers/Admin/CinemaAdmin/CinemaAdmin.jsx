@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './CinemaAdmin.scss';
 import { MenuPanel, ConfirmModal, CinemaModal } from '../../../components';
 import { ADD_MODE, EDIT_MODE } from '../../../constanst';
-
+import { READ_FILM } from '../../../config/ActionType';
+import { connect } from "react-redux"
 
 class CinemaAdmin extends Component {
     state = {}
@@ -14,6 +15,17 @@ class CinemaAdmin extends Component {
             deleteCinemaModalVisible: false,
             cinemaEdit: null,
             cinemaDelete: null,
+            films: this.props.films
+        }
+    }
+
+    componentDidMount() {
+        this.props.readFilm();
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.films !== this.state.films) {
+            this.setState({ films: nextProps.films })
         }
     }
 
@@ -55,56 +67,56 @@ class CinemaAdmin extends Component {
 
     render() {
         // const {cinemas} = this.props;
-        const cinemas = [
-            {
-                _id: "1",
-                name: "Bí kíp luyện rồng",
-                description: "Một bộ phim phiêu lưu kinh điển. Đáng xem trong dịp hè này",
-                type: 1,
-                startDate: "2019/01/30",
-                duration: 60,
-                director: "ABC",
-                actor: "actors",
-                language: "Tiếng Anh",
-                minAge: 0,
-                priceTicket: "60000",
-                status: 1, //(0: Đã hết hạn, 1: Còn đang chiếu)
-                score: 1,
-                rating: 4.2
-            },
-            {
-                _id: "1",
-                name: "Bí kíp luyện rồng",
-                description: "Một bộ phim phiêu lưu kinh điển. Đáng xem trong dịp hè này",
-                type: 1,
-                startDate: "2019/01/30",
-                duration: 60,
-                director: "ABC",
-                actor: "actors",
-                language: "Tiếng Anh",
-                minAge: 0,
-                priceTicket: "60000",
-                status: 1, //(0: Đã hết hạn, 1: Còn đang chiếu)
-                score: 1,
-                rating: 4.2
-            },
-            {
-                _id: "1",
-                name: "Bí kíp luyện rồng",
-                description: "Một bộ phim phiêu lưu kinh điển. Đáng xem trong dịp hè này",
-                type: 1,
-                startDate: "2019/01/30",
-                duration: 60,
-                director: "ABC",
-                actor: "actors",
-                language: "Tiếng Anh",
-                minAge: 0,
-                priceTicket: "60000",
-                status: 1, //(0: Đã hết hạn, 1: Còn đang chiếu)
-                score: 1,
-                rating: 4.2
-            }
-        ]
+        // const cinemas = [
+        //     {
+        //         _id: "1",
+        //         name: "Bí kíp luyện rồng",
+        //         description: "Một bộ phim phiêu lưu kinh điển. Đáng xem trong dịp hè này",
+        //         type: 1,
+        //         startDate: "2019/01/30",
+        //         duration: 60,
+        //         director: "ABC",
+        //         actor: "actors",
+        //         language: "Tiếng Anh",
+        //         minAge: 0,
+        //         priceTicket: "60000",
+        //         status: 1, //(0: Đã hết hạn, 1: Còn đang chiếu)
+        //         score: 1,
+        //         rating: 4.2
+        //     },
+        //     {
+        //         _id: "1",
+        //         name: "Bí kíp luyện rồng",
+        //         description: "Một bộ phim phiêu lưu kinh điển. Đáng xem trong dịp hè này",
+        //         type: 1,
+        //         startDate: "2019/01/30",
+        //         duration: 60,
+        //         director: "ABC",
+        //         actor: "actors",
+        //         language: "Tiếng Anh",
+        //         minAge: 0,
+        //         priceTicket: "60000",
+        //         status: 1, //(0: Đã hết hạn, 1: Còn đang chiếu)
+        //         score: 1,
+        //         rating: 4.2
+        //     },
+        //     {
+        //         _id: "1",
+        //         name: "Bí kíp luyện rồng",
+        //         description: "Một bộ phim phiêu lưu kinh điển. Đáng xem trong dịp hè này",
+        //         type: 1,
+        //         startDate: "2019/01/30",
+        //         duration: 60,
+        //         director: "ABC",
+        //         actor: "actors",
+        //         language: "Tiếng Anh",
+        //         minAge: 0,
+        //         priceTicket: "60000",
+        //         status: 1, //(0: Đã hết hạn, 1: Còn đang chiếu)
+        //         score: 1,
+        //         rating: 4.2
+        //     }
+        // ]
         return (
             <React.Fragment>
                 <div className="cinemas-admin admin__content">
@@ -131,21 +143,23 @@ class CinemaAdmin extends Component {
                                     {/* th: actor */}
                                 </tr>
                             </thead>
-                            <tbody>
-                                {cinemas.map((item, index) => (
-                                    <tr className="cinemas-admin__cinemas--single-cinema admin__detail--single">
-                                        <td>{index + 1}</td>
-                                        <td>{item.name}</td>
-                                        <td>{item.duration}</td>
-                                        <td>{item.actor}</td>
-                                        <td>{item.rating}</td>
-                                        <td className="actions">
-                                            <i class="fas fa-edit" onClick={() => this.OpenEditModal(item)}></i>
-                                            <i class="fas fa-trash-alt" onClick={() => this.OpenDeleteModal(item)}></i></td>
-                                    </tr>
-                                ))}
+                            {this.state.films !== null ? (
+                                <tbody>
+                                    {this.state.films.map((item, index) => (
+                                        <tr className="cinemas-admin__cinemas--single-cinema admin__detail--single">
+                                            <td>{index + 1}</td>
+                                            <td>{item.name}</td>
+                                            <td >{item.duration}</td>
+                                            <td >{item.director}</td>
+                                            <td>{item.rate}</td>
+                                            <td className="actions">
+                                                <i class="fas fa-edit" onClick={() => this.OpenEditModal(item)}></i>
+                                                <i class="fas fa-trash-alt" onClick={() => this.OpenDeleteModal(item)}></i></td>
+                                        </tr>
+                                    ))}
 
-                            </tbody>
+                                </tbody>
+                            ) : ""}
                         </table>
                     </div>
 
@@ -164,5 +178,16 @@ class CinemaAdmin extends Component {
         );
     }
 }
+function mapStateToProps(state) {
+    return {
+        films: state.films.data
+    }
+}
 
-export default CinemaAdmin;
+function mapDispatchToProps(dispatch) {
+    return {
+        readFilm: () => dispatch({ type: READ_FILM })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CinemaAdmin)

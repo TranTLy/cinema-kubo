@@ -43,7 +43,7 @@ class About extends Component {
 
                         </head>
                         <Header />
-                        <Container>
+                        <Container className = "about-page">
                             <div className="about-us-wrap">
                                 <div className="general-infor">
                                     <HeadLine title="Thông tin" />
