@@ -68,7 +68,7 @@ class DetailFilm extends Component {
                                             </Col>
                                             <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
                                                 <h5 className="pr-3 pl-0 text-danger font-weight-bold">Ngày phát hành:</h5>
-                                                <h6 className="pt-1">{film[0].releaseDate}</h6>
+                                                <h6 className="pt-1">{new Date(film[0].releaseDate).toLocaleDateString('en-GB')}</h6>
                                             </Col>
                                             <Col className="d-flex flexDirection: 'row', justifyContent: 'flex-start', pl-0">
                                                 <h5 className="pr-3 pl-0 text-danger font-weight-bold">Thể loại:</h5>
@@ -194,11 +194,9 @@ class DetailFilm extends Component {
     }
 }
 function mapStateToProps(state) {
-    // console.log("statkfghjklfghjk", state);
     return {
         films: state.films.data,
         loading: state.films.loading
-        // types: state.categorys.data
     }
 }
 

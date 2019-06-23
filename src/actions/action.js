@@ -1,6 +1,7 @@
 import {
   LOG_IN,
   LOG_OUT,
+
   READ_CATEGORY_PENDING,
   READ_CATEGORY_SUCCESS,
   READ_CATEGORY_FAILURE,
@@ -19,10 +20,15 @@ import {
   READ_SCHEDULE_PENDING,
   READ_SCHEDULE_FAILURE,
   READ_SCHEDULE_SUCCESS,
-  READ_USER,
+
   READ_USER_SUCCESS,
   READ_USER_FAILURE,
-  READ_USER_PENDING
+  READ_USER_PENDING,
+
+  CREATE_USER_SUCCESS,
+  CREATE_USER_PENDING,
+  CREATE_USER_FAILURE
+
 
 } from "../config/ActionType";
 
@@ -102,3 +108,15 @@ export function readUserFailure(error) {
   return { type: READ_USER_FAILURE, error };
 }
 //end user
+
+//create user
+export function CreateUsersLoading(){
+return {type: CREATE_USER_PENDING}
+}
+export function CreateUsersSuccess(user){
+  return {type: CREATE_USER_SUCCESS, user }
+}
+export function CreateUsersError(error){
+return {type: CREATE_USER_FAILURE, error}
+}
+//end

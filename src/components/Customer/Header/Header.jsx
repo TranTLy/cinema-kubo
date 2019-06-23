@@ -23,7 +23,8 @@ class Header extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.state = {
             isLoggedIn: this.props.isLoggedIn,
-            data: this.props.data
+            data: this.props.data,
+            user: this.props.user
         }
     }
     handleClick = (id) => {
@@ -36,6 +37,9 @@ class Header extends Component {
         if (nextProps.data !== this.state.data) {
             this.setState({ data: nextProps.data })
         }
+        if (nextProps.user !== this.state.user) {
+            this.setState({ user: nextProps.user })
+        }
     };
     componentWillMount() {
         this.props.read();
@@ -43,7 +47,6 @@ class Header extends Component {
         this.props.readUsers();
     }
     componentDidMount() {
-        console.log("lik", window.location.pathname);
         let pathname = window.location.pathname;
         if (pathname === "/") {
             document.getElementsByClassName("type")[0].classList.remove("active");
@@ -80,7 +83,7 @@ class Header extends Component {
             button = <LogInButton ></LogInButton>
         }
         else {
-            button = <LogOutButton ></LogOutButton>
+            button = <LogOutButton fullname={this.state.user.fullname} ></LogOutButton>
         }
         return (
             <div className="header sticky-top">
@@ -132,7 +135,8 @@ function mapStateToProps(state) {
         isLoggedIn: state.login.isLoggedIn,
         loading: state.categorys.loading,
         data: state.categorys.data || [],
-        error: state.categorys.error
+        error: state.categorys.error,
+        user: state.login.user
     }
 }
 

@@ -13,7 +13,8 @@ class LogOutButton extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="d-flex flexDirection: 'row',text-alignContent: 'center'">
+                <p className="text-danger , font-weight-bold mr-2 mt-2">Xin chào, {this.props.fullname}</p>
                 <Link to="/">
                     <Button outline color="danger" onClick={this.handleClick}>Đăng Xuất</Button>
                 </Link>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './CinemaAdmin.scss';
-import { MenuPanel, ConfirmModal, CinemaModal } from '../../../components';
+import { MenuPanel, ConfirmModal, CinemaModal, Loading } from '../../../components';
 import { ADD_MODE, EDIT_MODE } from '../../../constanst';
 import { READ_FILM } from '../../../config/ActionType';
 import { connect } from "react-redux"
@@ -15,7 +15,8 @@ class CinemaAdmin extends Component {
             deleteCinemaModalVisible: false,
             cinemaEdit: null,
             cinemaDelete: null,
-            films: this.props.films
+            films: this.props.films,
+            loading: this.props.loading
         }
     }
 
@@ -26,6 +27,9 @@ class CinemaAdmin extends Component {
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.films !== this.state.films) {
             this.setState({ films: nextProps.films })
+        }
+        if (nextProps.loading !== this.state.loading) {
+            this.setState({ loading: nextProps.loading })
         }
     }
 
@@ -129,39 +133,40 @@ class CinemaAdmin extends Component {
                             <a name="" id="" class="btn " href="#" role="button" onClick={() => this.OpenAddModal()}>Thêm</a>
                         </div>
                     </div>
-                    <div className="cinema-admin__cinemas admin__detail">
-                        <table className="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">STT</th>
-                                    <th scope="col">Tên phim</th>
-                                    <th scope="col">Thời lượng</th>
-                                    <th scope="col">Đạo diễn</th>
-                                    <th scope="col">Điểm đánh giá</th>
-                                    <th scope="col"></th>
-                                    <th scope="col">Tình trạng</th>
-                                    {/* th: actor */}
-                                </tr>
-                            </thead>
-                            {this.state.films !== null ? (
-                                <tbody>
-                                    {this.state.films.map((item, index) => (
-                                        <tr className="cinemas-admin__cinemas--single-cinema admin__detail--single">
-                                            <td>{index + 1}</td>
-                                            <td>{item.name}</td>
-                                            <td >{item.duration}</td>
-                                            <td >{item.director}</td>
-                                            <td>{item.rate}</td>
-                                            <td className="actions">
-                                                <i class="fas fa-edit" onClick={() => this.OpenEditModal(item)}></i>
-                                                <i class="fas fa-trash-alt" onClick={() => this.OpenDeleteModal(item)}></i></td>
-                                        </tr>
-                                    ))}
+                    {this.state.loading ? <Loading /> : (
+                        <div className="cinema-admin__cinemas admin__detail">
+                            <table className="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Tên phim</th>
+                                        <th scope="col">Thời lượng</th>
+                                        <th scope="col">Đạo diễn</th>
+                                        <th scope="col">Điểm đánh giá</th>
+                                        <th scope="col"></th>
+                                        <th scope="col">Tình trạng</th>
+                                        {/* th: actor */}
+                                    </tr>
+                                </thead>
+                                {this.state.films !== null ? (
+                                    <tbody>
+                                        {this.state.films.map((item, index) => (
+                                            <tr className="cinemas-admin__cinemas--single-cinema admin__detail--single">
+                                                <td>{index + 1}</td>
+                                                <td>{item.name}</td>
+                                                <td >{item.duration}</td>
+                                                <td >{item.director}</td>
+                                                <td>{item.rate}</td>
+                                                <td className="actions">
+                                                    <i class="fas fa-edit" onClick={() => this.OpenEditModal(item)}></i>
+                                                    <i class="fas fa-trash-alt" onClick={() => this.OpenDeleteModal(item)}></i></td>
+                                            </tr>
+                                        ))}
 
-                                </tbody>
-                            ) : ""}
-                        </table>
-                    </div>
+                                    </tbody>
+                                ) : ""}
+                            </table>
+                        </div>)}
 
 
                     <CinemaModal mode={ADD_MODE} visible={this.state.addCinemaModalVisible} CloseAddModel={this.CloseAddModal} cinema={null}
@@ -180,7 +185,8 @@ class CinemaAdmin extends Component {
 }
 function mapStateToProps(state) {
     return {
-        films: state.films.data
+        films: state.films.data,
+        loading: state.films.loading
     }
 }
 

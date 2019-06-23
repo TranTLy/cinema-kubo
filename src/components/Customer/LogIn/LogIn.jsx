@@ -22,7 +22,6 @@ class Login extends Component {
             this.setState({ users: nextprops.users })
         }
     }
-
     handleInputEmail(e) {
         this.setState({ email: e.target.value })
     }
