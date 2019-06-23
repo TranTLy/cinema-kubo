@@ -27,13 +27,31 @@ import {
 
   CREATE_USER_SUCCESS,
   CREATE_USER_PENDING,
-  CREATE_USER_FAILURE
+  CREATE_USER_FAILURE,
 
+  READ_PROMOTION_PENDING,
+  READ_PROMOTION_FAILURE,
+  READ_PROMOTION_SUCCESS,
 
+  READ_PROMOTION_BOOK_TICKET_PENDING,
+  READ_PROMOTION_BOOK_TICKET_FAILURE,
+  READ_PROMOTION_BOOK_TICKET_SUCCESS,
+
+  READ_TYPEPAYMENT_PENDING,
+  READ_TYPEPAYMENT_FAILURE,
+  READ_TYPEPAYMENT_SUCCESS,
+
+  READ_BILL_PENDING,
+  READ_BILL_FAILURE,
+  READ_BILL_SUCCESS,
+
+  CREATE_BILL_PENDING,
+  CREATE_BILL_FAILURE,
+  CREATE_BILL_SUCCESS
 } from "../config/ActionType";
 
 export function LogIn(user) {
-  return { type: LOG_IN,user };
+  return { type: LOG_IN, user };
 }
 export function LogOut() {
   return { type: LOG_OUT };
@@ -97,6 +115,62 @@ export function readScheduleFailure(error) {
 }
 //--schedule
 
+//promotion
+export function readPromotionPending() {
+  return { type: READ_PROMOTION_PENDING };
+}
+export function readPromotionSuccess(data) {
+  return { type: READ_PROMOTION_SUCCESS, data };
+}
+export function readPromotionFailure(error) {
+  return { type: READ_PROMOTION_FAILURE, error };
+}
+//=======get single promotion on book ticket =====
+export function readPromotionBookTicketPending() {
+  return { type: READ_PROMOTION_BOOK_TICKET_PENDING };
+}
+export function readPromotionBookTicketSuccess(data) {
+  return { type: READ_PROMOTION_BOOK_TICKET_SUCCESS, data };
+}
+export function readPromotionBookTicketFailure(error) {
+  return { type: READ_PROMOTION_BOOK_TICKET_FAILURE, error };
+}
+//--promotion
+
+// type payment
+export function readTypePaymentPending() {
+  return { type: READ_TYPEPAYMENT_PENDING };
+}
+export function readTypePaymentSuccess(data) {
+  return { type: READ_TYPEPAYMENT_SUCCESS, data };
+}
+export function readTypePaymentFailure(error) {
+  return { type: READ_TYPEPAYMENT_FAILURE, error };
+}
+//-- type payment
+
+//bill
+//post
+export function createBillPending() {
+  return { type: CREATE_BILL_PENDING };
+}
+export function createBillSuccess(data) {
+  return { type: CREATE_BILL_SUCCESS, data };
+}
+export function createBillFailure(error) {
+  return { type: CREATE_BILL_FAILURE, error };
+}
+//get
+export function readBillPending() {
+  return { type: READ_BILL_PENDING };
+}
+export function readBillSuccess(data) {
+  return { type: READ_BILL_SUCCESS, data };
+}
+export function readBillFailure(error) {
+  return { type: READ_BILL_FAILURE, error };
+}
+//--bill
 // user
 export function readUserPending() {
   return { type: READ_USER_PENDING };
@@ -110,13 +184,13 @@ export function readUserFailure(error) {
 //end user
 
 //create user
-export function CreateUsersLoading(){
-return {type: CREATE_USER_PENDING}
+export function CreateUsersLoading() {
+  return { type: CREATE_USER_PENDING }
 }
-export function CreateUsersSuccess(user){
-  return {type: CREATE_USER_SUCCESS, user }
+export function CreateUsersSuccess(user) {
+  return { type: CREATE_USER_SUCCESS, user }
 }
-export function CreateUsersError(error){
-return {type: CREATE_USER_FAILURE, error}
+export function CreateUsersError(error) {
+  return { type: CREATE_USER_FAILURE, error }
 }
 //end

@@ -187,7 +187,7 @@ class Schedule extends Component {
                             <div className="list-schedules">
                                 {
 
-                                    this.state.schedules != null > 0 && this.state.schedules.map((schedule, index) => {
+                                    this.state.schedules !== null  && this.state.schedules.map((schedule, index) => {
                                         let branch = this.state.branchs.filter((item) => item._id == schedule.idroom.idbranch);
                                         branch = branch[0];
                                         const _movie = schedule.idfilm;

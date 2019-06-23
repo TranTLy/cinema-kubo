@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import './SeatingPlant.scss';
+import { nextTick } from 'q';
 
 
 export class SeatingPlant extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            sumSeatChose: 0,
-            arrayPositionSeat: []
+            sumSeatChose: 0
         }
+    }
+
+    isSeatChoose = (position) => {
+        for (let i = 0; i < this.props.arrayPositionSeat.length; i++) {
+            if (this.props.arrayPositionSeat[i].toString() === position.toString()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     getSeatPlant = (stateSeat) => {
@@ -16,7 +25,16 @@ export class SeatingPlant extends Component {
         const UNAVAILABLE = "1";
         var results = [];
         for (let i = 0; i < stateSeat.length; i++) {
-            if (stateSeat[i] == AVAILABLE) {
+            if (this.isSeatChoose(i)) {
+                results.push(
+                    <div className='seat-wrap seat-choosen seat-wrap--available' onClick={() => { this.chooseSeat(i) }}>
+                        <span className='seat'>
+                            {i + 1}
+                        </span>
+                    </div>
+                );
+            }
+            else if (stateSeat[i] == AVAILABLE) {
                 results.push(
                     <div className='seat-wrap seat-wrap--available' onClick={() => { this.chooseSeat(i) }}>
                         <span className='seat'>
@@ -54,11 +72,16 @@ export class SeatingPlant extends Component {
         }
     }
 
+    componentDidMount() {
+        console.log("on componentDidMount");
+        this.setState({ sumSeatChose: this.props.arrayPositionSeat.length })
+    }
+
     render() {
-        const { stateSeat, maxSeat } = this.props;
+        const { stateSeat, maxSeat, arrayPositionSeat } = this.props;
         return (
             <div className="seating-plant-wrap">
-                <div className="seating-plant__sum-seat-chose">Bạn đã chọn {this.state.sumSeatChose} vé/ {maxSeat} vé</div>
+                <div className="seating-plant__sum-seat-chose">Bạn đã chọn {this.props.arrayPositionSeat.length} vé/ {maxSeat} vé</div>
                 <div className="seating-plant">
                     {
                         this.getSeatPlant(stateSeat)
