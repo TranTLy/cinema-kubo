@@ -54,7 +54,15 @@ class App extends React.Component {
           />
           <Route path="/about" component={About} />
           <Route path="/schedule" component={Schedule} />
-          <Route path="/book-ticket" component={BookTicket} />
+          <Route path="/book-ticket"
+            render={() =>
+              this.state.isLoggedIn === true ? (
+                <BookTicket />
+              ) : (
+                  <Redirect to="/login" />
+                )
+            }
+          />
           <Route path="/detailfilm" component={DetailFilm} />
           <Route path="/categoryfilm" component={CategoryFilm} />
           <Route path="/resultfilm" component={ResultSearch} />

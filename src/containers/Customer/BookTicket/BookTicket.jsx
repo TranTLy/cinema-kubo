@@ -55,11 +55,13 @@ class BookTicket extends Component {
                 "__v": 0
             },
             typePayment: [],
-            bill: null
+            bill: null,
+            isFinish: false
         }
     }
 
     componentWillReceiveProps(next) {
+        console.log("next user login: ", next.login.user);
         if (!next.schedules.loading && !next.typePayment.loading
             && next.schedules.data !== this.state.schedules
             && next.typePayment.data !== this.state.typePayment) {
@@ -74,7 +76,8 @@ class BookTicket extends Component {
             this.setState({
                 schedules: next.schedules.data,
                 schedule: detailSchedule,
-                typePayment: next.typePayment.data
+                typePayment: next.typePayment.data,
+                isLoading: false
             })
         }
 
@@ -83,16 +86,29 @@ class BookTicket extends Component {
             //if there are not any promotion => discount = 0
             //get max discount promotion
             if (next.promotion.data.length > 0) {
-                this.setState({ promotion: next.promotion.data[0], isLoading: false });
+                this.setState({ promotion: next.promotion.data[0] });
             }
         }
 
-        // if (!next.bill.loading && next.bill.data != this.state.bill) {
-        //     console.log("saved bill: ", next.bill.data);
-        //     this.setState({
-        //         bill: next.Bill.data
-        //     })
-        // }
+        console.log("next bill:", next.bill);
+        if (!next.bill.loading && this.state.isFinish) {
+            console.log("saved bill: ", next.bill.data);
+            this.setState({
+                bill: next.bill.data
+            })
+            alert(`Đặt ${this.state.arrayPositionSeat.length} vé thành công. Vui lòng nhận vé trước giờ chiếu 15 phút`);
+            document.getElementsByClassName("book-ticket-option")[0].innerHTML =
+                `<div className= "book-ticket-success-wrap">
+            <div className="book-ticket-success__title">Đặt vé thành công</div>
+            <div className="book-ticket-success">Bạn đã đặt ${this.state.arrayPositionSeat.length} vé</div>
+            <div className="book-ticket-success">Vị trí ghế ngồi: ${this.state.arrayPositionSeat.map((item, index) =>
+                    index !== 0 ? (' ' + (parseInt(item) + 1)) : (parseInt(item) + 1))}</div>
+            <div className="book-ticket-success">Vui lòng nhận vé trước giờ chiếu 15 phút</div>
+            </div>`
+
+
+
+        }
     }
 
     componentDidMount() {
@@ -142,6 +158,7 @@ class BookTicket extends Component {
                 }
                 console.log("bill new: ", bill);
                 this.props.createBill(bill);
+                this.setState({ isFinish: true });
             }
         }
         else if (currentStep == this.state.STEP_TWO) {  //2nd step: choose seat
@@ -247,7 +264,8 @@ class BookTicket extends Component {
             <div>
                 <Header />
                 {
-                    this.state.isLoading || this.state.schedule === null ? <Loading /> :
+                    this.state.isLoading ? <Loading /> : !this.state.isLoading && this.state.schedule === null ?
+                        <div class="book-ticket-not-found">Không tìm thấy lịch chiếu phim</div> :
                         (
                             <Container className="book-ticket-wrap">
                                 <div className="schedule">
@@ -299,7 +317,7 @@ function mapStateToProps(state) {
         schedules: state.schedule,
         promotion: state.promotionBookTicket,
         typePayment: state.typePayment,
-        // bill: state.bill
+        bill: state.bill
     }
 }
 
