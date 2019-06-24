@@ -36,7 +36,7 @@ class Schedule extends Component {
             // this.setState({ branches: nextProps.branches.data,  })
             let newSchedule = [];
             if (this.state.idQueryFilm === this.state.allFilmOption) {
-                newSchedule = nextProps.schedule;
+                newSchedule = nextProps.schedule.data;
             } else {
                 const temp = nextProps.schedule.data.filter((item) => item.idfilm._id === this.state.idQueryFilm);
                 if (temp.length > 0) {
@@ -139,7 +139,7 @@ class Schedule extends Component {
     }
 
     render() {
-        console.log("on render...", this.state.schedules);
+        console.log("on render schedules: ...", this.state.schedules);
 
         return (
             <div>
@@ -186,8 +186,7 @@ class Schedule extends Component {
                             <div className="sum-schedule">Tổng cộng {this.state.schedules.length} lịch chiếu</div>
                             <div className="list-schedules">
                                 {
-
-                                    this.state.schedules !== null  && this.state.schedules.map((schedule, index) => {
+                                    this.state.schedules !== null && this.state.schedules.length > 0 && this.state.schedules.map((schedule, index) => {
                                         let branch = this.state.branchs.filter((item) => item._id == schedule.idroom.idbranch);
                                         branch = branch[0];
                                         const _movie = schedule.idfilm;
