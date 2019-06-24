@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './CinemaAdmin.scss';
 import { MenuPanel, ConfirmModal, CinemaModal, Loading } from '../../../components';
 import { ADD_MODE, EDIT_MODE } from '../../../constanst';
-import { READ_FILM, DELETE_FILM } from '../../../config/ActionType';
+import { READ_FILM, DELETE_FILM, UPDATE_FILM, CREATE_FILM } from '../../../config/ActionType';
 import { connect } from "react-redux"
 
 class CinemaAdmin extends Component {
@@ -70,26 +70,20 @@ class CinemaAdmin extends Component {
     SaveEditCinema = (newCinemaInput) => {
         //TODO
         console.log("save cinema...", newCinemaInput);
-        //get cinema infor
-        // const newCinema = {
-        //     name: document.getElementById("name").value || this.state.cinemaEdit.name,
-        //     description: document.getElementById("description").value || this.state.cinemaEdit.description,
-        //     startDate: document.getElementById("startDate").value || this.state.cinemaEdit.startDate,
-        //     director: document.getElementById("director").value || this.state.cinemaEdit.director,
-        //     actors: document.getElementById("actors").value || this.state.cinemaEdit.actors,
-        //     language: document.getElementById("language").value || this.state.cinemaEdit.language,
-        //     age: document.getElementById("age").value || this.state.cinemaEdit.age,
-        //     price: document.getElementById("price").value || this.state.cinemaEdit.price,
-        //     age: document.getElementById("age").value || this.state.cinemaEdit.age,
-        //     point: document.getElementById("point").value || this.state.cinemaEdit.point,
-        //     rate: document.getElementById("rate").value || this.state.cinemaEdit.rate
-        // }
-        // console.log("film save: ", newCinema);
+        newCinemaInput._id = this.state.cinemaEdit._id;
+        if (newCinemaInput === this.state.cinemaEdit) {
+            console.log("not change save");
+            //do nothing
+        } else {
+            console.log("change save");
+            this.props.updateFilm(newCinemaInput);
+        }
         this.CloseEditModal();
     }
     AddNewCinema = (newCinema) => {
         //TODO
-        console.log("add new cinema ... ");
+        console.log("add new cinema ... ", newCinema);
+        this.props.addFilm(newCinema);
         this.CloseAddModal();
     }
 
@@ -168,7 +162,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         readFilm: () => dispatch({ type: READ_FILM }),
-        deleteFilm: (idFilm) => dispatch({ type: DELETE_FILM, idFilm })
+        deleteFilm: (idFilm) => dispatch({ type: DELETE_FILM, idFilm }),
+        updateFilm: (film) => dispatch({ type: UPDATE_FILM, film }),
+        addFilm: (film) => dispatch({ type: CREATE_FILM, film }),
     }
 }
 

@@ -14,6 +14,14 @@ import {
   DELETE_FILM_FAILURE,
   DELETE_FILM_SUCCESS,
 
+  CREATE_FILM_PENDING,
+  CREATE_FILM_FAILURE,
+  CREATE_FILM_SUCCESS,
+
+  UPDATE_FILM_PENDING,
+  UPDATE_FILM_FAILURE,
+  UPDATE_FILM_SUCCESS,
+
   READ_USER_FILM_FAVOR_PENDING,
   READ_USER_FILM_FAVOR_FAILURE,
   READ_USER_FILM_FAVOR_SUCCESS,
@@ -98,6 +106,27 @@ export function deleteFilmSuccess(data) {
 export function deleteFilmFailure(error) {
   return { type: DELETE_FILM_FAILURE, error };
 }
+//create
+export function createFilmPending() {
+  return { type: CREATE_FILM_PENDING };
+}
+export function createFilmSuccess(data) {
+  return { type: CREATE_FILM_SUCCESS, data };
+}
+export function createFilmFailure(error) {
+  return { type: CREATE_FILM_FAILURE, error };
+}
+//update
+export function updateFilmPending() {
+  return { type: UPDATE_FILM_PENDING };
+}
+export function updateFilmSuccess(data) {
+  return { type: UPDATE_FILM_SUCCESS, data };
+}
+export function updateFilmFailure(error) {
+  return { type: UPDATE_FILM_FAILURE, error };
+}
+
 //--film
 
 //user - fim favor

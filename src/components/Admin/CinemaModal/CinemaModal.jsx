@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ADD_MODE, EDIT_MODE } from '../../../constanst';
 import Modal from 'react-awesome-modal';
 import './CinemaModal.scss'
+import { timingSafeEqual } from 'crypto';
 
 
 export class CinemaModal extends Component {
@@ -9,79 +10,111 @@ export class CinemaModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cinema: null
+            cinema: {
+                // name: '',
+                // description: '',
+                // releaseDate: '',
+                // director: '',
+                // actors: '',
+                // language: '',
+                // duration: '',
+                // age: '',
+                // price: '',
+                // point: '',
+                // rate: ''
+            }
         }
     }
 
-    // componentDidMount() {
-    //     console.log("cinema didmount: ", this.props.cinema);
-    //     this.setState({ cinema: this.props.cinema });
-    // }
+    checkIsEmpty = () => {
+        if (
+            !this.state.cinema.name
+            || !this.state.cinema.description
+            || !this.state.cinema.releaseDate
+            || !this.state.cinema.director
+            || !this.state.cinema.actors
+            || !this.state.cinema.language
+            || !this.state.cinema.duration
+            || !this.state.cinema.age
+            || !this.state.cinema.price
+            || !this.state.cinema.point
+            || !this.state.cinema.rate
+            || !this.state.cinema.img
+        ) {
+            alert("Nội dung không được rỗng")
+            console.log("film add new name check empty: ", this.state.rate);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     getInfor = (mode) => {
-        // const newCinema = {
-        //     name: document.getElementById("modal-name").value,
-        //     description: document.getElementById("modal-description").value,
-        //     startDate: document.getElementById("modal-startDate").value,
-        //     director: document.getElementById("modal-director").value,
-        //     actors: document.getElementById("modal-actors").value,
-        //     language: document.getElementById("modal-language").value,
-        //     age: document.getElementById("modal-age").value,
-        //     price: document.getElementById("modal-price").value,
-        //     point: document.getElementById("modal-point").value,
-        //     rate: document.getElementById("modal-rate").value
-        // }
-
-        const newCinema = {
-            name: this.state.cinema.name || this.props.cinema.name,
-            description: this.state.cinema.description || this.props.cinema.description,
-            startDate: this.state.cinema.startDate || this.props.cinema.startDate,
-            director: this.state.cinema.director || this.props.cinema.director,
-            actors: this.state.cinema.actors || this.props.cinema.actors,
-            language: this.state.cinema.language || this.props.cinema.language,
-            actors: this.state.cinema.actors || this.props.cinema.actors,
-            age: this.state.cinema.age || this.props.cinema.age,
-            price: this.state.cinema.actors || this.props.cinema.price,
-            point: this.state.cinema.actors || this.props.cinema.point,
-            rate: this.state.cinema.actors || this.props.cinema.rate
-        }
-        console.log("film save: ", newCinema);
+        console.log("cinema state: ", this.state.cinema);
         if (mode === EDIT_MODE) {
+            const newCinema = {
+                name: this.state.cinema.name || this.props.cinema.name,
+                description: this.state.cinema.description || this.props.cinema.description,
+                releaseDate: this.state.cinema.releaseDate || this.props.cinema.releaseDate,
+                director: this.state.cinema.director || this.props.cinema.director,
+                actors: this.state.cinema.actors || this.props.cinema.actors,
+                language: this.state.cinema.language || this.props.cinema.language,
+                duration: this.state.cinema.duration || this.props.cinema.duration,
+                age: this.state.cinema.age || this.props.cinema.age,
+                price: this.state.cinema.actors || this.props.cinema.price,
+                point: this.state.cinema.actors || this.props.cinema.point,
+                rate: this.state.cinema.actors || this.props.cinema.rate
+            }
+            console.log("film save: ", newCinema);
             this.props.SaveEditCinema(newCinema);
         } else {
-            this.props.AddNewCinema(newCinema);
+            if (!this.checkIsEmpty()) {
+                console.log("film add new: ", this.state.cinema.name);
+                this.props.AddNewCinema(this.state.cinema);
+            }
         }
     }
 
     onChangeName = (e) => {
-        this.setState({ cinema: { name: e.target.value } })
+        this.setState({ cinema: { name: e.target.value } }, () => {
+            console.log("film add new name: ", this.state.cinema.name);
+
+        })
     }
-    description = (e) => {
-        this.setState({ cinema: { description: e.target.value } })
+    onChangeDescription = (e) => {
+        this.setState({ cinema: { ...this.state.cinema, description: e.target.value } })
     }
-    startDate = (e) => {
-        this.setState({ cinema: { startDate: e.target.value } })
+    onChangeReleaseDate = (e) => {
+        this.setState({ cinema: { ...this.state.cinema, releaseDate: e.target.value } })
     }
-    director = (e) => {
-        this.setState({ cinema: { director: e.target.value } })
+    onChangeDirector = (e) => {
+        this.setState({ cinema: { ...this.state.cinema, director: e.target.value } })
     }
-    actors = (e) => {
-        this.setState({ cinema: { actors: e.target.value } })
+    onChangeActors = (e) => {
+        this.setState({ cinema: { ...this.state.cinema, actors: e.target.value } })
     }
-    language = (e) => {
-        this.setState({ cinema: { language: e.target.value } })
+    onChangeLanguage = (e) => {
+        this.setState({ cinema: { ...this.state.cinema, language: e.target.value } })
     }
-    age = (e) => {
-        this.setState({ cinema: { age: e.target.value } })
+    onChangeDuration = (e) => {
+        this.setState({ cinema: { ...this.state.cinema, duration: e.target.value } })
     }
-    price = (e) => {
-        this.setState({ cinema: { price: e.target.value } })
+    onChangeAge = (e) => {
+        this.setState({ cinema: { ...this.state.cinema, age: e.target.value } })
     }
-    point = (e) => {
-        this.setState({ cinema: { point: e.target.value } })
+    onChangePrice = (e) => {
+        this.setState({ cinema: { ...this.state.cinema, price: e.target.value } })
     }
-    rate = (e) => {
-        this.setState({ cinema: { rate: e.target.value } })
+    onChangePoint = (e) => {
+        this.setState({ cinema: { ...this.state.cinema, point: e.target.value } })
+    }
+    onChangeRate = (e) => {
+        this.setState({ cinema: { ...this.state.cinema, rate: e.target.value } })
+    }
+    onChangeImg = (e) => {
+        this.setState({ cinema: { ...this.state.cinema, img: e.target.value } })
     }
 
     render() {
@@ -101,40 +134,40 @@ export class CinemaModal extends Component {
                                     <td><input onChange={this.onChangeName} id="modal-name" clasName="required" type="text" placeholder={cinema !== null ? cinema.name : ""} /></td>
                                 </tr>
                                 <tr>
-                                    <td className="lable">Mô tả:</td>
+                                    <td className="lable required-lable">Mô tả:</td>
                                     <td>
-                                        <textarea id="modal-description" cols="30" rows="3" placeholder={cinema !== null ? cinema.description : ""}></textarea>
+                                        <textarea onChange={this.onChangeDescription} id="modal-description" cols="30" rows="3" placeholder={cinema !== null ? cinema.description : ""}></textarea>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="lable required-lable">Ngày khởi chiếu:</td>
-                                    <td><input id="modal-startDate" clasName="required" type="text" placeholder={cinema !== null ? new Date(cinema.releaseDate).toLocaleDateString('en-GB') : ""} /></td>
+                                    <td><input onChange={this.onChangeReleaseDate} id="modal-startDate" clasName="required" type="text" placeholder={cinema !== null ? new Date(cinema.releaseDate).toLocaleDateString('en-GB') : ""} /></td>
                                 </tr>
                                 <tr>
                                     <td className="lable required-lable">Thời lượng:</td>
-                                    <td><input id="modal-duration" clasName="required" type="text" placeholder={cinema !== null ? cinema.duration : ""} /></td>
+                                    <td><input onChange={this.onChangeDuration} id="modal-duration" clasName="required" type="text" placeholder={cinema !== null ? cinema.duration : ""} /></td>
                                 </tr>
                                 <tr>
                                     <td className="lable required-lable">Đạo diễn:</td>
-                                    <td><input id="modal-director" clasName="required" type="text" placeholder={cinema !== null ? cinema.director : ""} /></td>
+                                    <td><input onChange={this.onChangeDirector} id="modal-director" clasName="required" type="text" placeholder={cinema !== null ? cinema.director : ""} /></td>
                                 </tr>
                                 <tr>
-                                    <td className="lable">Diễn viên:</td>
+                                    <td className="lable required-lable">Diễn viên:</td>
                                     <td>
-                                        <input id="modal-actors" type="text" placeholder={cinema !== null ? cinema.actors : ""} />
+                                        <input onChange={this.onChangeActors} id="modal-actors" type="text" placeholder={cinema !== null ? cinema.actors : ""} />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="lable">Ngôn ngữ:</td>
-                                    <td><input id="modal-language" type="text" placeholder={cinema !== null ? cinema.language : ""} /></td>
+                                    <td className="lable required-lable">Ngôn ngữ:</td>
+                                    <td><input onChange={this.onChangeLanguage} id="modal-language" type="text" placeholder={cinema !== null ? cinema.language : ""} /></td>
                                 </tr>
                                 <tr>
-                                    <td className="lable">Độ tuổi tối thiểu:</td>
-                                    <td><input id="modal-age" type="text" placeholder={cinema !== null ? cinema.age : ""} /></td>
+                                    <td className="lable required-lable">Độ tuổi tối thiểu:</td>
+                                    <td><input onChange={this.onChangeAge} id="modal-age" type="number" placeholder={cinema !== null ? cinema.age : ""} /></td>
                                 </tr>
                                 <tr>
                                     <td className="lable required-lable">Giá vé:</td>
-                                    <td><input id="modal-price" clasName="required" type="number" placeholder={cinema !== null ? (cinema.price / 1000.0).toFixed(3) : ""} /></td>
+                                    <td><input onChange={this.onChangePrice} id="modal-price" clasName="required" type="number" placeholder={cinema !== null ? (cinema.price / 1000.0).toFixed(3) : ""} /></td>
                                 </tr>
                                 {mode !== ADD_MODE && cinema != null && (
                                     <tr>
@@ -142,18 +175,18 @@ export class CinemaModal extends Component {
                                         <td><input name="status" type="text" value={cinema.status === true ? "Đang/ sắp chiếu" : "Ngừng chiếu"} /></td>
                                     </tr>)}
                                 <tr>
-                                    <td className="lable">Điểm tích lũy cho thành viên:</td>
-                                    <td><input id="modal-point" type="number" placeholder={cinema !== null ? cinema.point : ""} /></td>
+                                    <td className="lable required-lable">Điểm tích lũy cho thành viên:</td>
+                                    <td><input onChange={this.onChangePoint} id="modal-point" type="number" placeholder={cinema !== null ? cinema.point : ""} /></td>
                                 </tr>
                                 <tr>
-                                    <td className="lable">Điểm đánh giá:</td>
-                                    <td><input id="modal-rate" type="number" placeholder={cinema !== null ? cinema.rate : ""} /></td>
+                                    <td className="lable required-lable">Điểm đánh giá:</td>
+                                    <td><input onChange={this.onChangeRate} id="modal-rate" type="number" placeholder={cinema !== null ? cinema.rate : ""} /></td>
                                 </tr>
                                 {
                                     mode === ADD_MODE && (
                                         <tr>
                                             <td className="lable required-lable">Hình ảnh:</td>
-                                            <td><input name="img" type="file" clasName="required" /></td>
+                                            <td><input onChange={this.onChangeImg} name="img" type="file" clasName="required" /></td>
                                         </tr>
                                     )
                                 }
