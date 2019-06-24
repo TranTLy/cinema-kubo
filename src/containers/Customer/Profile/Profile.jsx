@@ -6,6 +6,7 @@ import { Container, Table, Button } from 'reactstrap';
 import './Profile.scss';
 import { connect } from 'react-redux';
 import { READ_USER_FILM_FAVOR } from '../../../config/ActionType';
+import { Loading } from '../../../components';
 class Profile extends Component {
 	constructor(props) {
 		super(props);
@@ -24,14 +25,21 @@ class Profile extends Component {
 				}
 			],
 			filmFavor: [],
+			user: null,
 			isLoading: true
 		};
 	}
 
 	componentWillReceiveProps = (nextProps) => {
-		if (nextProps.filmFavor != this.state.filmFavor) {
+		if (!nextProps.filmFavor.loading
+			&& nextProps.filmFavor.data != this.state.filmFavor
+			&& nextProps.user != null) {
 			console.log("profile: will revieve props , next props:", nextProps.filmFavor);
-			this.setState({ filmFavor: nextProps.filmFavor, isLoading: false });
+			this.setState({
+				filmFavor: nextProps.filmFavor.data,
+				user: nextProps.user,
+				isLoading: false
+			});
 		}
 	}
 
@@ -106,15 +114,7 @@ class Profile extends Component {
 
 	getContentTab() {
 		//todo: db demo
-		const customer = {
-			hoten: "Trần Minh Ngọc Nhi",
-			ngayThangNamSinh: "12/02/1998",
-			tenDangNhap: "Ngọc Nhi",
-			email: "tmnnhi98@gmail.com",
-			dienThoai: "0909 009 999",
-			loaiKhachHang: "Bạch kim",
-			diemTichLuy: 103
-		};
+		const user = this.state.user
 
 		if (this.state.currentTab === this.state.tabInformation) {
 			return (
@@ -128,28 +128,23 @@ class Profile extends Component {
 					<Table className="table">
 						<tr>
 							<td className="title">Họ tên: </td>
-							<td id="name" className="infor-show">{customer.hoten}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={customer.hoten} /></td>
+							<td id="name" className="infor-show">{user.fullname}</td>
+							<td><input className="infor-edit" type="text" name="hoTen" value={user.fullname} /></td>
 						</tr>
 						<tr>
 							<td className="title">Ngày tháng năm sinh: </td>
-							<td id="ngayThangNamSinh" className="infor-show">{customer.ngayThangNamSinh}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={customer.ngayThangNamSinh} /></td>
-						</tr>
-						<tr>
-							<td className="title">Tên đăng nhập: </td>
-							<td id="tenDangNhap" className="infor-show">{customer.tenDangNhap}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={customer.tenDangNhap} /></td>
+							<td id="ngayThangNamSinh" className="infor-show">{new Date(user.birthday).toLocaleDateString('en-GB')}</td>
+							<td><input className="infor-edit" type="text" name="hoTen" value={new Date(user.birthday).toLocaleDateString('en-GB')} /></td>
 						</tr>
 						<tr>
 							<td className="title">Email: </td>
-							<td id="email" className="infor-show">{customer.email}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={customer.email} /></td>
+							<td id="email" className="infor-show">{user.email}</td>
+							<td><input className="infor-edit" type="text" name="hoTen" value={user.email} /></td>
 						</tr>
 						<tr>
 							<td className="title">Điện thoại: </td>
-							<td id="dienThoai" className="infor-show">{customer.dienThoai}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={customer.dienThoai} /></td>
+							<td id="dienThoai" className="infor-show">{user.phone}</td>
+							<td><input className="infor-edit" type="text" name="hoTen" value={user.phone} /></td>
 						</tr>
 					</Table>
 					<div id="btn-save-wrap">
@@ -202,40 +197,35 @@ class Profile extends Component {
 					<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
 				</head>
 				<Header />
-				<div className="profile-container-wrap">
-					<Container>
-						<div className="tab-wrap">
-							{this.state.tab.map((item) => {
-								return (
-									<div className={item.id == this.state.currentTab ? "tab tab-active" : "tab"} onClick={() => this.setCurrentTab(item.id)}>
-										{item.name}
-									</div>
-								);
-							})}
-						</div>
-						<div className="profile-content">
-							{this.getContentTab()}
-						</div>
-					</Container>
-				</div>
+				{this.state.isLoading ? <Loading /> :
+					<div className="profile-container-wrap">
+						<Container>
+							<div className="tab-wrap">
+								{this.state.tab.map((item) => {
+									return (
+										<div className={item.id == this.state.currentTab ? "tab tab-active" : "tab"} onClick={() => this.setCurrentTab(item.id)}>
+											{item.name}
+										</div>
+									);
+								})}
+							</div>
+							<div className="profile-content">
+								{this.getContentTab()}
+							</div>
+						</Container>
+					</div>
+				}
 				<Footer />
 			</div>
 		)
-		// }
-		// else return (
-		// 	<div>Loading</div>
-		// )
-		// this.state.isLoading && (
-		// 	<div>Loading</div>
-		// )
-
 	}
 }
 
 function mapStateToProps(state) {
 	console.log("state in view:", state);
 	return {
-		filmFavor: state.userFilmFavor.data
+		filmFavor: state.userFilmFavor,
+		user: state.login.user
 	}
 }
 function mapDispatchToProps(dispatch) {

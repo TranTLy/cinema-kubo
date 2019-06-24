@@ -1,8 +1,8 @@
 @import "../../../assets/stylesheet/default.scss";
 
 .profile-container-wrap {
-	margin-bottom: $footer-height;
-
+	margin-bottom: 200px;
+	max-width: 100%;
 	.tab-wrap {
 		display: flex;
 		align-content: flex-start;

@@ -38,7 +38,10 @@
 		display: flex;
 		flex-direction: column;
 		margin-left: 15px;
-		width: 417px;
+		max-width: 417px;
+		min-width: 270px;
+
+
 		div {
 			padding-top: 10px;
 			.lable {

@@ -61,7 +61,6 @@ class BookTicket extends Component {
     }
 
     componentWillReceiveProps(next) {
-        console.log("next user login: ", next.login.user);
         if (!next.schedules.loading && !next.typePayment.loading
             && next.schedules.data !== this.state.schedules
             && next.typePayment.data !== this.state.typePayment) {
@@ -77,8 +76,10 @@ class BookTicket extends Component {
                 schedules: next.schedules.data,
                 schedule: detailSchedule,
                 typePayment: next.typePayment.data,
+                user: next.user,
                 isLoading: false
             })
+            console.log("user in bookticket: ", next.user)
         }
 
 
@@ -112,7 +113,8 @@ class BookTicket extends Component {
     }
 
     componentDidMount() {
-        const values = this.props.location.search;
+        console.log("did mount location:", window.location);
+        const values = window.location.search;
         const param = new URLSearchParams(values);
         const id = param.get("id");
         this.setState({
@@ -317,7 +319,8 @@ function mapStateToProps(state) {
         schedules: state.schedule,
         promotion: state.promotionBookTicket,
         typePayment: state.typePayment,
-        bill: state.bill
+        bill: state.bill,
+        user: state.login.user
     }
 }
 
