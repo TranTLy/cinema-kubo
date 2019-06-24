@@ -115,6 +115,7 @@ class BookTicket extends Component {
         const values = window.location.search;
         const param = new URLSearchParams(values);
         const id = param.get("id");
+        console.log("value link: ", values, " - id: ", id);
         this.setState({
             idSchedule: id || ''
         })

@@ -61,7 +61,7 @@ class Schedule extends Component {
         let values = this.props.location.search;
         const param = new URLSearchParams(values);
         console.log("value link: ", values, "param: ")
-        const idfilm = param.get('id');
+        const idfilm = param.get('idfilm');
         console.log("idfilm", idfilm);
         this.setState({ idQueryFilm: idfilm || this.state.allFilmOption }, () => {
             console.log("id query film: ", this.state.idQueryFilm);
