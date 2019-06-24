@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import Header from '../../../components/Customer/Header/Header';
 import Footer from '../../../components/Customer/Footer/Footer';
 import CardItemDetail from '../../../components/Customer/CardItemDetail/CardItemDetail'
-import { Container, Button } from 'reactstrap';
+import { Container } from 'reactstrap';
 import { ProgressBookTicket, SeatingPlant, Bill, Loading } from '../../../components'
 
 import './BookTicket.scss'
-import { READ_SCHEDULE, READ_PROMOTION, READ_PROMOTION_BOOK_TICKET, READ_TYPEPAYMENT } from '../../../config/ActionType';
+import { READ_SCHEDULE, READ_PROMOTION_BOOK_TICKET, READ_TYPEPAYMENT, CREATE_BILL } from '../../../config/ActionType';
 import { connect } from 'react-redux';
 class BookTicket extends Component {
     constructor(props) {
@@ -54,7 +54,9 @@ class BookTicket extends Component {
                 "phone": "0900 001 009",
                 "__v": 0
             },
-            typePayment: []
+            typePayment: [],
+            bill: null,
+            isFinish: false
         }
     }
 
@@ -73,8 +75,11 @@ class BookTicket extends Component {
             this.setState({
                 schedules: next.schedules.data,
                 schedule: detailSchedule,
-                typePayment: next.typePayment.data
+                typePayment: next.typePayment.data,
+                user: next.user,
+                isLoading: false
             })
+            console.log("user in bookticket: ", next.user)
         }
 
 
@@ -82,13 +87,34 @@ class BookTicket extends Component {
             //if there are not any promotion => discount = 0
             //get max discount promotion
             if (next.promotion.data.length > 0) {
-                this.setState({ promotion: next.promotion.data[0], isLoading: false });
+                this.setState({ promotion: next.promotion.data[0] });
             }
+        }
+
+        console.log("next bill:", next.bill);
+        if (!next.bill.loading && this.state.isFinish) {
+            console.log("saved bill: ", next.bill.data);
+            this.setState({
+                bill: next.bill.data
+            })
+            alert(`Đặt ${this.state.arrayPositionSeat.length} vé thành công. Vui lòng nhận vé trước giờ chiếu 15 phút`);
+            document.getElementsByClassName("book-ticket-option")[0].innerHTML =
+                `<div className= "book-ticket-success-wrap">
+            <div className="book-ticket-success__title">Đặt vé thành công</div>
+            <div className="book-ticket-success">Bạn đã đặt ${this.state.arrayPositionSeat.length} vé</div>
+            <div className="book-ticket-success">Vị trí ghế ngồi: ${this.state.arrayPositionSeat.map((item, index) =>
+                    index !== 0 ? (' ' + (parseInt(item) + 1)) : (parseInt(item) + 1))}</div>
+            <div className="book-ticket-success">Vui lòng nhận vé trước giờ chiếu 15 phút</div>
+            </div>`
+
+
+
         }
     }
 
     componentDidMount() {
-        const values = this.props.location.search;
+        // console.log("did mount location:", window.location);
+        const values = window.location.search;
         const param = new URLSearchParams(values);
         const id = param.get("id");
         this.setState({
@@ -111,17 +137,33 @@ class BookTicket extends Component {
     nextStep = () => {
         const currentStep = this.state.currentStep;
         console.log("first curr step: ", currentStep);
-        if (currentStep === this.state.STEP_THREE) {
+        if (currentStep === this.state.STEP_THREE) { //last step: payment
             //TODO
-            console.log("array seat: ", this.state.arrayPositionSeat);
-            // console.log("sum ticket: ", this.state.arrayPositionSeat.length);
-            console.log("user: ", this.state.user._id);
-            console.log("sum ticket: ", this.state.arrayPositionSeat.length);
-
-
-            //payment
+            const idTypePayment = document.getElementById("typePayment").elements["typePayment"].value;
+            if (idTypePayment === '') {
+                document.getElementById("message").innerHTML = "Bạn vui lòng chọn hình thức thanh toán.";
+            }
+            else {
+                document.getElementById("message").innerHTML = "";
+                const quantity = this.state.arrayPositionSeat.length;
+                const price = this.state.schedule.idfilm.price;
+                const discount = this.state.promotion.discount;
+                const bill = {
+                    idUser: this.state.user._id,
+                    idPromotion: this.state.promotion.discount > 0 ? this.state.promotion._id : "",
+                    idTypePayment,
+                    quantity,
+                    sum: quantity * price * (1 - discount),
+                    seat: this.state.arrayPositionSeat,
+                    idSchedule: this.state.schedule._id,
+                    date: new Date()
+                }
+                console.log("bill new: ", bill);
+                this.props.createBill(bill);
+                this.setState({ isFinish: true });
+            }
         }
-        else if (currentStep == this.state.STEP_TWO) {
+        else if (currentStep == this.state.STEP_TWO) {  //2nd step: choose seat
             const temp = document.getElementById("message");
             if (this.state.arrayPositionSeat.length < this.state.numberTicket) {
                 temp.innerHTML = `Vui lòng chọn đủ ${this.state.numberTicket} ghế ngồi.`
@@ -192,15 +234,17 @@ class BookTicket extends Component {
                     <div className="option__detail">
                         <div className="detail__lable">Vui lòng chọn hình thức thanh toán</div>
                         <div className="detail__payment">
-                            {
-                                this.state.typePayment.map((item) => {
-                                    return (
-                                        <React.Fragment>
-                                            <input type="radio" name="typePayment" checked value={item._id} />{item.name}<br></br>
-                                        </React.Fragment>
-                                    )
-                                })
-                            }
+                            <form id="typePayment">
+                                {
+                                    this.state.typePayment.map((item) => {
+                                        return (
+                                            <React.Fragment>
+                                                <input type="radio" name="typePayment" value={item._id} />{item.name}<br></br>
+                                            </React.Fragment>
+                                        )
+                                    })
+                                }
+                            </form >
                         </div>
                     </div>
                 )
@@ -222,7 +266,8 @@ class BookTicket extends Component {
             <div>
                 <Header />
                 {
-                    this.state.isLoading || this.state.schedule === null ? <Loading /> :
+                    this.state.isLoading ? <Loading /> : !this.state.isLoading && this.state.schedule === null ?
+                        <div class="book-ticket-not-found">Không tìm thấy lịch chiếu phim</div> :
                         (
                             <Container className="book-ticket-wrap">
                                 <div className="schedule">
@@ -273,7 +318,9 @@ function mapStateToProps(state) {
     return {
         schedules: state.schedule,
         promotion: state.promotionBookTicket,
-        typePayment: state.typePayment
+        typePayment: state.typePayment,
+        bill: state.bill,
+        user: state.login.user
     }
 }
 
@@ -281,7 +328,8 @@ function mapDispathToProps(dispath) {
     return {
         readSchedule: () => dispath({ type: READ_SCHEDULE }),
         readPromotionBookTicket: (idfilm, idtypeuser) => dispath({ type: READ_PROMOTION_BOOK_TICKET, idfilm, idtypeuser }),
-        readTypePayment: () => dispath({ type: READ_TYPEPAYMENT })
+        readTypePayment: () => dispath({ type: READ_TYPEPAYMENT }),
+        createBill: (bill) => dispath({ type: CREATE_BILL, bill })
     }
 }
 export default connect(mapStateToProps, mapDispathToProps)(BookTicket);

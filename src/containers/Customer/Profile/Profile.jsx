@@ -5,7 +5,10 @@ import CardItemDetail from '../../../components/Customer/CardItemDetail/CardItem
 import { Container, Table, Button } from 'reactstrap';
 import './Profile.scss';
 import { connect } from 'react-redux';
-import { READ_USER_FILM_FAVOR } from '../../../config/ActionType';
+import { READ_USER_FILM_FAVOR, UPDATE_USER } from '../../../config/ActionType';
+import { Loading } from '../../../components';
+import { LogIn } from "../../../actions/action"
+
 class Profile extends Component {
 	constructor(props) {
 		super(props);
@@ -24,14 +27,22 @@ class Profile extends Component {
 				}
 			],
 			filmFavor: [],
+			user: null,
 			isLoading: true
 		};
 	}
 
 	componentWillReceiveProps = (nextProps) => {
-		if (nextProps.filmFavor != this.state.filmFavor) {
+		if (!nextProps.filmFavor.loading
+			&& nextProps.filmFavor.data != this.state.filmFavor
+			&& nextProps.user != this.state.user
+			&& nextProps.user != null) {
 			console.log("profile: will revieve props , next props:", nextProps.filmFavor);
-			this.setState({ filmFavor: nextProps.filmFavor, isLoading: false });
+			this.setState({
+				filmFavor: nextProps.filmFavor.data,
+				user: nextProps.user,
+				isLoading: false
+			});
 		}
 	}
 
@@ -104,17 +115,28 @@ class Profile extends Component {
 		btnSave.style.display = "none";
 	}
 
+	onSaveUser = () => {
+		//get user infor:
+		const user = {
+			_id: this.state.user._id,
+			fullname: document.getElementById("fullname").value || this.state.user.fullname,
+			email: document.getElementById("email").value || this.state.user.email,
+			phone: document.getElementById("phone").value || this.state.user.phone,
+			birthday: document.getElementById("birthday").value !== "" ? new Date(document.getElementById("birthday").value) : this.state.user.birthday
+		}
+		console.log("user new: ", user);
+		this.props.updateUser(user);
+		this.props.login(user);
+		this.setState({
+			user
+		});
+		this.offEditInfor();
+
+	}
+
 	getContentTab() {
 		//todo: db demo
-		const customer = {
-			hoten: "Trần Minh Ngọc Nhi",
-			ngayThangNamSinh: "12/02/1998",
-			tenDangNhap: "Ngọc Nhi",
-			email: "tmnnhi98@gmail.com",
-			dienThoai: "0909 009 999",
-			loaiKhachHang: "Bạch kim",
-			diemTichLuy: 103
-		};
+		const user = this.state.user
 
 		if (this.state.currentTab === this.state.tabInformation) {
 			return (
@@ -128,32 +150,27 @@ class Profile extends Component {
 					<Table className="table">
 						<tr>
 							<td className="title">Họ tên: </td>
-							<td id="name" className="infor-show">{customer.hoten}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={customer.hoten} /></td>
+							<td className="infor-show">{user.fullname}</td>
+							<td><input id="fullname" className="infor-edit" type="text" name="hoTen" placeholder={user.fullname} /></td>
 						</tr>
 						<tr>
 							<td className="title">Ngày tháng năm sinh: </td>
-							<td id="ngayThangNamSinh" className="infor-show">{customer.ngayThangNamSinh}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={customer.ngayThangNamSinh} /></td>
-						</tr>
-						<tr>
-							<td className="title">Tên đăng nhập: </td>
-							<td id="tenDangNhap" className="infor-show">{customer.tenDangNhap}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={customer.tenDangNhap} /></td>
+							<td className="infor-show">{new Date(user.birthday).toLocaleDateString('en-GB')}</td>
+							<td><input id="birthday" className="infor-edit" type="date" name="hoTen" placeholder={new Date(user.birthday).toLocaleDateString('en-GB')} /></td>
 						</tr>
 						<tr>
 							<td className="title">Email: </td>
-							<td id="email" className="infor-show">{customer.email}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={customer.email} /></td>
+							<td className="infor-show">{user.email}</td>
+							<td><input id="email" className="infor-edit" type="text" name="hoTen" placeholder={user.email} /></td>
 						</tr>
 						<tr>
 							<td className="title">Điện thoại: </td>
-							<td id="dienThoai" className="infor-show">{customer.dienThoai}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={customer.dienThoai} /></td>
+							<td className="infor-show">{user.phone}</td>
+							<td><input id="phone" className="infor-edit" type="text" name="hoTen" placeholder={user.phone} /></td>
 						</tr>
 					</Table>
 					<div id="btn-save-wrap">
-						<Button id="btn-save-infor">Lưu</Button>
+						<Button id="btn-save-infor" onClick={() => this.onSaveUser()}>Lưu</Button>
 					</div>
 				</div>);
 		} else if (this.state.currentTab == this.state.tabFavourite) {
@@ -202,45 +219,42 @@ class Profile extends Component {
 					<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
 				</head>
 				<Header />
-				<div className="profile-container-wrap">
-					<Container>
-						<div className="tab-wrap">
-							{this.state.tab.map((item) => {
-								return (
-									<div className={item.id == this.state.currentTab ? "tab tab-active" : "tab"} onClick={() => this.setCurrentTab(item.id)}>
-										{item.name}
-									</div>
-								);
-							})}
-						</div>
-						<div className="profile-content">
-							{this.getContentTab()}
-						</div>
-					</Container>
-				</div>
+				{this.state.isLoading ? <Loading /> :
+					<div className="profile-container-wrap">
+						<Container>
+							<div className="tab-wrap">
+								{this.state.tab.map((item) => {
+									return (
+										<div className={item.id == this.state.currentTab ? "tab tab-active" : "tab"} onClick={() => this.setCurrentTab(item.id)}>
+											{item.name}
+										</div>
+									);
+								})}
+							</div>
+							<div className="profile-content">
+								{this.getContentTab()}
+							</div>
+						</Container>
+					</div>
+				}
 				<Footer />
 			</div>
 		)
-		// }
-		// else return (
-		// 	<div>Loading</div>
-		// )
-		// this.state.isLoading && (
-		// 	<div>Loading</div>
-		// )
-
 	}
 }
 
 function mapStateToProps(state) {
 	console.log("state in view:", state);
 	return {
-		filmFavor: state.userFilmFavor.data
+		filmFavor: state.userFilmFavor,
+		user: state.login.user
 	}
 }
 function mapDispatchToProps(dispatch) {
 	return {
-		readFilmFavor: (userId) => dispatch({ type: READ_USER_FILM_FAVOR, userId })
+		readFilmFavor: (userId) => dispatch({ type: READ_USER_FILM_FAVOR, userId }),
+		updateUser: (user) => dispatch({ type: UPDATE_USER, user }),
+		login: (user) => dispatch(LogIn(user))
 	}
 }
 

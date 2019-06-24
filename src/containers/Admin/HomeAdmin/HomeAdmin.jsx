@@ -12,7 +12,7 @@ class HomeAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentTab: 0,
+            currentTab: 1,
             tabs: [
                 {
                     name: "Lịch chiếu"

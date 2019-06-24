@@ -5,9 +5,22 @@ import {
   READ_CATEGORY_PENDING,
   READ_CATEGORY_SUCCESS,
   READ_CATEGORY_FAILURE,
+
   READ_FILM_PENDING,
   READ_FILM_FAILURE,
   READ_FILM_SUCCESS,
+
+  DELETE_FILM_PENDING,
+  DELETE_FILM_FAILURE,
+  DELETE_FILM_SUCCESS,
+
+  CREATE_FILM_PENDING,
+  CREATE_FILM_FAILURE,
+  CREATE_FILM_SUCCESS,
+
+  UPDATE_FILM_PENDING,
+  UPDATE_FILM_FAILURE,
+  UPDATE_FILM_SUCCESS,
 
   READ_USER_FILM_FAVOR_PENDING,
   READ_USER_FILM_FAVOR_FAILURE,
@@ -28,6 +41,10 @@ import {
   CREATE_USER_SUCCESS,
   CREATE_USER_PENDING,
   CREATE_USER_FAILURE,
+
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_PENDING,
+  UPDATE_USER_FAILURE,
 
   READ_PROMOTION_PENDING,
   READ_PROMOTION_FAILURE,
@@ -69,6 +86,7 @@ export function readCategoryFailure(error) {
   return { type: READ_CATEGORY_FAILURE, error };
 }
 //film
+//read
 export function readFilmPending() {
   return { type: READ_FILM_PENDING };
 }
@@ -78,6 +96,38 @@ export function readFilmSuccess(data) {
 export function readFilmFailure(error) {
   return { type: READ_FILM_FAILURE, error };
 }
+//delete
+export function deleteFilmPending() {
+  return { type: DELETE_FILM_PENDING };
+}
+export function deleteFilmSuccess(data) {
+  return { type: DELETE_FILM_SUCCESS, data };
+}
+export function deleteFilmFailure(error) {
+  return { type: DELETE_FILM_FAILURE, error };
+}
+//create
+export function createFilmPending() {
+  return { type: CREATE_FILM_PENDING };
+}
+export function createFilmSuccess(data) {
+  return { type: CREATE_FILM_SUCCESS, data };
+}
+export function createFilmFailure(error) {
+  return { type: CREATE_FILM_FAILURE, error };
+}
+//update
+export function updateFilmPending() {
+  return { type: UPDATE_FILM_PENDING };
+}
+export function updateFilmSuccess(data) {
+  return { type: UPDATE_FILM_SUCCESS, data };
+}
+export function updateFilmFailure(error) {
+  return { type: UPDATE_FILM_FAILURE, error };
+}
+
+//--film
 
 //user - fim favor
 export function readUserFilmFavorPending() {
@@ -181,7 +231,6 @@ export function readUserSuccess(data) {
 export function readUserFailure(error) {
   return { type: READ_USER_FAILURE, error };
 }
-//end user
 
 //create user
 export function CreateUsersLoading() {
@@ -193,4 +242,15 @@ export function CreateUsersSuccess(user) {
 export function CreateUsersError(error) {
   return { type: CREATE_USER_FAILURE, error }
 }
-//end
+//update user
+export function UpdateUsersLoading() {
+  return { type: UPDATE_USER_PENDING }
+}
+export function UpdateUsersSuccess(user) {
+  return { type: UPDATE_USER_SUCCESS, user }
+}
+export function UpdateUsersError(error) {
+  return { type: UPDATE_USER_FAILURE, error }
+}
+//end user
+
