@@ -113,7 +113,7 @@ class BookTicket extends Component {
     }
 
     componentDidMount() {
-        console.log("did mount location:", window.location);
+        // console.log("did mount location:", window.location);
         const values = window.location.search;
         const param = new URLSearchParams(values);
         const id = param.get("id");

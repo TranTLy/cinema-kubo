@@ -29,6 +29,10 @@ import {
   CREATE_USER_PENDING,
   CREATE_USER_FAILURE,
 
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_PENDING,
+  UPDATE_USER_FAILURE,
+
   READ_PROMOTION_PENDING,
   READ_PROMOTION_FAILURE,
   READ_PROMOTION_SUCCESS,
@@ -181,7 +185,6 @@ export function readUserSuccess(data) {
 export function readUserFailure(error) {
   return { type: READ_USER_FAILURE, error };
 }
-//end user
 
 //create user
 export function CreateUsersLoading() {
@@ -193,4 +196,15 @@ export function CreateUsersSuccess(user) {
 export function CreateUsersError(error) {
   return { type: CREATE_USER_FAILURE, error }
 }
-//end
+//update user
+export function UpdateUsersLoading() {
+  return { type: UPDATE_USER_PENDING }
+}
+export function UpdateUsersSuccess(user) {
+  return { type: UPDATE_USER_SUCCESS, user }
+}
+export function UpdateUsersError(error) {
+  return { type: UPDATE_USER_FAILURE, error }
+}
+//end user
+

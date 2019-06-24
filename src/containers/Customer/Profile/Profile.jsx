@@ -5,8 +5,10 @@ import CardItemDetail from '../../../components/Customer/CardItemDetail/CardItem
 import { Container, Table, Button } from 'reactstrap';
 import './Profile.scss';
 import { connect } from 'react-redux';
-import { READ_USER_FILM_FAVOR } from '../../../config/ActionType';
+import { READ_USER_FILM_FAVOR, UPDATE_USER } from '../../../config/ActionType';
 import { Loading } from '../../../components';
+import { LogIn } from "../../../actions/action"
+
 class Profile extends Component {
 	constructor(props) {
 		super(props);
@@ -33,6 +35,7 @@ class Profile extends Component {
 	componentWillReceiveProps = (nextProps) => {
 		if (!nextProps.filmFavor.loading
 			&& nextProps.filmFavor.data != this.state.filmFavor
+			&& nextProps.user != this.state.user
 			&& nextProps.user != null) {
 			console.log("profile: will revieve props , next props:", nextProps.filmFavor);
 			this.setState({
@@ -112,6 +115,25 @@ class Profile extends Component {
 		btnSave.style.display = "none";
 	}
 
+	onSaveUser = () => {
+		//get user infor:
+		const user = {
+			_id: this.state.user._id,
+			fullname: document.getElementById("fullname").value || this.state.user.fullname,
+			email: document.getElementById("email").value || this.state.user.email,
+			phone: document.getElementById("phone").value || this.state.user.phone,
+			birthday: document.getElementById("birthday").value !== "" ? new Date(document.getElementById("birthday").value) : this.state.user.birthday
+		}
+		console.log("user new: ", user);
+		this.props.updateUser(user);
+		this.props.login(user);
+		this.setState({
+			user
+		});
+		this.offEditInfor();
+
+	}
+
 	getContentTab() {
 		//todo: db demo
 		const user = this.state.user
@@ -128,27 +150,27 @@ class Profile extends Component {
 					<Table className="table">
 						<tr>
 							<td className="title">Họ tên: </td>
-							<td id="name" className="infor-show">{user.fullname}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={user.fullname} /></td>
+							<td className="infor-show">{user.fullname}</td>
+							<td><input id="fullname" className="infor-edit" type="text" name="hoTen" placeholder={user.fullname} /></td>
 						</tr>
 						<tr>
 							<td className="title">Ngày tháng năm sinh: </td>
-							<td id="ngayThangNamSinh" className="infor-show">{new Date(user.birthday).toLocaleDateString('en-GB')}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={new Date(user.birthday).toLocaleDateString('en-GB')} /></td>
+							<td className="infor-show">{new Date(user.birthday).toLocaleDateString('en-GB')}</td>
+							<td><input id="birthday" className="infor-edit" type="date" name="hoTen" placeholder={new Date(user.birthday).toLocaleDateString('en-GB')} /></td>
 						</tr>
 						<tr>
 							<td className="title">Email: </td>
-							<td id="email" className="infor-show">{user.email}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={user.email} /></td>
+							<td className="infor-show">{user.email}</td>
+							<td><input id="email" className="infor-edit" type="text" name="hoTen" placeholder={user.email} /></td>
 						</tr>
 						<tr>
 							<td className="title">Điện thoại: </td>
-							<td id="dienThoai" className="infor-show">{user.phone}</td>
-							<td><input className="infor-edit" type="text" name="hoTen" value={user.phone} /></td>
+							<td className="infor-show">{user.phone}</td>
+							<td><input id="phone" className="infor-edit" type="text" name="hoTen" placeholder={user.phone} /></td>
 						</tr>
 					</Table>
 					<div id="btn-save-wrap">
-						<Button id="btn-save-infor">Lưu</Button>
+						<Button id="btn-save-infor" onClick={() => this.onSaveUser()}>Lưu</Button>
 					</div>
 				</div>);
 		} else if (this.state.currentTab == this.state.tabFavourite) {
@@ -230,7 +252,9 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
 	return {
-		readFilmFavor: (userId) => dispatch({ type: READ_USER_FILM_FAVOR, userId })
+		readFilmFavor: (userId) => dispatch({ type: READ_USER_FILM_FAVOR, userId }),
+		updateUser: (user) => dispatch({ type: UPDATE_USER, user }),
+		login: (user) => dispatch(LogIn(user))
 	}
 }
 
