@@ -60,7 +60,9 @@ class Schedule extends Component {
     componentDidMount() {
         let values = this.props.location.search;
         const param = new URLSearchParams(values);
-        const idfilm = param.get('idfilm');
+        console.log("value link: ", values, "param: ")
+        const idfilm = param.get('id');
+        console.log("idfilm", idfilm);
         this.setState({ idQueryFilm: idfilm || this.state.allFilmOption }, () => {
             console.log("id query film: ", this.state.idQueryFilm);
         });
@@ -127,7 +129,9 @@ class Schedule extends Component {
             this.setState({
                 schedules: this.state.allSchedules.filter((item) => {
                     const temp = new Date(item.startTime);
-                    if (temp >= startTime && temp <= endTime && (idBranch === this.state.allBrandOption.toString() || item.idbranch._id === idBranch)) {
+                    if (temp >= startTime && temp <= endTime
+                        && (idBranch === this.state.allBrandOption.toString() || item.idbranch._id === idBranch)
+                        && (idFilm === this.state.allFilmOption.toString() || idFilm === item.idfilm._id)) {
                         return temp;
                     }
                 })
@@ -152,10 +156,10 @@ class Schedule extends Component {
                         <Container className="schedule-wrap">
                             <div className="search">
                                 <div className="search-branch">
-                                    Chi nhánh
-                                <select id="select-branch">
+                                    <span class="lable-search"> Chi nhánh </span>
+                                    <select id="select-branch">
                                         <option value={this.state.allBrandOption}>Tất cả</option>)
-                                {
+                                        {
                                             this.state.branchs.map((item) => {
                                                 return (
                                                     <option value={item._id}>{item.name}</option>)
@@ -164,19 +168,25 @@ class Schedule extends Component {
                                     </select>
                                 </div>
                                 <div className="search-film">
-                                    Phim
-                                <select id="select-film">
+                                    <span class="lable-search"> Phim </span>
+                                    <select id="select-film">
                                         <option value={this.state.allFilmOption}>Tất cả</option>)
                                 {
                                             this.state.films.map((item) => {
-                                                return (
-                                                    <option value={item._id}>{item.name}</option>)
+                                                if (item._id === this.state.idQueryFilm) {
+                                                    return (
+                                                        <option value={item._id} selected>{item.name}</option>)
+                                                } else {
+                                                    return (
+                                                        <option value={item._id}>{item.name}</option>)
+                                                }
                                             })
                                         }
                                     </select>
                                 </div>
                                 <div className="search-date">
-                                    <div>Thời gian: </div>
+                                    <span class="lable-search"> Thời gian </span>
+                                    {/* <div>Thời gian: </div> */}
                                     <div> Từ <input className="select-date-detail" id="select-date-start" type="date" name="date" /></div>
                                     <div> Đến <input className="select-date-detail" id="select-date-end" type="date" name="date" /></div>
                                     <a name="" id="" onClick={() => this.onSearchSchedule()} class="btn btn-dark btn-search-schedule" href="#" role="button">Tìm kiếm</a>
@@ -198,7 +208,7 @@ class Schedule extends Component {
                                                     <div className="title"><div> <i class="fas fa-film"></i> Lịch chiếu</div></div>
                                                     <div><span className="lable">Chi nhánh: </span>{branch.name}</div>
                                                     <div><span className="lable">Địa chỉ: </span>{branch.address}</div>
-                                                    <div><span className="lable">Thời gian bắt đầu: </span>{schedule.startTime}</div>
+                                                    <div><span className="lable">Thời gian bắt đầu: </span>{new Date(schedule.startTime).toLocaleDateString('en-GB') + ' ' + new Date(schedule.startTime).toISOString().slice(11, 19)}</div>
                                                     <div><span className="lable">Phòng: </span>{schedule.room}</div>
                                                     <div><span className="lable">Số vé còn: </span>{schedule.availableTicket} vé/ tổng {schedule.sumTicket} vé</div>
                                                     <div className="btn-book-ticket"> <Button class="btn" ><a href={href}>Đặt vé </a> </Button></div>

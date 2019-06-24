@@ -80,7 +80,14 @@ class Header extends Component {
     render() {
         let button;
         if (!this.state.isLoggedIn) {
-            button = <LogInButton ></LogInButton>
+            button = (
+                <React.Fragment>
+                    <LogInButton ></LogInButton>
+                    <Link to="/signin">
+                        <Button outline color="danger" className="ml-2">Đăng ký</Button>
+                    </Link>
+                </React.Fragment>
+            )
         }
         else {
             button = <LogOutButton fullname={this.state.user.fullname} ></LogOutButton>
@@ -118,9 +125,7 @@ class Header extends Component {
                         </Navbar>
                         <div className="ml-auto d-flex mt-2 mr-2">
                             {button}
-                            <Link to="/signin">
-                                <Button outline color="danger" className="ml-2">Đăng ký</Button>
-                            </Link>
+
                         </div>
                     </Row>
                 </Container>

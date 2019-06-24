@@ -19,7 +19,7 @@ class CardItemDetail extends Component {
                     <div className="title"><a href={href}>{movie.name}</a> </div>
                     <div className="duration"><i class="far fa-clock"></i> {movie.duration}</div>
                     <div className="description">{movie.description != null && movie.description.substring(0, 50)} ...</div>
-                    <div className="release-date"><span className="lable">Ngày khởi chiếu: </span>{movie.releaseDate.toLocaleString()}</div>
+                    <div className="release-date"><span className="lable">Ngày khởi chiếu: </span>{new Date(movie.releaseDate).toLocaleDateString('en-GB')}</div>
                     <div className="director"><span className="lable">Đạo diễn: </span>   <a href="">{movie.director}</a></div>
                     <div className="actors"><span className="lable">Diễn viên: </span>{movie.actors != null && movie.actors.substring(0, 50)}...</div>
                     <div className="language"><span className="lable">Ngôn ngữ: </span>{movie.language}</div>
