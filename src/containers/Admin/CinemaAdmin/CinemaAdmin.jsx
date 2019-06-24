@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './CinemaAdmin.scss';
 import { MenuPanel, ConfirmModal, CinemaModal, Loading } from '../../../components';
 import { ADD_MODE, EDIT_MODE } from '../../../constanst';
-import { READ_FILM } from '../../../config/ActionType';
+import { READ_FILM, DELETE_FILM } from '../../../config/ActionType';
 import { connect } from "react-redux"
 
 class CinemaAdmin extends Component {
@@ -15,8 +15,11 @@ class CinemaAdmin extends Component {
             deleteCinemaModalVisible: false,
             cinemaEdit: null,
             cinemaDelete: null,
-            films: this.props.films,
-            loading: this.props.loading
+            films: [],
+            loading: this.props.loading,
+            isOnDelete: false,
+            isOnAdd: false,
+            isOnEdit: false,
         }
     }
 
@@ -25,11 +28,14 @@ class CinemaAdmin extends Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
-        if (nextProps.films !== this.state.films) {
-            this.setState({ films: nextProps.films })
+        if (nextProps.films.data !== this.state.films) {
+            this.setState({ films: nextProps.films.data })
         }
         if (nextProps.loading !== this.state.loading) {
             this.setState({ loading: nextProps.loading })
+        }
+        if (this.state.isOnDelete && !nextProps.films.loading) {
+            alert(nextProps.films.resultDelete);
         }
     }
 
@@ -55,72 +61,39 @@ class CinemaAdmin extends Component {
     }
     DeleteCinema = () => {
         //TODO
-        console.log("delete cinema");
+        console.log("delete cinema: ", this.state.cinemaDelete);
         this.CloseDeleteModal();
+        this.setState({ isOnDelete: true });
+        this.props.deleteFilm(this.state.cinemaDelete._id);
+
     }
-    SaveEditCinema = () => {
+    SaveEditCinema = (newCinemaInput) => {
         //TODO
-        console.log("save cinema...");
+        console.log("save cinema...", newCinemaInput);
+        //get cinema infor
+        // const newCinema = {
+        //     name: document.getElementById("name").value || this.state.cinemaEdit.name,
+        //     description: document.getElementById("description").value || this.state.cinemaEdit.description,
+        //     startDate: document.getElementById("startDate").value || this.state.cinemaEdit.startDate,
+        //     director: document.getElementById("director").value || this.state.cinemaEdit.director,
+        //     actors: document.getElementById("actors").value || this.state.cinemaEdit.actors,
+        //     language: document.getElementById("language").value || this.state.cinemaEdit.language,
+        //     age: document.getElementById("age").value || this.state.cinemaEdit.age,
+        //     price: document.getElementById("price").value || this.state.cinemaEdit.price,
+        //     age: document.getElementById("age").value || this.state.cinemaEdit.age,
+        //     point: document.getElementById("point").value || this.state.cinemaEdit.point,
+        //     rate: document.getElementById("rate").value || this.state.cinemaEdit.rate
+        // }
+        // console.log("film save: ", newCinema);
         this.CloseEditModal();
     }
-    AddNewCinema = () => {
+    AddNewCinema = (newCinema) => {
         //TODO
         console.log("add new cinema ... ");
         this.CloseAddModal();
     }
 
     render() {
-        // const {cinemas} = this.props;
-        // const cinemas = [
-        //     {
-        //         _id: "1",
-        //         name: "Bí kíp luyện rồng",
-        //         description: "Một bộ phim phiêu lưu kinh điển. Đáng xem trong dịp hè này",
-        //         type: 1,
-        //         startDate: "2019/01/30",
-        //         duration: 60,
-        //         director: "ABC",
-        //         actor: "actors",
-        //         language: "Tiếng Anh",
-        //         minAge: 0,
-        //         priceTicket: "60000",
-        //         status: 1, //(0: Đã hết hạn, 1: Còn đang chiếu)
-        //         score: 1,
-        //         rating: 4.2
-        //     },
-        //     {
-        //         _id: "1",
-        //         name: "Bí kíp luyện rồng",
-        //         description: "Một bộ phim phiêu lưu kinh điển. Đáng xem trong dịp hè này",
-        //         type: 1,
-        //         startDate: "2019/01/30",
-        //         duration: 60,
-        //         director: "ABC",
-        //         actor: "actors",
-        //         language: "Tiếng Anh",
-        //         minAge: 0,
-        //         priceTicket: "60000",
-        //         status: 1, //(0: Đã hết hạn, 1: Còn đang chiếu)
-        //         score: 1,
-        //         rating: 4.2
-        //     },
-        //     {
-        //         _id: "1",
-        //         name: "Bí kíp luyện rồng",
-        //         description: "Một bộ phim phiêu lưu kinh điển. Đáng xem trong dịp hè này",
-        //         type: 1,
-        //         startDate: "2019/01/30",
-        //         duration: 60,
-        //         director: "ABC",
-        //         actor: "actors",
-        //         language: "Tiếng Anh",
-        //         minAge: 0,
-        //         priceTicket: "60000",
-        //         status: 1, //(0: Đã hết hạn, 1: Còn đang chiếu)
-        //         score: 1,
-        //         rating: 4.2
-        //     }
-        // ]
         return (
             <React.Fragment>
                 <div className="cinemas-admin admin__content">
@@ -160,6 +133,8 @@ class CinemaAdmin extends Component {
                                                 <td className="actions">
                                                     <i class="fas fa-edit" onClick={() => this.OpenEditModal(item)}></i>
                                                     <i class="fas fa-trash-alt" onClick={() => this.OpenDeleteModal(item)}></i></td>
+                                                <td>{item.status === true ? "Còn chiếu" : "Hết chiếu"}</td>
+
                                             </tr>
                                         ))}
 
@@ -185,14 +160,15 @@ class CinemaAdmin extends Component {
 }
 function mapStateToProps(state) {
     return {
-        films: state.films.data,
+        films: state.films,
         loading: state.films.loading
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        readFilm: () => dispatch({ type: READ_FILM })
+        readFilm: () => dispatch({ type: READ_FILM }),
+        deleteFilm: (idFilm) => dispatch({ type: DELETE_FILM, idFilm })
     }
 }
 

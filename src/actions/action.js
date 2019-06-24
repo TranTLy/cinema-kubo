@@ -5,9 +5,14 @@ import {
   READ_CATEGORY_PENDING,
   READ_CATEGORY_SUCCESS,
   READ_CATEGORY_FAILURE,
+
   READ_FILM_PENDING,
   READ_FILM_FAILURE,
   READ_FILM_SUCCESS,
+
+  DELETE_FILM_PENDING,
+  DELETE_FILM_FAILURE,
+  DELETE_FILM_SUCCESS,
 
   READ_USER_FILM_FAVOR_PENDING,
   READ_USER_FILM_FAVOR_FAILURE,
@@ -73,6 +78,7 @@ export function readCategoryFailure(error) {
   return { type: READ_CATEGORY_FAILURE, error };
 }
 //film
+//read
 export function readFilmPending() {
   return { type: READ_FILM_PENDING };
 }
@@ -82,6 +88,17 @@ export function readFilmSuccess(data) {
 export function readFilmFailure(error) {
   return { type: READ_FILM_FAILURE, error };
 }
+//delete
+export function deleteFilmPending() {
+  return { type: DELETE_FILM_PENDING };
+}
+export function deleteFilmSuccess(data) {
+  return { type: DELETE_FILM_SUCCESS, data };
+}
+export function deleteFilmFailure(error) {
+  return { type: DELETE_FILM_FAILURE, error };
+}
+//--film
 
 //user - fim favor
 export function readUserFilmFavorPending() {
