@@ -106,9 +106,7 @@ class BookTicket extends Component {
                     index !== 0 ? (' ' + (parseInt(item) + 1)) : (parseInt(item) + 1))}</div>
             <div className="book-ticket-success">Vui lòng nhận vé trước giờ chiếu 15 phút</div>
             </div>`
-
-
-
+            this.setState({ isFinish: false });
         }
     }
 

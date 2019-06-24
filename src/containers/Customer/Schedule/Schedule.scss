@@ -5,21 +5,32 @@
 	margin-bottom: $footer-height;
 	.search {
 		display: flex;
+		flex-direction: column;
 		margin-bottom: 20px;
 		justify-content: center;
 		div {
 			margin-right: 30px;
 		}
 		.search-branch {
+			margin-bottom: 10px;
 			select {
 				margin-left: 20px;
 				option {
 				}
 			}
 		}
+		.search-film{
+			margin-bottom: 10px;
+			.lable-search {
+				margin-right: 57px;
+			}
+		}
 		.search-date {
 			display: flex;
 			color: #000;
+			.lable-search {
+				margin-right: 31px;
+			}
 			input {
 				margin-left: 5px;
 				margin-right: 5px;
