@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './SeatingPlant.scss';
-import { nextTick } from 'q';
 
 
 export class SeatingPlant extends Component {
@@ -22,7 +21,6 @@ export class SeatingPlant extends Component {
 
     getSeatPlant = (stateSeat) => {
         const AVAILABLE = "0";
-        const UNAVAILABLE = "1";
         var results = [];
         for (let i = 0; i < stateSeat.length; i++) {
             if (this.isSeatChoose(i)) {
@@ -34,7 +32,7 @@ export class SeatingPlant extends Component {
                     </div>
                 );
             }
-            else if (stateSeat[i] == AVAILABLE) {
+            else if (stateSeat[i] === AVAILABLE) {
                 results.push(
                     <div className='seat-wrap seat-wrap--available' onClick={() => { this.chooseSeat(i) }}>
                         <span className='seat'>
@@ -78,7 +76,7 @@ export class SeatingPlant extends Component {
     }
 
     render() {
-        const { stateSeat, maxSeat, arrayPositionSeat } = this.props;
+        const { stateSeat, maxSeat } = this.props;
         return (
             <div className="seating-plant-wrap">
                 <div className="seating-plant__sum-seat-chose">Bạn đã chọn {this.props.arrayPositionSeat.length} vé/ {maxSeat} vé</div>

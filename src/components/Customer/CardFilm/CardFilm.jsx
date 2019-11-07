@@ -1,10 +1,6 @@
 
 import React, { Component } from 'react';
-import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardFooter, CardHeader, Container, Row, Button
-} from 'reactstrap';
-import imgMovie from '../../../assets/img/3.jpg';
+import { CardBody, Container, Row } from 'reactstrap';
 import './CardFilm.scss'
 import CardItem from "../CardItem/CardItem"
 

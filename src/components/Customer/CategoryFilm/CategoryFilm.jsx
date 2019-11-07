@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import {
-    Container, Row, Card, Col, Button, CardBody
-} from 'reactstrap';
 import Header from '../Header/Header'
-import Footer from '../Footer/Footer'
-import imgFilm from '../../../assets/img/NgoiDenKiQuai.jpg'
-import imgFilm1 from '../../../assets/img/3.jpg';
-import CardItem from "../CardItem/CardItem"
+import Footer from '../Footer/Footer';
 import "./CategoryFilm.scss"
 import { connect } from "react-redux"
 import SectionFilm from '../SectionFilm/SectionFilm';

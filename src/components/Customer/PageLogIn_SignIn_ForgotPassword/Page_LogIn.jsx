@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import LogIn from '../LogIn/LogIn'
-import SignIn from '../SignIn/SignIn'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
-import { Card, Container, Row, Col, Button } from 'reactstrap'
+import { Card, Container, Row } from 'reactstrap'
 import './PageLogIn_SignIn_ForgotPassword.scss'
 import kubo from '../../../assets/img/Kubo.png'
 

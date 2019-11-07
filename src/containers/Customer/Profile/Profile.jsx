@@ -34,9 +34,9 @@ class Profile extends Component {
 
 	componentWillReceiveProps = (nextProps) => {
 		if (!nextProps.filmFavor.loading
-			&& nextProps.filmFavor.data != this.state.filmFavor
-			&& nextProps.user != this.state.user
-			&& nextProps.user != null) {
+			&& nextProps.filmFavor.data !== this.state.filmFavor
+			&& nextProps.user !== this.state.user
+			&& nextProps.user !== null) {
 			console.log("profile: will revieve props , next props:", nextProps.filmFavor);
 			this.setState({
 				filmFavor: nextProps.filmFavor.data,
@@ -173,7 +173,7 @@ class Profile extends Component {
 						<Button id="btn-save-infor" onClick={() => this.onSaveUser()}>Lưu</Button>
 					</div>
 				</div>);
-		} else if (this.state.currentTab == this.state.tabFavourite) {
+		} else if (this.state.currentTab === this.state.tabFavourite) {
 			return (
 				<div className="favourite-wrap">
 					<div id="sum-favoutire-movie">Tổng cộng: {this.state.filmFavor.length} bộ phim</div>
@@ -182,11 +182,12 @@ class Profile extends Component {
 							{
 								this.state.filmFavor.map((film, index) => {
 									const item = film.idfilm;
-									if (index % 2 == 0) {
+									if (index % 2 === 0) {
 										return (
 											<CardItemDetail movie={item} />
 										)
 									}
+									return '';
 								})
 							}
 						</div>
@@ -195,11 +196,12 @@ class Profile extends Component {
 							{
 								this.state.filmFavor.map((film, index) => {
 									const item = film.idfilm;
-									if (index % 2 == 1) {
+									if (index % 2 === 1) {
 										return (
 											<CardItemDetail movie={item} />
 										)
 									}
+									return '';
 								})
 							}
 						</div>

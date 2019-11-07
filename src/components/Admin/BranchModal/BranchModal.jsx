@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-awesome-modal';
 import './BranchModal.scss';
-import { ADD_BRANCH_MODE, EDIT_BRANCH_MODE } from '../../../constanst'
+import { ADD_BRANCH_MODE } from '../../../constanst'
 
 export class BranchModal extends Component {
     state = {}
